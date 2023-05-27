@@ -16,8 +16,8 @@
                         tua mente!
                     </p>
                     <div class="d-flex flex-column gap-2 mb-5">
-                        <button type="button" class="btn btn-primary btn-lg">Primary</button>
-                        <button type="button" class="btn btn-primary btn-lg" disabled>Play Now!</button>
+                        <button type="button" class="btn btn-primary btn-lg">Scopri di più</button>
+                        <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>Play Now!</button>
                     </div>
 
                 </div>
@@ -28,8 +28,29 @@
 
 <style scoped>
 section {
-    background-color: #e3f2fd;
+    background-color: #ffffff;
     border-bottom: 5px solid red;
     box-shadow: 0 0 30px 0 rgba(255, 0, 0, 0.333);
+}
+
+.btn-primary {
+    background-color: #FF4D4D;
+    border-color: #FF4D4D;
+}
+
+.btn-primary:hover {
+    background-color: #B33636;
+    border-color: #FF4D4D;
+}
+
+.btn-primary:active {
+    background-color: #4e0909;
+    border-color: #FF4D4D;
+}
+
+#disabled {
+    background-color: #ffd3d3;
+    color: #FF4D4D;
+    border-color: #FF4D4D;
 }
 </style>
