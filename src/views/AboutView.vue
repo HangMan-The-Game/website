@@ -3,7 +3,9 @@ import Cards from '../components/Cards.vue';
 </script>
 
 <template>
-  <Cards />
+  <main>
+    <Cards />
+  </main>
 </template>
 
 <style></style>
