@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import Jumbo from '../components/Jumbo.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <Jumbo />
   </main>
 </template>
