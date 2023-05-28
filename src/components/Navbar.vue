@@ -20,13 +20,22 @@ import { RouterLink, RouterView } from 'vue-router';
           <li class="nav-item fs-5">
             <RouterLink to="/about" class="nav-link">About us</RouterLink>
           </li>
+          <li class="nav-item fs-5">
+            <RouterLink to="/about" class="nav-link">Team</RouterLink>
+          </li>
+          <li class="nav-item fs-5">
+            <RouterLink to="/about" class="nav-link">Contact</RouterLink>
+          </li>
         </ul>
         <div class="d-flex">
-          <a href="/about" class="btn btn-link fs-3 px-2 text-decoration-none"><i class="bi bi-github"></i>
+          <a href="https://github.com/HangMan-The-Game" class="btn btn-link fs-3 px-2 text-decoration-none"><i
+              class="bi bi-github"></i>
           </a>
-          <a href="/home" class="btn btn-link fs-3 px-2 text-decoration-none"><i class="bi bi-instagram"></i>
+          <a href="https://www.instagram.com/hangmanit_/" class="btn btn-link fs-3 px-2 text-decoration-none"><i
+              class="bi bi-instagram"></i>
           </a>
-          <a href="" class="btn btn-link fs-3 px-2 text-decoration-none"><i class="bi bi-twitter"></i>
+          <a href="https://twitter.com/HangManGameIT" class="btn btn-link fs-3 px-2 text-decoration-none"><i
+              class="bi bi-twitter"></i>
           </a>
         </div>
       </div>

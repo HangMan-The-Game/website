@@ -17,7 +17,8 @@
                     </p>
                     <div class="d-flex flex-column gap-2 mb-5">
                         <button type="button" class="btn btn-primary btn-lg">Scopri di più</button>
-                        <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>Play Now!</button>
+                        <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>Play Now! <span
+                                class="badge rounded-pill text-bg-warning">WIP</span></button>
                     </div>
 
                 </div>
@@ -52,5 +53,6 @@ section {
     background-color: #ffd3d3;
     color: #FF4D4D;
     border-color: #FF4D4D;
+    cursor: not-allowed !important;
 }
 </style>
