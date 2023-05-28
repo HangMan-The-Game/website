@@ -3,7 +3,8 @@ import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #ffffff;">
+  <!-- da mettere fixed-top -->
+  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" style="background-color: #ffffff;">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,13 +16,16 @@ import { RouterLink, RouterView } from 'vue-router';
       <div class=" collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item fs-5">
-            <RouterLink to="/" class="nav-link">Home</RouterLink>
+            <a href="#home" class="nav-link" v-scroll-to>Home</a>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/about" class="nav-link">About us</RouterLink>
+            <a href="#about" class="nav-link" v-scroll-to>About us</a>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/about" class="nav-link">Team</RouterLink>
+            <a href="#about" class="nav-link" v-scroll-to>Game Description</a>
+          </li>
+          <li class="nav-item fs-5">
+            <a href="#team" class="nav-link" v-scroll-to>Team</a>
           </li>
           <li class="nav-item fs-5">
             <RouterLink to="/about" class="nav-link">Contact</RouterLink>

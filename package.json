@@ -12,7 +12,8 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "vue": "^3.3.2",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "vue-scrollto": "^2.20.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

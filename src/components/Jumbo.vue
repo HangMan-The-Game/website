@@ -3,12 +3,10 @@
 </script>
 
 <template>
-    <section>
+    <section id="home">
         <div class="container h-75">
             <div class="row h-100">
                 <div class="col h-100 d-flex flex-column align-items-center justify-content-center">
-
-
                     <img class="img-fluid" src="../assets/images/HangManGame.svg" alt="HangMan-Logo" height="">
 
                     <p class="fs-2 w-50 mx-auto text-center">Divertiti con HangMan: il gioco di parole che mette alla prova
@@ -20,7 +18,6 @@
                         <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>Play Now! <span
                                 class="badge rounded-pill text-bg-warning">WIP</span></button>
                     </div>
-
                 </div>
             </div>
         </div>
