@@ -1,8 +1,8 @@
 <script setup></script>
 
 <template>
-  <section id="about" class="about-us">
-    <div class="container mt-5 mb-5">
+  <section id="about" class="about-us my-5">
+    <div class="container">
       <div class="row">
         <div class="col-12">
           <h1 class="text-center fw-bold">About us</h1>
