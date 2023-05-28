@@ -3,29 +3,14 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <nav
-    class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar"
-    style="background-color: #ffffff"
-  >
+  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
     <div class="container">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarTogglerDemo03"
-        aria-controls="navbarTogglerDemo03"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <RouterLink class="navbar-brand" to="/">
-        <img
-          src="../assets/images/HangManLogo.svg"
-          alt="HangMan-Logo"
-          width="100"
-          height="50"
-        />
+        <img src="../assets/images/HangManLogo.svg" alt="HangMan-Logo" width="100" height="50" />
       </RouterLink>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -36,9 +21,7 @@ import { RouterLink, RouterView } from "vue-router";
             <a href="#about" class="nav-link" v-scroll-to>About us</a>
           </li>
           <li class="nav-item fs-5">
-            <a href="#gamedesc" class="nav-link" v-scroll-to
-              >Game Description</a
-            >
+            <a href="#gamedesc" class="nav-link" v-scroll-to>Game Description</a>
           </li>
           <li class="nav-item fs-5">
             <a href="#team" class="nav-link" v-scroll-to>Team</a>
@@ -48,20 +31,14 @@ import { RouterLink, RouterView } from "vue-router";
           </li>
         </ul>
         <div class="d-flex">
-          <a
-            href="https://github.com/HangMan-The-Game"
-            class="btn btn-link fs-3 px-2 text-decoration-none"
-            ><i class="bi bi-github"></i>
+          <a href="https://github.com/HangMan-The-Game" class="btn btn-link fs-3 px-2 text-decoration-none"><i
+              class="bi bi-github"></i>
           </a>
-          <a
-            href="https://www.instagram.com/hangmanit_/"
-            class="btn btn-link fs-3 px-2 text-decoration-none"
-            ><i class="bi bi-instagram"></i>
+          <a href="https://www.instagram.com/hangmanit_/" class="btn btn-link fs-3 px-2 text-decoration-none"><i
+              class="bi bi-instagram"></i>
           </a>
-          <a
-            href="https://twitter.com/HangManGameIT"
-            class="btn btn-link fs-3 px-2 text-decoration-none"
-            ><i class="bi bi-twitter"></i>
+          <a href="https://twitter.com/HangManGameIT" class="btn btn-link fs-3 px-2 text-decoration-none"><i
+              class="bi bi-twitter"></i>
           </a>
         </div>
       </div>

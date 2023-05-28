@@ -3,11 +3,8 @@
     <div class="container mt-5 mb-5">
       <div class="row">
         <div class="col-lg-6">
-          <img
-            class="img-fluid"
-            src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
-            alt="Game Description Image"
-          />
+          <img class="img-fluid" src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
+            alt="Game Description Image" />
         </div>
         <div class="col-lg-6">
           <h1>Game Description</h1>

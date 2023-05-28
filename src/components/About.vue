@@ -20,20 +20,14 @@
           </p>
         </div>
         <div class="col-lg-6">
-          <img
-            class="img-fluid"
-            src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
-            alt="About Us Image"
-          />
+          <img class="img-fluid" src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
+            alt="About Us Image" />
         </div>
       </div>
       <div class="row">
         <div class="col-5">
-          <img
-            class="img-fluid"
-            src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
-            alt="About Us Image"
-          />
+          <img class="img-fluid" src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
+            alt="About Us Image" />
         </div>
         <div class="col-lg-7 d-flex align-items-center">
           <p class="fs-4">
