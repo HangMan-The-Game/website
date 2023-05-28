@@ -3,7 +3,7 @@
       <div class="container mt-5 mb-5">
         <div class="row">
           <div class="col-lg-6">
-            <img src="game-description-image.jpg" alt="Game Description Image" />
+            <img src="" alt="Game Description Image" />
           </div>
           <div class="col-lg-6">
             <h1>Game Description</h1>
