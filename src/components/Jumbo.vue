@@ -9,12 +9,10 @@
                 <div class="col h-100 d-flex flex-column align-items-center justify-content-center">
                     <img class="img-fluid" src="../assets/images/HangManGame.svg" alt="HangMan-Logo" height="">
 
-                    <p class="fs-2 w-50 mx-auto text-center">Divertiti con HangMan: il gioco di parole che mette alla prova
-                        la
-                        tua mente!
-                    </p>
+                    <p class="fs-2 w-50 mx-auto text-center">Have fun with <strong>HangMan</strong>: the word game that
+                        tests your mind!</p>
                     <div class="d-flex flex-column gap-2 mb-5">
-                        <button type="button" class="btn btn-primary btn-lg">Scopri di più</button>
+                        <button type="button" class="btn btn-primary btn-lg">Learn More!</button>
                         <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>Play Now! <span
                                 class="badge rounded-pill text-bg-warning">WIP</span></button>
                     </div>
