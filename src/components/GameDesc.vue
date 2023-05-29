@@ -3,7 +3,7 @@
     <div class="container my-5">
       <div class="row">
         <h1 class="fw-bold text-center my-5">Game Description <i class="bi bi-controller"></i></h1>
-        <div class="col-lg-6">
+        <div class="col-lg-6 d-flex align-items-center">
           <img class="img-thumbnail shadow-lg rounded mb-5" src="../assets/images/photo1.jpeg"
             alt="Game Description Image" />
         </div>
@@ -48,7 +48,7 @@
             design to perfectly fit the remodeled HangMan game.
           </p>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 d-flex align-items-center">
           <img class="img-thumbnail shadow-lg rounded mt-5" src="../assets/images/photo2.jpeg"
             alt="Game Description Image" />
         </div>
