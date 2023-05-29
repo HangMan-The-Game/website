@@ -1,10 +1,10 @@
 <script setup>
-import Cards from '../components/Cards.vue';
+import Contact from '../components/Contact.vue';
 </script>
 
 <template>
   <main>
-    <Cards />
+    <Contact />
   </main>
 </template>
 
