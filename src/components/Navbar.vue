@@ -12,19 +12,20 @@ import { RouterLink, RouterView } from "vue-router";
       <RouterLink class="navbar-brand" to="/">
         <img src="../assets/images/HangManLogo.svg" alt="HangMan-Logo" width="100" height="50" />
       </RouterLink>
+
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item fs-5">
-            <a href="#home" class="nav-link" v-scroll-to>Home</a>
+            <a :href="[this.$route.name != 'about' ? '#home' : '/']" class="nav-link" v-scroll-to>Home</a>
           </li>
           <li class="nav-item fs-5">
-            <a href="#about" class="nav-link" v-scroll-to>About us</a>
+            <a :href="[this.$route.name != 'about' ? '#about' : '/']" class="nav-link" v-scroll-to>About us</a>
           </li>
           <li class="nav-item fs-5">
-            <a href="#gamedesc" class="nav-link" v-scroll-to>Game Description</a>
+            <a :href="[this.$route.name != 'about' ? '#gamedesc' : '/']" class="nav-link" v-scroll-to>Game Description</a>
           </li>
           <li class="nav-item fs-5">
-            <a href="#team" class="nav-link" v-scroll-to>Team</a>
+            <a :href="[this.$route.name != 'about' ? '#team' : '/']" class="nav-link" v-scroll-to>Team</a>
           </li>
           <li class="nav-item fs-5">
             <RouterLink to="/about" class="nav-link">Contact</RouterLink>
