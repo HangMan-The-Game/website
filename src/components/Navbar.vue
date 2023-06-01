@@ -3,7 +3,8 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
+  <!-- sticky-top -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
