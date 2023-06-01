@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <!-- sticky-top -->
+  <!-- sticky-top da aggiungere -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
@@ -14,9 +14,9 @@ import { RouterLink, RouterView } from "vue-router";
         <img src="../assets/images/HangManLogo.svg" alt="HangMan-Logo" width="100" height="50" />
       </RouterLink>
 
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item fs-5">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!--           <li class="nav-item fs-5">
             <a :href="[this.$route.name != 'about' ? '#home' : '/']" class="nav-link" v-scroll-to>Home</a>
           </li>
           <li class="nav-item fs-5">
@@ -24,10 +24,10 @@ import { RouterLink, RouterView } from "vue-router";
           </li>
           <li class="nav-item fs-5">
             <a :href="[this.$route.name != 'about' ? '#gamedesc' : '/']" class="nav-link" v-scroll-to>Game Description</a>
-          </li>
-          <li class="nav-item fs-5">
-            <a :href="[this.$route.name != 'about' ? '#team' : '/']" class="nav-link" v-scroll-to>Team</a>
-          </li>
+                </li>
+                <li class="nav-item fs-5">
+                  <a :href="[this.$route.name != 'about' ? '#team' : '/']" class="nav-link" v-scroll-to>Team</a>
+                </li> -->
           <li class="nav-item fs-5">
             <RouterLink to="/about" class="nav-link">Contact</RouterLink>
           </li>
