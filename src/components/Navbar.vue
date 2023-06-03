@@ -17,20 +17,26 @@ import { RouterLink, RouterView } from "vue-router";
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item fs-5">
-            <a v-if="$route.name == 'home'" class="nav-link" href="#home">Home</a>
-            <a v-if="$route.name != 'home'" class="nav-link" href="/#home">Home</a>
+            <RouterLink to="/" class="nav-link" :class="$route.href == '/' ? 'router-link-active' : 'deactivated'">Home
+            </RouterLink>
           </li>
           <li class="nav-item fs-5">
-            <a v-if="$route.name == 'home'" class="nav-link" href="#about">About us</a>
-            <a v-if="$route.name != 'home'" class="nav-link" href="/#about">About us</a>
+            <a v-if="$route.name == 'home'" class="nav-link" :class="$route.href == '/#about' ? 'router-link-active' : ''"
+              href="#about">About us</a>
+            <a v-if="$route.name != 'home'" class="nav-link" :class="$route.href == '/#about' ? 'router-link-active' : ''"
+              href="/#about">About us</a>
           </li>
           <li class="nav-item fs-5">
-            <a v-if="$route.name == 'home'" class="nav-link" href="#gamedesc">Game Description</a>
-            <a v-if="$route.name != 'home'" class="nav-link" href="/#gamedesc">Game Description</a>
+            <a v-if="$route.name == 'home'" class="nav-link"
+              :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="#gamedesc">Game Description</a>
+            <a v-if="$route.name != 'home'" class="nav-link"
+              :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="/#gamedesc">Game Description</a>
           </li>
           <li class="nav-item fs-5">
-            <a v-if="$route.name == 'home'" class="nav-link" href="#team">Team</a>
-            <a v-if="$route.name != 'home'" class="nav-link" href="/#team">Team</a>
+            <a v-if="$route.name == 'home'" class="nav-link" :class="$route.href == '/#team' ? 'router-link-active' : ''"
+              href="#team">Team</a>
+            <a v-if="$route.name != 'home'" class="nav-link" :class="$route.href == '/#team' ? 'router-link-active' : ''"
+              href="/#team">Team</a>
           </li>
           <li class="nav-item fs-5">
             <RouterLink to="/about" class="nav-link">Contact</RouterLink>
@@ -58,6 +64,10 @@ a.nav-link:hover {
 }
 
 .nav-item a {
+  color: #ff4d4d;
+}
+
+.deactivated {
   color: #ff4d4d;
 }
 
