@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
   <!-- sticky-top da aggiungere -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
+  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,20 +14,24 @@ import { RouterLink, RouterView } from "vue-router";
         <img src="../assets/images/HangManLogo.svg" alt="HangMan-Logo" width="100" height="50" />
       </RouterLink>
 
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!--           <li class="nav-item fs-5">
-            <a :href="[this.$route.name != 'about' ? '#home' : '/']" class="nav-link" v-scroll-to>Home</a>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item fs-5">
+            <a v-if="$route.name == 'home'" class="nav-link" href="#home">Home</a>
+            <a v-if="$route.name != 'home'" class="nav-link" href="/#home">Home</a>
           </li>
           <li class="nav-item fs-5">
-            <a :href="[this.$route.name != 'about' ? '#about' : '/']" class="nav-link" v-scroll-to>About us</a>
+            <a v-if="$route.name == 'home'" class="nav-link" href="#about">About us</a>
+            <a v-if="$route.name != 'home'" class="nav-link" href="/#about">About us</a>
           </li>
           <li class="nav-item fs-5">
-            <a :href="[this.$route.name != 'about' ? '#gamedesc' : '/']" class="nav-link" v-scroll-to>Game Description</a>
-                </li>
-                <li class="nav-item fs-5">
-                  <a :href="[this.$route.name != 'about' ? '#team' : '/']" class="nav-link" v-scroll-to>Team</a>
-                </li> -->
+            <a v-if="$route.name == 'home'" class="nav-link" href="#gamedesc">Game Description</a>
+            <a v-if="$route.name != 'home'" class="nav-link" href="/#gamedesc">Game Description</a>
+          </li>
+          <li class="nav-item fs-5">
+            <a v-if="$route.name == 'home'" class="nav-link" href="#team">Team</a>
+            <a v-if="$route.name != 'home'" class="nav-link" href="/#team">Team</a>
+          </li>
           <li class="nav-item fs-5">
             <RouterLink to="/about" class="nav-link">Contact</RouterLink>
           </li>
