@@ -68,13 +68,17 @@ import { RouterLink, RouterView } from "vue-router";
 </template>
 
 <style scoped>
-.btn {
+/* .btn {
   border: none;
 }
-
+ */
 .btn:hover {
   color: #b33636;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+a.dropdown-item:active {
+  background-color: #ec9c9c;
 }
 
 a.nav-link:hover {
