@@ -27,10 +27,10 @@
         </div>
         <!--             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                                                                                                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                                                                                                                                            </div> -->
+                                                                                                                                                                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                                                                                                                                                                </div> -->
             <div class="text-center">
-                <button type="submit" class="btn btn-primary disabled fs-5">Submit <span
+                <button id="disabled" type="submit" class="btn btn-primary btn-lg disabled fs-5">Submit <span
                         class="badge rounded-pill text-bg-warning">WIP</span></button>
             </div>
     </form>
@@ -66,8 +66,8 @@
                 <input type="text" class="form-control" placeholder="Username" aria-label="Username">
                 <span class="input-group-text">@</span>
                 <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                    </div> -->
 
 
     </section>
