@@ -39,7 +39,7 @@
                     <div class="card mx-auto" style="width: 18rem">
                         <div class="card-body">
                             <h5 class="card-title text-center">Gandolfo Amico</h5>
-                            <p class="card-text text-center">Developer / Social Media Manager</p>
+                            <p class="card-text text-center">Developer & Social Media Manager</p>
                         </div>
                         <div class="card-body text-center">
                             <h5>Socials</h5>
