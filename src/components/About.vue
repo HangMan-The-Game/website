@@ -10,7 +10,7 @@
             Five <strong>IT</strong> students <i class="bi bi-people"></i>
           </h2>
         </div>
-        <div class="col-lg-6 d-flex align-items-center">
+        <div class="col-lg-6 d-flex align-items-center mt-5">
           <p class="fs-4">
             Hello everyone! We are a group of
             <a href="#team" v-scroll-to>five students</a> from the same class
@@ -25,8 +25,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-5">
-          <img class="img-fluid" src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
+        <div class="col-lg-5 mt-5">
+          <img class="img-fluid fs-3" src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
             alt="About Us Image" />
         </div>
         <div class="col-lg-7 d-flex align-items-center">
@@ -37,6 +37,21 @@
             mistake, a piece of it is removed! This makes the game even more
             <strong>engaging</strong> and <strong>fun</strong>.
           </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 d-flex align-items-center mt-5">
+          <p class="fs-4">
+            In <strong>addition</strong>, we have included a <strong>touch display</strong> in our project. The display is
+            mainly used for
+            menu management,
+            allowing intuitive and easy-to-use interaction. As for the input of letters, we have a <strong>dedicated
+              keyboard</strong> that
+            makes the input of choices <strong>quick</strong> and <strong>easy</strong>.
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <img class="img-fluid" src="../assets/images/photo3.jpeg" alt="About Us Image" />
         </div>
       </div>
     </div>
