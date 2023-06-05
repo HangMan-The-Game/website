@@ -50,20 +50,20 @@ import { RouterLink, RouterView } from "vue-router";
           <li class="nav-item fs-5">
             <RouterLink to="/about" class="nav-link">Contact </RouterLink>
           </li>
-      </ul>
-      <div class="d-flex">
-        <!-- language selector : to-do -->
-        <!--           <div class="dropdown fs-3 px-2">
+        </ul>
+        <div class="d-flex align-items-center">
+          <!-- language selector : to-do -->
+          <div class="dropdown fs-3">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <i class="bi bi-translate"></i> English
+              <i class="bi bi-translate text-info"></i> English
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
               <li>
-                  <a class="dropdown-item" href="#"><i class="bi bi-translate"></i> Italian</a>
-                </li>
-              </ul>
-            </div> -->
+                <a class="dropdown-item" href="#"><i class="bi bi-translate text-info"></i> Italian</a>
+              </li>
+            </ul>
+          </div>
           <a href="https://github.com/HangMan-The-Game" class="btn btn-link fs-3 px-2 text-decoration-none"><i
               class="bi bi-github"></i>
           </a>
@@ -80,6 +80,10 @@ import { RouterLink, RouterView } from "vue-router";
 </template>
 
 <style scoped>
+.dropdown-menu {
+  min-width: 7.2rem;
+}
+
 .selectpicker {
   border: none;
 }
