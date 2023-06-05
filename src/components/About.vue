@@ -20,14 +20,14 @@
           </p>
         </div>
         <div class="col-lg-6">
-          <img class="img-fluid" src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
-            alt="About Us Image" />
+          <img class="img-fluid img-thumbnail shadow-lg rounded mt-5"
+            src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png" alt="About Us Image" />
         </div>
       </div>
       <div class="row">
         <div class="col-lg-5 mt-5">
-          <img class="img-fluid fs-3" src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png"
-            alt="About Us Image" />
+          <img class="img-fluid img-thumbnail shadow-lg rounded mt-5"
+            src="https://www.pngkey.com/png/full/125-1254969_about-us-company-about-us.png" alt="About Us Image" />
         </div>
         <div class="col-lg-7 d-flex align-items-center">
           <p class="fs-4">
@@ -51,7 +51,8 @@
           </p>
         </div>
         <div class="col-lg-6">
-          <img class="img-fluid" src="../assets/images/photo3.jpeg" alt="About Us Image" />
+          <img class="img-fluid img-thumbnail shadow-lg rounded mt-5" src="../assets/images/photo3.jpeg"
+            alt="About Us Image" />
         </div>
       </div>
     </div>
