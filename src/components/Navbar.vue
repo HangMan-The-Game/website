@@ -81,15 +81,6 @@ export default {
         </ul>
         <div class="d-flex align-items-center">
           <!-- language selector : to-do -->
-          <div>
-            <select v-model="lang">
-              <option selected value="en">English</option>
-              <option value="ar">العربية</option>
-              <option value="es">Español</option>
-            </select>
-
-            <h2>{{ $t("message.greeting", {}, { locale: lang }) }}</h2>
-          </div>
           <div class="dropdown fs-2">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
               aria-expanded="false">
