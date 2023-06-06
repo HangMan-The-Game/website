@@ -2,6 +2,27 @@
 import { RouterLink, RouterView } from "vue-router";
 </script>
 
+<script>
+export default {
+  data() {
+    return {
+      lang: 'en',
+      langText: 'English',
+      options: [
+        { value: 'en', text: 'English' },
+        { value: 'it', text: 'Italiano' }
+      ]
+    };
+  },
+  methods: {
+    selectOption(option) {
+      this.lang = option.value;
+      this.langText = option.text;
+    }
+  }
+};
+</script>
+
 <template>
   <!-- sticky-top da aggiungere -->
   <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
@@ -27,40 +48,58 @@ import { RouterLink, RouterView } from "vue-router";
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
-                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="#about">About us</a>
+                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="#about">{{ $t("message.nav1", {},
+                      { locale: lang }) }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
-                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="/#about">About us</a>
+                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="/#about">A{{ $t("message.nav1",
+                      {}, { locale: lang }) }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
-                    :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="#gamedesc">Game Description</a>
+                    :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="#gamedesc">{{
+                      $t("message.nav2", {}, { locale: lang }) }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
-                    :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="/#gamedesc">Game
-                    Description</a>
+                    :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="/#gamedesc">{{
+                      $t("message.nav2", {}, { locale: lang }) }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
-                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="#team">Team</a>
+                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="#team">{{ $t("message.nav3", {}, {
+                      locale: lang
+                    }) }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
-                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="/#team">Team</a>
+                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="/#team">{{ $t("message.nav3", {}, {
+                      locale: lang
+                    }) }}</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/about" class="nav-link">Contact </RouterLink>
+            <RouterLink to="/about" class="nav-link">{{ $t("message.nav4", {}, { locale: lang }) }}</RouterLink>
           </li>
         </ul>
         <div class="d-flex align-items-center">
           <!-- language selector : to-do -->
-          <div class="dropdown fs-3">
+          <div>
+            <select v-model="lang">
+              <option selected value="en">English</option>
+              <option value="ar">العربية</option>
+              <option value="es">Español</option>
+            </select>
+
+            <h2>{{ $t("message.greeting", {}, { locale: lang }) }}</h2>
+          </div>
+          <div class="dropdown fs-2">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <i class="bi bi-translate text-info"></i> English
+              <i class="bi bi-translate text-info"></i> {{ langText }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-              <li>
-                <a class="dropdown-item" href="#"><i class="bi bi-translate text-info"></i> Italian</a>
+              <li v-for="option in options" :key="option.value">
+                <a class="dropdown-item" href="#" @click="selectOption(option)">
+                  <i class="bi bi-translate text-info"></i> {{ option.text }}
+                </a>
               </li>
             </ul>
           </div>
