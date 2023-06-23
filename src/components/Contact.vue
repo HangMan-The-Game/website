@@ -2,7 +2,8 @@
 
 <template>
     <section>
-        <h1 class="text-center my-5 fw-bold">Contact us</h1>
+        <!-- <h1 class="text-center my-5 fw-bold">{{ $t("message.jumbo1", {},
+                { locale: lang }) }}</h1> -->
         <h3 class="text-center my-1 fw-bold">Our email is not available at this time.</h3>
         <p class="fs-3 text-center my-5">We are sorry for the inconvenience, but at the moment you can only contact us via
             <a href="https://www.instagram.com/hangmanit_/">Instagram <i class="bi bi-box-arrow-up-right"></i></a>.
@@ -27,8 +28,8 @@
         </div>
         <!--             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                                                                                                                                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                                                                                                                                                                                </div> -->
             <div class="text-center">
                 <button id="disabled" type="submit" class="btn btn-primary btn-lg disabled fs-5">Submit <span
                         class="badge rounded-pill text-bg-warning">WIP</span></button>
@@ -66,8 +67,8 @@
                 <input type="text" class="form-control" placeholder="Username" aria-label="Username">
                 <span class="input-group-text">@</span>
                 <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                    </div> -->
 
 
     </section>

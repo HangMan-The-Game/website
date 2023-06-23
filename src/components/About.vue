@@ -1,4 +1,9 @@
-<script setup></script>
+<script>
+export default {
+  props: ['currentLang']
+}
+</script>
+
 
 <template>
   <section id="about" class="about-us my-5">
@@ -13,8 +18,8 @@
         <div class="col-lg-6 d-flex align-items-center mt-5">
           <p class="fs-4">
             Hello everyone! We are a group of
-            <a href="#team" v-scroll-to>five students</a> from the same class
-            who are about to enter our senior year of high school. And what
+            <a href="#team" v-scroll-to>five students</a> from <a href="https://www.rapisardidavinci.edu.it/">ITET
+              Rapisardi - Da Vinci</a> who are about to enter our senior year of high school. And what
             better way to end our schooling than to do an amazing project
             together?
           </p>

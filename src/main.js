@@ -20,7 +20,8 @@ const i18n = createI18n({
           nav1: "About us",
           nav2: "Game Description",
           nav3: "Team",
-          nav4: "Contact us"
+          nav4: "Contact us",
+          jumbo1: "Learn More!"
         }
       },
       it: {
@@ -29,7 +30,8 @@ const i18n = createI18n({
           nav1: "Chi siamo",
           nav2: "Descrizione Gioco",
           nav3: "Squadra",
-          nav4: "Contattaci"
+          nav4: "Contattaci",
+          jumbo1: "Scopri di Più!"
         }
       }
     }

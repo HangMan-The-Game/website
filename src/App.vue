@@ -1,25 +1,23 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import Navbar from "./components/Navbar.vue";
-</script>
 
-<script>
-export default {
-  watch: {
-    $route(to, from) {
-      if (to.meta.scrollToTop) {
-        const navbarHeight = document.querySelector(".navbar").offsetHeight;
-        this.$scrollTo.scrollTo("#app", 500, { offset: -navbarHeight }); // ID del tuo elemento principale
-      }
-    },
-  },
-};
-</script>
+/* let currentLang = "en";
+
+const updateLang = (lang) => {
+  if (typeof lang === 'string') {
+    currentLang = lang;
+    console.log("yo: " + currentLang + " lang: " + lang);
+  } else {
+    console.error('Il valore passato non è una stringa.');
+  }
+} */
+
+</script >
 
 <template>
-  <Navbar />
-
-  <RouterView />
+  <Navbar @lang-selected="updateLang" />
+  <RouterView :langcurrent="currentLang" />
 </template>
 
 <style>
