@@ -18,13 +18,13 @@ export default {
     selectOption(option) {
       this.lang = option.value;
       this.langText = option.text;
+      this.$emit('lang-selected', this.lang);
     }
   }
 };
 </script>
 
 <template>
-  <!-- sticky-top da aggiungere -->
   <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
@@ -51,8 +51,10 @@ export default {
                     :class="$route.href == '/#about' ? 'router-link-active' : ''" href="#about">{{ $t("message.nav1", {},
                       { locale: lang }) }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
-                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="/#about">A{{ $t("message.nav1",
-                      {}, { locale: lang }) }}</a>
+                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="/#about">{{
+                      $t("message.nav1", {}, {
+                        locale: lang
+                      }) }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
@@ -60,7 +62,9 @@ export default {
                       $t("message.nav2", {}, { locale: lang }) }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
                     :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="/#gamedesc">{{
-                      $t("message.nav2", {}, { locale: lang }) }}</a>
+                      $t("message.nav2", {}, {
+                        locale: lang
+                      }) }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
@@ -78,17 +82,23 @@ export default {
           <li class="nav-item fs-5">
             <RouterLink to="/about" class="nav-link">{{ $t("message.nav4", {}, { locale: lang }) }}</RouterLink>
           </li>
+          <li class="nav-item fs-5">
+            <RouterLink to="/leaderboard" class="nav-link">{{ $t("message.nav5", {}, { locale: lang }) }}</RouterLink>
+          </li>
         </ul>
         <div class="d-flex align-items-center">
           <!-- language selector : to-do -->
           <div class="dropdown fs-2">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-              aria-expanded="false">
+              aria-expanded="false" disabled>
+              <span class="position-absolute top-100 start-50 translate-middle badge rounded-pill text-bg-warning">
+                WIP
+              </span>
               <i class="bi bi-translate text-info"></i> {{ langText }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
               <li v-for="option in options" :key="option.value">
-                <a class="dropdown-item" href="#" @click="selectOption(option)">
+                <a class="dropdown-item disabled" href="#" @click="selectOption(option)">
                   <i class="bi bi-translate text-info"></i> {{ option.text }}
                 </a>
               </li>

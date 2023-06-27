@@ -1,7 +1,7 @@
 <script>
-export default {
+/* export default {
   props: ['currentLang']
-}
+} */
 </script>
 
 

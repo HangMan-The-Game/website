@@ -15,7 +15,7 @@
                         tests your mind!</p>
                     <div class="d-flex flex-column gap-2 mb-5">
                         <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("message.jumbo1", {},
-                            { locale: valore }) }}</a>
+                            { locale: "en" }) }}</a>
                         <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>Play Now! <span
                                 class="badge rounded-pill text-bg-warning">WIP</span></button>
                     </div>
