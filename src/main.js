@@ -6,7 +6,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import VueScrollTo from "vue-scrollto";
-
+import CountryFlag from 'vue-country-flag-next'
 import { createI18n } from "vue-i18n";
 
 const i18n = createI18n({
@@ -21,6 +21,7 @@ const i18n = createI18n({
           nav2: "Game Description",
           nav3: "Team",
           nav4: "Contact us",
+          nav5: "Leaderboard",
           jumbo1: "Learn More!"
         }
       },
@@ -31,10 +32,11 @@ const i18n = createI18n({
           nav2: "Descrizione Gioco",
           nav3: "Squadra",
           nav4: "Contattaci",
+          nav5: "Classifica",
           jumbo1: "Scopri di Più!"
         }
       }
     }
 });
 
-createApp(App).use(router).use(VueScrollTo).use(i18n).mount("#app");
+createApp(App).use(router).use(VueScrollTo).use(CountryFlag).use(i18n).mount("#app");
