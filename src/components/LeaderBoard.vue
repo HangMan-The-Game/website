@@ -3,6 +3,7 @@
 <template>
     <h1 class="text-center my-3 fw-bold">Leaderboard <i class="bi bi-trophy-fill text-danger"></i></h1>
     <h4 class="text-center my-3">This LeaderBoard is synced with the Mobile APP and the Web APP in real time.</h4>
+    <h5 class="text-center my-3 fst-italic">reach the top!</h5>
     <div class="border rounded border-danger border-3 shadow w-25 mx-auto">
         <table class="table table-hover">
             <thead>
