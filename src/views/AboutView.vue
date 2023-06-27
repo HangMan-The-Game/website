@@ -7,5 +7,3 @@ import Contact from '../components/Contact.vue';
     <Contact />
   </main>
 </template>
-
-<style></style>
