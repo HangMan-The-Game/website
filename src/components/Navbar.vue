@@ -40,7 +40,8 @@ export default {
 </script>
 
 <template>
-  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
+  <nav :class="isDark ? 'navbar-dark' : ''" class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar"
+    style="background-color: #ffffff">
     <div class=" container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -156,6 +157,10 @@ export default {
   border: #fff 1px solid !important;
 }
 
+[theme="custom-dark"] .dropdown-toggle-split {
+  color: #ffffff !important;
+}
+
 [theme="custom-dark"] a.router-link-active {
   color: #ef5454 !important;
 }
@@ -172,6 +177,10 @@ export default {
 [theme="custom-dark"] .card {
   background: #43454e !important;
   color: #ffffff;
+}
+
+[theme="custom-dark"] .card:hover {
+  box-shadow: 0 8px 50px #ef3c3c33 !important;
 }
 
 [theme="custom-dark"] .card .card-title {
