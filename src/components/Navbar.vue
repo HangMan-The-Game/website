@@ -1,5 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import { useDark, useToggle } from "@vueuse/core";
+const isDark = useDark({
+  selector: "body", //element to add attribute to
+  attribute: "theme", // attribute name
+  valueDark: "custom-dark", // attribute value for dark mode
+  valueLight: "custom-light", // attribute value for light mode
+});
+const toggleDark = useToggle(isDark);
 </script>
 
 <script>
@@ -12,7 +20,11 @@ export default {
   methods: {
     toggleTheme() {
       this.isDarkMode = !this.isDarkMode;
-    }
+    },
+    changeLocale(locale) {
+      this.$i18n.locale = locale;
+      this.$emit("locale-changed", locale); // Emetti l'evento con il locale selezionato
+    },
   }
 }
 </script>
@@ -77,20 +89,24 @@ export default {
               <option v-for="locale in $i18n.availableLocales" :key="locale" :value="locale">{{ locale }}</option>
             </select>
           </div> -->
-          <div class="dropdown fs-2">
+          <div class="dropdown fs-2 mb-1">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
               aria-expanded="false">
               <i class="bi bi-translate text-info"></i> {{ $i18n.locale }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
               <li v-for="locale in $i18n.availableLocales" :key="locale">
-                <a class="dropdown-item" href="#" @click="$i18n.locale = locale"> {{ locale }} </a>
+                <a class="dropdown-item" href="#" @click="changeLocale(locale)">
+                  {{ locale }}
+                </a>
               </li>
             </ul>
           </div>
-          <!--           <button class="btn btn-primary" @click="toggleTheme">
-            {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}
-          </button> -->
+          <button class="btn btn-link" @click="toggleDark()">
+            <!-- {{ isDark ? 'Light Mode' : 'Dark Mode' }} -->
+            <i v-if="isDark" class="bi bi-moon-stars-fill text-dark fs-3"></i>
+            <i v-else class="bi bi-brightness-high-fill text-warning fs-3"></i>
+          </button>
 
           <a href="https://github.com/HangMan-The-Game" class="btn btn-link fs-3 px-2 text-decoration-none"><i
               class="bi bi-github"></i>
@@ -106,6 +122,32 @@ export default {
     </div>
   </nav>
 </template>
+
+<style>
+[theme="custom-dark"] {
+  background: #16171d !important;
+  color: #fff;
+}
+
+[theme="custom-dark"] #home {
+  background: #16171d !important;
+  color: #ffffff;
+}
+
+[theme="custom-dark"] #home #logoHG {
+  background: url("../assets/images/HangManGameWhite.svg") no-repeat;
+  display: none;
+}
+
+[theme="custom-dark"] .card {
+  background: #43454e !important;
+  color: #ffffff;
+}
+
+[theme="custom-dark"] .card .card-title {
+  color: #ffffff;
+}
+</style>
 
 <style scoped>
 .dropdown-menu {

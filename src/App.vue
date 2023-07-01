@@ -4,14 +4,34 @@ import Navbar from "./components/Navbar.vue";
 
 </script >
 
-<template :class="{ 'dark-mode': isDarkMode }">
-  <Navbar />
+<script>
+const previousLang = localStorage.lang || "English";
+
+export default {
+  created() {
+    if (previousLang) {
+      this.$i18n.locale = previousLang;
+    } else {
+      this.$i18n.locale = "English";
+    }
+  },
+  methods: {
+    saveLocale(locale) {
+      //this.$i18n.locale = locale;
+      localStorage.setItem("lang", locale);
+    },
+  },
+};
+</script>
+
+<template>
+  <Navbar @locale-changed="saveLocale" />
   <RouterView />
 </template>
 
 <style>
-.dark-mode {
-  background-color: #343a40;
+.dark {
+  background-color: #343a40 !important;
   color: #fff;
 }
 
