@@ -15,9 +15,10 @@
                         </div>
                         <div class="card-body text-center">
                             <h5>Socials</h5>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-github"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-twitter"></i></a>
+                            <a href="https://github.com/mich242" class="card-link fs-3"><i class="bi bi-github"></i></a>
+                            <a href="https://www.instagram.com/michele_.turco/" class="card-link fs-3"><i
+                                    class="bi bi-instagram"></i></a>
+                            <a href="https://twitter.com/mich243" class="card-link fs-3"><i class="bi bi-twitter"></i></a>
                         </div>
                     </div>
                 </div>
@@ -29,10 +30,12 @@
                         </div>
                         <div class="card-body text-center">
                             <h5>Socials</h5>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-github"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-linkedin"></i></a>
+                            <a href="https://github.com/alerunza" class="card-link fs-3"><i class="bi bi-github"></i></a>
+                            <a href="https://www.instagram.com/alerunza/" class="card-link fs-3"><i
+                                    class="bi bi-instagram"></i></a>
+                            <a href="https://twitter.com/AleRunza" class="card-link fs-3"><i class="bi bi-twitter"></i></a>
+                            <a href="https://www.linkedin.com/in/alerunza/" class="card-link fs-3"><i
+                                    class="bi bi-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -44,9 +47,10 @@
                         </div>
                         <div class="card-body text-center">
                             <h5>Socials</h5>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-github"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-twitter"></i></a>
+                            <a href="https://github.com/imgaandy" class="card-link fs-3"><i class="bi bi-github"></i></a>
+                            <a href="https://www.instagram.com/imgaandy_/" class="card-link fs-3"><i
+                                    class="bi bi-instagram"></i></a>
+                            <a href="https://twitter.com/imgaandy" class="card-link fs-3"><i class="bi bi-twitter"></i></a>
                         </div>
                     </div>
                 </div>
@@ -60,8 +64,9 @@
                         </div>
                         <div class="card-body text-center">
                             <h5>Socials</h5>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-github"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-linkedin"></i></a>
+                            <a href="https://github.com/emadol" class="card-link fs-3"><i class="bi bi-github"></i></a>
+                            <a href="https://www.linkedin.com/in/emanuele-d-403a46242" class="card-link fs-3"><i
+                                    class="bi bi-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -73,8 +78,8 @@
                         </div>
                         <div class="card-body text-center">
                             <h5>Socials</h5>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-github"></i></a>
-                            <a href="#" class="card-link fs-3"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.instagram.com/calogero_028/" class="card-link fs-3"><i
+                                    class="bi bi-instagram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -86,7 +91,7 @@
 <style scoped>
 .card {
     background: #f5f5f5;
-    transition: box-shadow .2s ease, transform .2s ease;
+    transition: box-shadow .2s ease, transform .2s ease, scale .2s ease;
 }
 
 .card-title {
@@ -98,6 +103,7 @@
 
 .card:hover {
     box-shadow: 0 8px 50px #23232333;
+    scale: 1.05;
 }
 
 .card:hover .card-info {
