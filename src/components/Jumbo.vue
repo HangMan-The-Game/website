@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 const props = defineProps(['theme'])
-console.log(props.theme);
+
 </script>
 
 <template>
