@@ -1,4 +1,7 @@
-<script>
+<script setup>
+import { ref } from 'vue';
+const props = defineProps(['theme'])
+console.log(props.theme);
 </script>
 
 <template>
@@ -6,7 +9,9 @@
         <div class="container h-75">
             <div class="row h-100">
                 <div class="col h-100 d-flex flex-column align-items-center justify-content-center">
-                    <img class="img-fluid" src="../assets/images/HangManGame.svg" alt="HangMan-Logo" height="">
+                    <img v-if="props.theme" class=" img-fluid" src="../assets/images/HangManGameWhite.svg"
+                        alt="HangMan-Logo" height="">
+                    <img v-else class="img-fluid" src="../assets/images/HangManGame.svg" alt="HangMan-Logo" height="">
 
                     <p class="fs-2 w-50 mx-auto text-center" v-html="$t('jumbo3')"></p>
                     <div class="d-flex flex-column gap-2 mb-5">
