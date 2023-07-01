@@ -1,7 +1,4 @@
 <script>
-// export default {
-//     props: ['langcurrent']
-// }
 </script>
 
 <template>
@@ -11,13 +8,11 @@
                 <div class="col h-100 d-flex flex-column align-items-center justify-content-center">
                     <img class="img-fluid" src="../assets/images/HangManGame.svg" alt="HangMan-Logo" height="">
 
-                    <p class="fs-2 w-50 mx-auto text-center">Have fun with <strong>HangMan</strong>: the word game that
-                        tests your mind!</p>
+                    <p class="fs-2 w-50 mx-auto text-center" v-html="$t('jumbo3')"></p>
                     <div class="d-flex flex-column gap-2 mb-5">
-                        <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("message.jumbo1", {},
-                            { locale: "en" }) }}</a>
-                        <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>Play Now! <span
-                                class="badge rounded-pill text-bg-warning">WIP</span></button>
+                        <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("jumbo1") }}</a>
+                        <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>{{ $t("jumbo2")
+                        }}<span class="badge rounded-pill text-bg-warning">WIP</span></button>
                     </div>
                 </div>
             </div>

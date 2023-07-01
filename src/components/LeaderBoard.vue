@@ -7,9 +7,9 @@
     <table class="rounded shadow w-25 mx-auto table table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nickname</th>
-                <th scope="col">Points</th>
+                <th class="fw-bold h3" scope="col">#</th>
+                <th class="fw-bold h3" scope="col">Nickname</th>
+                <th class="fw-bold h3" scope="col">Points</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">

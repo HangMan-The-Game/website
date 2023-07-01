@@ -2,7 +2,8 @@
 
 <template>
     <section id="team">
-        <h1 class="text-center mb-5 mt-5 fw-bold"><i class="bi bi-code"></i> Team <i class="bi bi-code"></i></h1>
+        <h1 class="text-center mb-5 mt-5 fw-bold"><i class="bi bi-code"></i> {{ $t("nav3") }} <i class="bi bi-code"></i>
+        </h1>
 
         <div class="container">
             <div class="row">

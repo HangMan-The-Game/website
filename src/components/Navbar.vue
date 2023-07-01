@@ -6,27 +6,20 @@ import { RouterLink, RouterView } from "vue-router";
 export default {
   data() {
     return {
-      lang: 'en',
-      langText: 'English',
-      options: [
-        { value: 'en', text: 'English' },
-        { value: 'it', text: 'Italiano' }
-      ]
+      isDarkMode: false
     };
   },
   methods: {
-    selectOption(option) {
-      this.lang = option.value;
-      this.langText = option.text;
-      this.$emit('lang-selected', this.lang);
+    toggleTheme() {
+      this.isDarkMode = !this.isDarkMode;
     }
   }
-};
+}
 </script>
 
 <template>
   <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar" style="background-color: #ffffff">
-    <div class="container">
+    <div class=" container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -48,62 +41,57 @@ export default {
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
-                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="#about">{{ $t("message.nav1", {},
-                      { locale: lang }) }}</a>
+                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="#about">{{ $t("nav1") }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
                     :class="$route.href == '/#about' ? 'router-link-active' : ''" href="/#about">{{
-                      $t("message.nav1", {}, {
-                        locale: lang
-                      }) }}</a>
+                      $t("nav1") }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
                     :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="#gamedesc">{{
-                      $t("message.nav2", {}, { locale: lang }) }}</a>
+                      $t("nav2") }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
                     :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="/#gamedesc">{{
-                      $t("message.nav2", {}, {
-                        locale: lang
-                      }) }}</a>
+                      $t("nav2") }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
-                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="#team">{{ $t("message.nav3", {}, {
-                      locale: lang
-                    }) }}</a>
+                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="#team">{{ $t("nav3") }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
-                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="/#team">{{ $t("message.nav3", {}, {
-                      locale: lang
-                    }) }}</a>
+                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="/#team">{{ $t("nav3") }}</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/about" class="nav-link">{{ $t("message.nav4", {}, { locale: lang }) }}</RouterLink>
+            <RouterLink to="/about" class="nav-link">{{ $t("nav4") }}</RouterLink>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/leaderboard" class="nav-link">{{ $t("message.nav5", {}, { locale: lang }) }}</RouterLink>
+            <RouterLink to="/leaderboard" class="nav-link">{{ $t("nav5") }}</RouterLink>
           </li>
         </ul>
         <div class="d-flex align-items-center">
           <!-- language selector : to-do -->
+          <!--           <div class="locale-changer">
+            <select v-model="$i18n.locale">
+              <option v-for="locale in $i18n.availableLocales" :key="locale" :value="locale">{{ locale }}</option>
+            </select>
+          </div> -->
           <div class="dropdown fs-2">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-              aria-expanded="false" disabled>
-              <span class="position-absolute top-100 start-50 translate-middle badge rounded-pill text-bg-warning">
-                WIP
-              </span>
-              <i class="bi bi-translate text-info"></i> {{ langText }}
+              aria-expanded="false">
+              <i class="bi bi-translate text-info"></i> {{ $i18n.locale }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-              <li v-for="option in options" :key="option.value">
-                <a class="dropdown-item disabled" href="#" @click="selectOption(option)">
-                  <i class="bi bi-translate text-info"></i> {{ option.text }}
-                </a>
+              <li v-for="locale in $i18n.availableLocales" :key="locale">
+                <a class="dropdown-item" href="#" @click="$i18n.locale = locale"> {{ locale }} </a>
               </li>
             </ul>
           </div>
+          <!--           <button class="btn btn-primary" @click="toggleTheme">
+            {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}
+          </button> -->
+
           <a href="https://github.com/HangMan-The-Game" class="btn btn-link fs-3 px-2 text-decoration-none"><i
               class="bi bi-github"></i>
           </a>
