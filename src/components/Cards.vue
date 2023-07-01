@@ -86,7 +86,7 @@
 <style scoped>
 .card {
     background: #f5f5f5;
-    transition: box-shadow .3s ease, transform .2s ease;
+    transition: box-shadow .2s ease, transform .2s ease;
 }
 
 .card-title {
