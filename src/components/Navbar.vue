@@ -186,6 +186,10 @@ export default {
 [theme="custom-dark"] .card .card-title {
   color: #ffffff;
 }
+
+[theme="custom-dark"] .t-lead {
+  color: #ffffff;
+}
 </style>
 
 <style scoped>
