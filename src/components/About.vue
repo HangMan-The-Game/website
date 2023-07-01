@@ -4,7 +4,6 @@
 } */
 </script>
 
-
 <template>
   <section id="about" class="about-us my-5">
     <div class="container">
@@ -24,8 +23,7 @@
       </div>
       <div class="row">
         <div class="col-lg-5 mt-5">
-          <img class="img-fluid img-thumbnail shadow-lg rounded mt-5"
-            src="https://img.freepik.com/free-vector/group-people-illustration-set_52683-33806.jpg"
+          <img class="img-fluid img-thumbnail shadow-lg rounded mt-5" src="../assets/images/photo4.jpg"
             alt="About Us Image" />
         </div>
         <div class="col-lg-7 d-flex align-items-center">
