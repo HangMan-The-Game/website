@@ -12,13 +12,8 @@
           <h1 class="text-center fw-bold">{{ $t("nav1") }}</h1>
           <h2 class="text-center fw-semibold" v-html="$t('about1')"></h2>
         </div>
-        <div class="col-lg-6 d-flex align-items-center mt-5">
+        <div class="d-flex align-items-center mt-5 w-75 mx-auto">
           <p class="fs-4" v-html="$t('about2')"></p>
-        </div>
-        <div class="col-lg-6">
-          <img class="img-fluid img-thumbnail shadow-lg rounded mt-5"
-            src="https://img.freepik.com/free-vector/group-people-illustration-set_52683-33806.jpg"
-            alt="About Us Image" />
         </div>
       </div>
       <div class="row">
