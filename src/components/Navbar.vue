@@ -1,13 +1,23 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import { useDark, useToggle } from "@vueuse/core";
+import { onMounted } from "vue";
 const isDark = useDark({
   selector: "body", //element to add attribute to
   attribute: "theme", // attribute name
   valueDark: "custom-dark", // attribute value for dark mode
   valueLight: "custom-light", // attribute value for light mode
 });
+const emit = defineEmits(['toggleTheme'])
 const toggleDark = useToggle(isDark);
+const toggleTheme = () => {
+  toggleDark();
+  emit("toggleTheme", isDark.value);
+}
+
+onMounted(() => {
+  emit("toggleTheme", isDark.value || false);
+})
 </script>
 
 <script>
@@ -37,7 +47,8 @@ export default {
         <span class="navbar-toggler-icon"></span>
       </button>
       <RouterLink class="navbar-brand" to="/">
-        <img src="../assets/images/HangManLogo.svg" alt="HangMan-Logo" width="100" height="50" />
+        <img v-if="isDark" src="../assets/images/HangManLogoWhite.svg" alt="HangMan-Logo" width="100" height="50" />
+        <img v-else src="../assets/images/HangManLogo.svg" alt="HangMan-Logo" width="100" height="50" />
       </RouterLink>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
@@ -96,15 +107,16 @@ export default {
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
               <li v-for="locale in $i18n.availableLocales" :key="locale">
-                <a class="dropdown-item" href="#" @click="changeLocale(locale)">
+                <a :class="locale === $i18n.locale ? 'dropdown-item active' : 'dropdown-item'" class="dropdown-item"
+                  href="#" @click="changeLocale(locale)">
                   {{ locale }}
                 </a>
               </li>
             </ul>
           </div>
-          <button class="btn btn-link" @click="toggleDark()">
+          <button class="btn btn-link" @click="toggleTheme()">
             <!-- {{ isDark ? 'Light Mode' : 'Dark Mode' }} -->
-            <i v-if="isDark" class="bi bi-moon-stars-fill text-dark fs-3"></i>
+            <i v-if="isDark" class="bi bi-moon-stars-fill text-white fs-3"></i>
             <i v-else class="bi bi-brightness-high-fill text-warning fs-3"></i>
           </button>
 
@@ -129,14 +141,32 @@ export default {
   color: #fff;
 }
 
+[theme="custom-dark"] nav {
+  background: #16171d !important;
+  color: #fff;
+  border-bottom: 0.5px solid white !important;
+}
+
+[theme="custom-dark"] #dropdownMenuButton2 {
+  color: #fff !important;
+}
+
+[theme="custom-dark"] .dropdown-menu {
+  background-color: #16171d !important;
+  border: #fff 1px solid !important;
+}
+
+[theme="custom-dark"] a.router-link-active {
+  color: #ef5454 !important;
+}
+
+[theme="custom-dark"] .dropdown-item {
+  color: #fff !important;
+}
+
 [theme="custom-dark"] #home {
   background: #16171d !important;
   color: #ffffff;
-}
-
-[theme="custom-dark"] #home #logoHG {
-  background: url("../assets/images/HangManGameWhite.svg") no-repeat;
-  display: none;
 }
 
 [theme="custom-dark"] .card {
@@ -152,6 +182,10 @@ export default {
 <style scoped>
 .dropdown-menu {
   min-width: 7.2rem;
+}
+
+.dropdown-item.active {
+  background-color: #e64343;
 }
 
 .selectpicker {
