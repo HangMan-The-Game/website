@@ -2,7 +2,7 @@
 
 <template>
     <section id="partners">
-        <h1 class="text-center mb-5 mt-5 fw-bold">{{ $t("nav6") }}</h1>
+        <h1 class="text-center mb-5 mt-5 fw-bold">{{ $t("navbar.partners") }}</h1>
 
         <div class="container">
             <div class="row">
