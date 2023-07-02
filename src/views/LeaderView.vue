@@ -3,5 +3,7 @@ import LeaderBoard from "../components/LeaderBoard.vue";
 </script>
 
 <template>
-    <LeaderBoard />
+    <main>
+        <LeaderBoard />
+    </main>
 </template>

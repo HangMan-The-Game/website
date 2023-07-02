@@ -3,7 +3,6 @@
 <template>
     <section id="partners">
         <h1 class="text-center mb-5 mt-5 fw-bold">{{ $t("navbar.partners") }}</h1>
-
         <div class="container">
             <div class="row">
                 <div class="col-md-6 d-flex align-items-stretch mb-5">
