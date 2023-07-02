@@ -88,7 +88,7 @@ export default {
             </div>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/about" class="nav-link">{{ $t("nav4") }}</RouterLink>
+            <RouterLink to="/contact" class="nav-link">{{ $t("nav4") }}</RouterLink>
           </li>
           <li class="nav-item fs-5">
             <RouterLink to="/leaderboard" class="nav-link">{{ $t("nav5") }}</RouterLink>
