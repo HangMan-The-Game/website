@@ -84,6 +84,13 @@ export default {
                   <a v-if="$route.name != 'home'" class="dropdown-item"
                     :class="$route.href == '/#team' ? 'router-link-active' : ''" href="/#team">{{ $t("nav3") }}</a>
                 </li>
+                <li>
+                  <a v-if="$route.name == 'home'" class="dropdown-item"
+                    :class="$route.href == '/#partners' ? 'router-link-active' : ''" href="#partners">{{ $t("nav6") }}</a>
+                  <a v-if="$route.name != 'home'" class="dropdown-item"
+                    :class="$route.href == '/#partners' ? 'router-link-active' : ''" href="/#partners">{{ $t("nav6")
+                    }}</a>
+                </li>
               </ul>
             </div>
           </li>
