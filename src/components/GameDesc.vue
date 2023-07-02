@@ -9,12 +9,11 @@
           <img class="img-thumbnail shadow-lg rounded mb-5" src="../assets/images/photo4.jpeg"
             alt="Game Description Image" />
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-8 d-flex align-items-center">
           <p class="fs-4" v-html="$t('gamedesc1')"></p>
         </div>
       </div>
       <div class="row">
-
         <div class="col-lg-6">
           <p class="fs-4 mt-5" v-html="$t('gamedesc2')"></p>
         </div>
@@ -28,8 +27,8 @@
           <img class="img-thumbnail shadow-lg rounded mt-5 mb-5" src="../assets/images/photo5.jpeg"
             alt="Game Description Image" />
         </div>
-        <div class="col-lg-4">
-          <p class="fs-4 mt-5" v-html="$t('gamedesc3')"></p>
+        <div class="col-lg-6 d-flex align-items-center">
+          <p class="fs-4" v-html="$t('gamedesc3')"></p>
         </div>
       </div>
     </div>
