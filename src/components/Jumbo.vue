@@ -13,10 +13,11 @@ const props = defineProps(['theme'])
                         alt="HangMan-Logo" height="">
                     <img v-else class="img-fluid" src="../assets/images/HangManGame.svg" alt="HangMan-Logo" height="">
 
-                    <p class="fs-2 w-50 mx-auto text-center" v-html="$t('jumbo3')"></p>
+                    <p class="fs-2 w-50 mx-auto text-center" v-html="$t('jumbotron.gameDescription')"></p>
                     <div class="d-flex flex-column gap-2 mb-5">
-                        <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("jumbo1") }}</a>
-                        <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>{{ $t("jumbo2")
+                        <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("jumbotron.learnMore") }}</a>
+                        <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>{{
+                            $t("jumbotron.playNow")
                         }}<span class="badge rounded-pill text-bg-warning">WIP</span></button>
                     </div>
                 </div>

@@ -1,16 +1,16 @@
 <script setup></script>
 
 <template>
-    <h1 class="text-center my-3 fw-bold">{{ $t("leaderboard1") }} <i class="bi bi-trophy-fill text-danger"></i></h1>
-    <h4 class="text-center my-3">{{ $t("leaderboard2") }}</h4>
-    <h5 class="text-center my-3 fst-italic">{{ $t("leaderboard3") }}</h5>
+    <h1 class="text-center my-3 fw-bold">{{ $t("leaderboard.title") }} <i class="bi bi-trophy-fill text-danger"></i></h1>
+    <h4 class="text-center my-3">{{ $t("leaderboard.description") }}</h4>
+    <h5 class="text-center my-3 fst-italic">{{ $t("leaderboard.reachTheTop") }}</h5>
     <div class="container">
         <table class="rounded w-25 shadow mx-auto table table-hover">
             <thead>
                 <tr>
                     <th class="fw-bold h3 t-lead" scope="col">#</th>
                     <th class="fw-bold h3 t-lead" scope="col">Nickname</th>
-                    <th class="fw-bold h3 t-lead" scope="col">{{ $t("leaderboard4") }}</th>
+                    <th class="fw-bold h3 t-lead" scope="col">{{ $t("leaderboard.points") }}</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">

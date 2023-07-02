@@ -4,24 +4,24 @@
     <section>
         <!-- <h1 class="text-center my-5 fw-bold">{{ $t("message.jumbo1", {},
                 { locale: lang }) }}</h1> -->
-        <h3 class="text-center mt-3 fw-bold">{{ $t("contact1") }}</h3>
-        <p class="fs-3 text-center my-5" v-html="$t('contact2')"></p>
+        <h3 class="text-center mt-3 fw-bold">{{ $t("contact.unavailableEmail") }}</h3>
+        <p class="fs-3 text-center my-5" v-html="$t('contact.contactViaInstagram')"></p>
 
         <form class="w-50 mx-auto shadow p-3 mb-5 border rounded border-2 p-2">
             <div class="input-group mb-3">
-                <span class="input-group-text">{{ $t("contact3") }}</span>
+                <span class="input-group-text">{{ $t("contact.firstName") }}</span>
                 <input type="text" aria-label="First name" class="form-control">
-                <span class="input-group-text">{{ $t("contact4") }}</span>
+                <span class="input-group-text">{{ $t("contact.lastName") }}</span>
                 <input type="text" aria-label="Last name" class="form-control">
             </div>
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">{{ $t("contact5") }}</label>
+                <label for="exampleInputEmail1" class="form-label">{{ $t("contact.emailAddress") }}</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
             <div class="mb-3">
                 <!-- <span class="input-group-text">With textarea</span> -->
-                <label for="exampleInputEmail1" class="form-label">{{ $t("contact6") }}</label>
+                <label for="exampleInputEmail1" class="form-label">{{ $t("contact.message") }}</label>
                 <textarea class="form-control" aria-label="With textarea"></textarea>
             </div>
             <!--             <div class="mb-3 form-check">
@@ -29,8 +29,8 @@
                                                                                                                                                                                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                                                                                                                                                                                 </div> -->
             <div class="text-center">
-                <button id="disabled" type="submit" class="btn btn-primary btn-lg disabled fs-5">{{ $t("contact7") }} <span
-                        class="badge rounded-pill text-bg-warning">WIP</span></button>
+                <button id="disabled" type="submit" class="btn btn-primary btn-lg disabled fs-5">{{ $t("contact.submit") }}
+                    <span class="badge rounded-pill text-bg-warning">WIP</span></button>
             </div>
         </form>
         <!--         <div>

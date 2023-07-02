@@ -65,40 +65,43 @@ export default {
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
-                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="#about">{{ $t("nav1") }}</a>
+                    :class="$route.href == '/#about' ? 'router-link-active' : ''" href="#about">{{ $t("navbar.aboutUs")
+                    }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
                     :class="$route.href == '/#about' ? 'router-link-active' : ''" href="/#about">{{
-                      $t("nav1") }}</a>
+                      $t("navbar.aboutUs") }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
                     :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="#gamedesc">{{
-                      $t("nav2") }}</a>
+                      $t("navbar.gameDescription") }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
                     :class="$route.href == '/#gamedesc' ? 'router-link-active' : ''" href="/#gamedesc">{{
-                      $t("nav2") }}</a>
+                      $t("navbar.gameDescription") }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
-                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="#team">{{ $t("nav3") }}</a>
+                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="#team">{{ $t("navbar.team") }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
-                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="/#team">{{ $t("nav3") }}</a>
+                    :class="$route.href == '/#team' ? 'router-link-active' : ''" href="/#team">{{ $t("navbar.team") }}</a>
                 </li>
                 <li>
                   <a v-if="$route.name == 'home'" class="dropdown-item"
-                    :class="$route.href == '/#partners' ? 'router-link-active' : ''" href="#partners">{{ $t("nav6") }}</a>
+                    :class="$route.href == '/#partners' ? 'router-link-active' : ''" href="#partners">{{
+                      $t("navbar.partners") }}</a>
                   <a v-if="$route.name != 'home'" class="dropdown-item"
-                    :class="$route.href == '/#partners' ? 'router-link-active' : ''" href="/#partners">{{ $t("nav6")
+                    :class="$route.href == '/#partners' ? 'router-link-active' : ''" href="/#partners">{{
+                      $t("navbar.partners")
                     }}</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/contact" class="nav-link">{{ $t("nav4") }}</RouterLink>
+            <RouterLink to="/contact" class="nav-link">{{ $t("navbar.contactUs") }}</RouterLink>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/leaderboard" class="nav-link">{{ $t("nav5") }}</RouterLink>
+            <RouterLink to="/leaderboard" class="nav-link">{{ $t("navbar.leaderboard") }}</RouterLink>
           </li>
         </ul>
         <div class="d-flex align-items-center">
