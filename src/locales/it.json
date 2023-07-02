@@ -1,29 +1,43 @@
 {
-    "nav1": "Chi siamo",
-    "nav2": "Descrizione del gioco",
-    "nav3": "Team",
-    "nav4": "Contattaci",
-    "nav5": "Classifica",
-    "nav6": "Partners",
-    "jumbo1": "Scopri di più!",
-    "jumbo2": "Gioca ora!",
-    "jumbo3": "Divertiti con <strong>HangMan</strong>: il gioco delle parole che mette alla prova la tua mente!",
-    "about1": "Cinque studenti, indirizzo: <strong>Informatica</strong> <i class='bi bi-people'></i>",
-    "about2": "Ciao a tutti! Siamo un gruppo di <a href='#team' v-scroll-to>cinque studenti</a> dell'<a href='https://www.rapisardidavinci.edu.it/'>ITET Rapisardi - Da Vinci</a> che stanno per iniziare l'ultimo anno di scuola superiore. E quale modo migliore per concludere il nostro percorso scolastico se non realizzare un progetto incredibile insieme?",
-    "about3": "La nostra idea <strong>innovativa</strong> riguarda il 'pupazzo' nel gioco dell'impiccato. Abbiamo introdotto una variante interessante: invece di cadere, il 'pupazzo' è già presente, ma ogni volta che si commette un errore, ne viene rimossa una parte! Questo rende il gioco ancora più <strong>coinvolgente</strong> e <strong>divertente</strong>.",
-    "about4": "In <strong>oltre</strong>, abbiamo incluso un <strong>display touch</strong> nel nostro progetto. Il display è principalmente utilizzato per la gestione del menu, consentendo un'interazione intuitiva e facile da usare. Per quanto riguarda l'immissione delle lettere, abbiamo una <strong>tastiera dedicata</strong> che rende l'inserimento delle scelte <strong>rapide</strong> e <strong>facili</strong>.",
-    "gamedesc1": "HangMan è una reinterpretazione <strong>modernizzata</strong> del classico gioco dell'impiccato. In questa versione, le parti cadono progressivamente durante il gioco anziché apparire dopo ogni errore, offrendo un elemento visivo unico e coinvolgente. Il gioco presenta vari componenti che contribuiscono a un'esperienza <strong>interattiva</strong>. È dotato di un microcontrollore che gestisce e controlla le funzioni di gioco. Inoltre, c'è un display touch che consente agli utenti di interagire <strong>intuitivamente</strong> con il gioco. La tastiera del gioco è stata appositamente creata da noi e offre un modo unico e <strong>coinvolgente</strong> per inserire lettere e indovinare parole. Il corpo del gioco è stato realizzato con l'uso di <strong>elettromagneti</strong>, che contribuiscono all'effetto visivo della <strong>caduta</strong> durante il gioco, creando un'atmosfera <strong>dinamica</strong> e coinvolgente.",
-    "gamedesc2": "Inoltre, il gioco offre la possibilità di regolare la <strong>difficoltà</strong> per adattar la alle preferenze del giocatore. Puoi selezionare diverse opzioni di difficoltà per <strong>personalizzare</strong> l'esperienza di gioco. Tutte le parole utilizzate nel gioco sono memorizzate in un <strong>database</strong> online, che offre una vasta gamma di parole in diverse categorie. Ciò fornisce una <strong>varietà</strong> di sfide per i giocatori e consente loro di esplorare una vasta selezione di parole. Inoltre, è disponibile una modalità che consente ai giocatori di indovinare l'<strong>intera</strong> parola inserendola direttamente anziché provare lettera per lettera. Questa opzione offre un'alternativa rapida per coloro che hanno già una conclusione in mente o desiderano testare la loro capacità di trovare la parola corretta.",
-    "gamedesc3": "Infine, la base del gioco è stata realizzata tramite stampa <strong>3D</strong> da noi, consentendo una completa personalizzazione della forma e del design per adattarsi perfettamente al gioco dell'impiccato rielaborato.",
-    "contact1": "La nostra email non è disponibile in questo momento.",
-    "contact2": "Ci scusiamo per l'inconveniente, ma al momento puoi contattarci solo tramite <a style='color: #FF4D4D' href='https://www.instagram.com/hangmanit_/'>Instagram <i class='bi bi-box-arrow-up-right'></i>",
-    "contact3": "Nome",
-    "contact4": "Cognome",
-    "contact5": "Indirizzo email",
-    "contact6": "Scrivi qui il tuo messaggio",
-    "contact7": "Invia",
-    "leaderboard1": "Classifica",
-    "leaderboard2": "Questa classifica è sincronizzata in tempo reale con l'APP Mobile e l'APP Web.",
-    "leaderboard3": "raggiungi la vetta!",
-    "leaderboard4": "Punti"
-}
+    "navbar": {
+      "aboutUs": "Chi siamo",
+      "gameDescription": "Descrizione del gioco",
+      "team": "Team",
+      "contactUs": "Contattaci",
+      "leaderboard": "Classifica",
+      "partners": "Partners"
+    },
+    "jumbotron": {
+      "learnMore": "Scopri di più!",
+      "playNow": "Gioca ora!",
+      "gameDescription": "Divertiti con <strong>HangMan</strong>: il gioco delle parole che mette alla prova la tua mente!"
+    },
+    "about": {
+      "title": "Cinque studenti, indirizzo: <strong>Informatica</strong> <i class='bi bi-people'></i>",
+      "description1": "Ciao a tutti! Siamo un gruppo di <a href='#team' v-scroll-to>cinque studenti</a> dell'<a href='https://www.rapisardidavinci.edu.it/'>ITET Rapisardi - Da Vinci</a> che stanno per iniziare l'ultimo anno di scuola superiore. E quale modo migliore per concludere il nostro percorso scolastico se non realizzare un progetto incredibile insieme?",
+      "description2": "La nostra idea <strong>innovativa</strong> riguarda il 'pupazzo' nel gioco dell'impiccato. Abbiamo introdotto una variante interessante: invece di cadere, il 'pupazzo' è già presente, ma ogni volta che si commette un errore, ne viene rimossa una parte! Questo rende il gioco ancora più <strong>coinvolgente</strong> e <strong>divertente</strong>.",
+      "description3": "In <strong>oltre</strong>, abbiamo incluso un <strong>display touch</strong> nel nostro progetto. Il display è principalmente utilizzato per la gestione del menu, consentendo un'interazione intuitiva e facile da usare. Per quanto riguarda l'immissione delle lettere, abbiamo una <strong>tastiera dedicata</strong> che rende l'inserimento delle scelte <strong>rapide</strong> e <strong>facili</strong>."
+    },
+    "gameDescription": {
+      "title": "HangMan: una reinterpretazione modernizzata",
+      "description1": "HangMan è una reinterpretazione <strong>modernizzata</strong> del classico gioco dell'impiccato. In questa versione, le parti cadono progressivamente durante il gioco anziché apparire dopo ogni errore, offrendo un elemento visivo unico e coinvolgente. Il gioco presenta vari componenti che contribuiscono a un'esperienza <strong>interattiva</strong>. È dotato di un microcontrollore che gestisce e controlla le funzioni di gioco. Inoltre, c'è un display touch che consente agli utenti di interagire <strong>intuitivamente</strong> con il gioco. La tastiera del gioco è stata appositamente creata da noi e offre un modo unico e <strong>coinvolgente</strong> per inserire lettere e indovinare parole. Il corpo del gioco è stato realizzato con l'uso di <strong>elettromagneti</strong>, che contribuiscono all'effetto visivo della <strong>caduta</strong> durante il gioco, creando un'atmosfera <strong>dinamica</strong> e coinvolgente.",
+      "description2": "Inoltre, il gioco offre la possibilità di regolare la <strong>difficoltà</strong> per adattar la alle preferenze del giocatore. Puoi selezionare diverse opzioni di difficoltà per <strong>personalizzare</strong> l'esperienza di gioco. Tutte le parole utilizzate nel gioco sono memorizzate in un <strong>database</strong> online, che offre una vasta gamma di parole in diverse categorie. Ciò fornisce una <strong>varietà</strong> di sfide per i giocatori e consente loro di esplorare una vasta selezione di parole. Inoltre, è disponibile una modalità che consente ai giocatori di indovinare l'<strong>intera</strong> parola inserendola direttamente anziché provare lettera per lettera. Questa opzione offre un'alternativa rapida per coloro che hanno già una conclusione in mente o desiderano testare la loro capacità di trovare la parola corretta.",
+      "description3": "Infine, la base del gioco è stata realizzata tramite stampa <strong>3D</strong> da noi, consentendo una completa personalizzazione della forma e del design per adattarsi perfettamente al gioco dell'impiccato rielaborato."
+    },
+    "contact": {
+      "unavailableEmail": "La nostra email non è disponibile in questo momento.",
+      "contactViaInstagram": "Ci scusiamo per l'inconveniente, ma al momento puoi contattarci solo tramite <a style='color: #FF4D4D' href='https://www.instagram.com/hangmanit_/'>Instagram <i class='bi bi-box-arrow-up-right'></i>",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "emailAddress": "Indirizzo email",
+      "message": "Scrivi qui il tuo messaggio",
+      "submit": "Invia"
+    },
+    "leaderboard": {
+      "title": "Classifica",
+      "description": "Questa classifica è sincronizzata in tempo reale con l'APP Mobile e l'APP Web.",
+      "reachTheTop": "raggiungi la vetta!",
+      "points": "Punti"
+    }
+  }
+  
