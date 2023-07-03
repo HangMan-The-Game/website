@@ -34,6 +34,11 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+    {
+      path: "/words",
+      name: "words",
+      component: () => import("../views/WordView.vue"),
+    }
   ],
 });
 
