@@ -1,12 +1,13 @@
 <script setup>
 import { auth } from '@/firebase.js'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from 'firebase/auth'
 import { ref } from 'vue';
 import router from '../router';
 
 const data = ref({
     email: '',
-    password: ''
+    password: '',
+    username: ''
 })
 
 const mode = ref('login')
@@ -41,12 +42,13 @@ async function login(email, password) {
     })
 }
 
-async function register(email, password) {
+async function register(email, password, username) {
     if (password.length < 6) {
         errMsg.value = 'La password deve essere di almeno 6 caratteri';
         return;
     }
-    await createUserWithEmailAndPassword(auth, email, password).then((result) => {
+    await createUserWithEmailAndPassword(auth, email, password).then(async (result) => {
+        await updateProfileWithUsername(result.user, username);
         router.push('/profile')
         console.log(result)
     }).catch((error) => {
@@ -54,13 +56,20 @@ async function register(email, password) {
     })
 }
 
+async function updateProfileWithUsername(user, username) {
+    await updateProfile(user, {
+        displayName: username
+    });
+}
+
 function submit() {
     let email = data.value.email
     let password = data.value.password
+    let username = data.value.username
     if (mode.value === 'login') {
         login(email, password)
     } else {
-        register(email, password)
+        register(email, password, username)
     }
 }
 
@@ -85,6 +94,10 @@ onAuthStateChanged(auth, currentUser => {
                 <label for="exampleInputEmail1" class="form-label d-block mb-2 fw-bold text-center">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     v-model="data.email">
+            </div>
+            <div v-if="mode === 'register'" class="mb-3">
+                <label for="exampleInputUsername" class="form-label d-block mb-2 fw-bold text-center">Username</label>
+                <input type="text" class="form-control" id="exampleInputUsername" v-model="data.username" required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label d-block mb-2 fw-bold text-center">Password</label>
