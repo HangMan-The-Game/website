@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 import Navbar from "./components/Navbar.vue";
 import { ref } from "vue";
 
-</script >
+</script>
 
 <script>
 const previousLang = localStorage.lang || "English";
