@@ -27,10 +27,16 @@
 import { db } from '@/firebase.js';
 import { collection, addDoc, getDocs, doc, deleteDoc, setDoc } from 'firebase/firestore';
 import { ref, onMounted } from 'vue';
+import { watch } from 'vue';
 
 const newWord = ref('');
 const words = ref([]);
 const selectedCollection = ref('Facile');
+
+
+watch(selectedCollection, () => {
+    fetchWords(); // Aggiorna l'elenco delle parole
+});
 
 const nextWordId = ref(1);
 
@@ -66,26 +72,27 @@ async function fetchWords() {
         const wordsCollectionRef = collection(db, selectedCollection.value);
         const querySnapshot = await getDocs(wordsCollectionRef);
 
-        if (querySnapshot.size === 0) {
+        if (querySnapshot.empty) {
             console.log('Nessuna parola trovata nella collezione selezionata.');
             nextWordId.value = 1; // Imposta il valore di nextWordId a 1
-            return;
-        }
-
-        words.value = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-
-        console.log('Parole recuperate:', words.value);
-
-        if (words.value.length > 0) {
-            // Recupera l'ultimo ID di parola e incrementa il valore
-            const lastWord = words.value[words.value.length - 1];
-            nextWordId.value = parseInt(lastWord.id) + 1;
+            words.value = []; // Resetta l'elenco delle parole
         } else {
-            // Non ci sono parole, reimposta il valore di nextWordId a 1
-            nextWordId.value = 1;
+            words.value = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+
+            console.log('Parole recuperate:', words.value);
+
+            if (words.value.length > 0) {
+                // Recupera l'ultimo ID di parola e incrementa il valore
+                const lastWord = words.value[words.value.length - 1];
+                nextWordId.value = parseInt(lastWord.id) + 1;
+            } else {
+                // Non ci sono parole, reimposta il valore di nextWordId a 1
+                nextWordId.value = 1;
+            }
         }
     } catch (error) {
         console.error('Errore durante il recupero delle parole:', error);
