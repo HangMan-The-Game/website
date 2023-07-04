@@ -1,11 +1,17 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getAuth, onAuthStateChanged, signOut, updateProfile, updateEmail, updatePassword } from 'firebase/auth';
+import { collection, addDoc, getDocs, doc, deleteDoc, setDoc, getDoc } from 'firebase/firestore';
 import router from '../router';
+
+import { db } from '@/firebase.js';
+
+import { computed } from 'vue';
 
 const isLoggedIn = ref(false);
 const username = ref('');
 const email = ref('');
+const role = ref('');
 const newPassword = ref('');
 const editMsg = ref('');
 
@@ -14,16 +20,37 @@ const isEmailEditable = ref(false);
 
 const auth = getAuth();
 
-onMounted(() => {
-    onAuthStateChanged(auth, (user) => {
+onMounted(async () => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
             isLoggedIn.value = true;
             email.value = user.email;
             username.value = user.displayName;
+
+            const userDoc = doc(db, 'users', user.uid);
+            const userSnap = await getDoc(userDoc);
+
+            if (userSnap.exists()) {
+                const userData = userSnap.data();
+                role.value = userData.role;
+            } else {
+                await setDoc(userDoc, { role: 'user' });
+                role.value = 'user';
+            }
         } else {
             isLoggedIn.value = false;
         }
     });
+});
+
+const roleLabel = computed(() => {
+    if (role.value === 'user') {
+        return 'Utente';
+    } else if (role.value === 'admin') {
+        return 'Amministratore';
+    } else {
+        return '';
+    }
 });
 
 const handleSignOut = () => {
@@ -105,12 +132,12 @@ async function updateAccount() {
                 <h4 class="card-text text-center">
                     Email: <span class="text-primary">{{ email }}</span>
                     <br>Username: <span class="fw-bold text-danger">{{ username }}</span>
+                    <br>Ruolo: <span class="text-info">{{ roleLabel }}</span>
                 </h4>
                 <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
                 <p class="text-danger text-center fw-bold mt-2" v-if="editMsg">{{ editMsg }}</p>
             </div>
-            <RouterLink to="/words">Gestisci Parole</RouterLink>
+            <RouterLink to="/words" class="card-footer text-center mt-4">Gestisci Parole</RouterLink>
         </div>
     </div>
 </template>
-  

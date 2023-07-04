@@ -7,7 +7,8 @@ import router from '../router';
 const data = ref({
     email: '',
     password: '',
-    username: ''
+    username: '',
+    role: ''
 })
 
 const mode = ref('login')
@@ -42,23 +43,25 @@ async function login(email, password) {
     })
 }
 
-async function register(email, password, username) {
+async function register(email, password, username, role) {
     if (password.length < 6) {
         errMsg.value = 'La password deve essere di almeno 6 caratteri';
         return;
     }
     await createUserWithEmailAndPassword(auth, email, password).then(async (result) => {
         await updateProfileWithUsername(result.user, username);
-        router.push('/profile')
-        console.log(result)
+        await updateProfile(result.user, { role }); // Imposta il ruolo dell'utente
+        router.push('/profile');
+        console.log(result);
     }).catch((error) => {
-        console.log(error)
-    })
+        console.log(error);
+    });
 }
 
 async function updateProfileWithUsername(user, username) {
     await updateProfile(user, {
-        displayName: username
+        displayName: username,
+        role: data.value.role // Imposta il ruolo dell'utente
     });
 }
 
@@ -102,6 +105,13 @@ onAuthStateChanged(auth, currentUser => {
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label d-block mb-2 fw-bold text-center">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" v-model="data.password">
+            </div>
+            <div v-if="mode === 'register'" class="mb-3">
+                <label for="exampleInputRole" class="form-label d-block mb-2 fw-bold text-center">Ruolo</label>
+                <select class="form-control" id="exampleInputRole" v-model="data.role">
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary d-block mx-auto">{{ mode === 'login' ? 'Login' :
                 'Register' }}</button>
