@@ -137,7 +137,8 @@ async function updateAccount() {
                 <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
                 <p class="text-danger text-center fw-bold mt-2" v-if="editMsg">{{ editMsg }}</p>
             </div>
-            <RouterLink to="/words" class="card-footer text-center mt-4">Gestisci Parole</RouterLink>
+            <RouterLink v-if="role === 'admin'" to="/words" class="card-footer text-center mt-4">Gestisci Parole
+            </RouterLink>
         </div>
     </div>
 </template>
