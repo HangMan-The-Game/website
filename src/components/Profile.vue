@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAuth, onAuthStateChanged, signOut, updateProfile, updateEmail, updatePassword } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword } from 'firebase/auth';
 import { collection, addDoc, getDocs, doc, deleteDoc, setDoc, getDoc } from 'firebase/firestore';
 import router from '../router';
 
@@ -13,7 +13,7 @@ const username = ref('');
 const email = ref('');
 const role = ref('');
 const newPassword = ref('');
-const editMsg = ref('');
+const editMsg = ref();
 
 const isUsernameEditable = ref(false);
 
@@ -72,10 +72,6 @@ async function updateAccount() {
             });
         }
 
-        if (email.value !== user.email) {
-            await updateEmail(user, email.value);
-        }
-
         if (newPassword.value !== '') {
             await updatePassword(user, newPassword.value);
         }
@@ -89,7 +85,20 @@ async function updateAccount() {
 
 <template>
     <div class="container w-50 py-5">
-        <div class="card shadow">
+        <div class="card mt-4 shadow">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Benvenuto</h3>
+                <h4 class="card-text text-center">
+                    Email: <span class="text-primary">{{ email }}</span>
+                    <br>Username: <span class="fw-bold text-danger">{{ username }}</span>
+                    <br>Ruolo: <span class="text-info">{{ roleLabel }}</span>
+                </h4>
+                <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
+            </div>
+            <RouterLink v-if="role === 'admin'" to="/words" class="card-footer text-center mt-4">Gestisci Parole
+            </RouterLink>
+        </div>
+        <div class="card shadow mt-2">
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Impostazioni dell'account</h2>
                 <form @submit="updateAccount">
@@ -114,22 +123,9 @@ async function updateAccount() {
                         <input type="password" class="form-control" id="newPassword" v-model="newPassword">
                     </div>
                     <button type="submit" class="btn btn-primary">Salva modifiche</button>
+                    <p class="text-success text-center fw-bold mt-2" v-if="editMsg">{{ editMsg }}</p>
                 </form>
             </div>
-        </div>
-        <div class="card mt-4 shadow">
-            <div class="card-body">
-                <h3 class="card-title text-center mb-4">Benvenuto</h3>
-                <h4 class="card-text text-center">
-                    Email: <span class="text-primary">{{ email }}</span>
-                    <br>Username: <span class="fw-bold text-danger">{{ username }}</span>
-                    <br>Ruolo: <span class="text-info">{{ roleLabel }}</span>
-                </h4>
-                <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
-                <p class="text-danger text-center fw-bold mt-2" v-if="editMsg">{{ editMsg }}</p>
-            </div>
-            <RouterLink v-if="role === 'admin'" to="/words" class="card-footer text-center mt-4">Gestisci Parole
-            </RouterLink>
         </div>
     </div>
 </template>
