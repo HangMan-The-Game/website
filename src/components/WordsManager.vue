@@ -119,7 +119,7 @@ onMounted(fetchWords);
 </script>
 
 <template>
-    <div class="container">
+    <div class="container w-50">
         <h1 class="mt-4">Gestione Parole</h1>
         <form @submit.prevent="addWord" class="mb-4">
             <div class="input-group">
@@ -136,7 +136,7 @@ onMounted(fetchWords);
         <p v-if="words.length === 0">Nessuna parola trovata.</p>
         <p v-else>Numero di parole: {{ words.length }}</p>
 
-        <ul class="list-group">
+        <ul class="list-group mb-4">
             <li v-for="word in words" :key="word.id"
                 class="list-group-item d-flex justify-content-between align-items-center">
                 {{ word.word }} ({{ word.id }})
@@ -145,3 +145,4 @@ onMounted(fetchWords);
         </ul>
     </div>
 </template>
+  
