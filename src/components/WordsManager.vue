@@ -1,28 +1,3 @@
-<template>
-    <div class="container">
-        <h1 class="mt-4">Gestione Parole</h1>
-        <form @submit.prevent="addWord" class="mb-4">
-            <div class="input-group">
-                <input type="text" class="form-control" v-model="newWord" placeholder="Nuova parola" required>
-                <select class="form-control" v-model="selectedCollection">
-                    <option value="Facile">Facile</option>
-                    <option value="Medio">Medio</option>
-                    <option value="Difficile">Difficile</option>
-                </select>
-                <button type="submit" class="btn btn-primary">Aggiungi parola</button>
-            </div>
-        </form>
-
-        <ul class="list-group">
-            <li v-for="word in words" :key="word.id"
-                class="list-group-item d-flex justify-content-between align-items-center">
-                {{ word.word }} ({{ word.id }})
-                <button @click="removeWord(word.id)" class="btn btn-danger">Rimuovi</button>
-            </li>
-        </ul>
-    </div>
-</template>
-  
 <script setup>
 import { db } from '@/firebase.js';
 import { collection, addDoc, getDocs, doc, deleteDoc, setDoc } from 'firebase/firestore';
@@ -35,20 +10,20 @@ const selectedCollection = ref('Facile');
 
 
 watch(selectedCollection, () => {
-    fetchWords(); // Aggiorna l'elenco delle parole
+    fetchWords();
 });
 
-const nextWordId = ref(1);
+const nextWordId = ref("1");
 
 async function addWord() {
     try {
-        const collectionName = selectedCollection.value; // Nome della collezione
-        const documentId = nextWordId.value.toString();
+        const collectionName = selectedCollection.value;
+        const documentId = nextWordId.value;
 
         await addWordToDocument(newWord.value, documentId, collectionName);
         console.log('Parola aggiunta con successo!');
-        newWord.value = ''; // Reset del campo di input
-        fetchWords(); // Aggiorna l'elenco delle parole
+        newWord.value = '';
+        fetchWords();
 
         nextWordId.value++;
     } catch (error) {
@@ -58,10 +33,9 @@ async function addWord() {
 
 async function addWordToDocument(word, documentId, collectionName) {
     try {
-        const wordDocRef = doc(db, collectionName, documentId);
+        const wordDocRef = doc(db, collectionName, documentId.toString());
         await setDoc(wordDocRef, { word: word });
 
-        console.log('Parola aggiunta con successo al documento', documentId);
     } catch (error) {
         console.error('Errore durante l\'aggiunta della parola:', error);
     }
@@ -74,11 +48,11 @@ async function fetchWords() {
 
         if (querySnapshot.empty) {
             console.log('Nessuna parola trovata nella collezione selezionata.');
-            nextWordId.value = 1; // Imposta il valore di nextWordId a 1
-            words.value = []; // Resetta l'elenco delle parole
+            nextWordId.value = 1;
+            words.value = [];
         } else {
             words.value = querySnapshot.docs.map((doc) => ({
-                id: doc.id,
+                id: parseInt(doc.id),
                 ...doc.data()
             }));
 
@@ -86,11 +60,9 @@ async function fetchWords() {
             console.log('Parole recuperate:', words.value);
 
             if (words.value.length > 0) {
-                // Recupera l'ultimo ID di parola e incrementa il valore
-                const lastWord = words.value[words.value.length - 1];
-                nextWordId.value = parseInt(lastWord.id) + 1;
+                const lastWord = words.value.reduce((prev, current) => (prev.id > current.id) ? prev : current);
+                nextWordId.value = lastWord.id + 1;
             } else {
-                // Non ci sono parole, reimposta il valore di nextWordId a 1
                 nextWordId.value = 1;
             }
         }
@@ -114,3 +86,28 @@ async function removeWord(wordId) {
 
 onMounted(fetchWords); // Recupera le parole all'avvio del componente
 </script>
+
+<template>
+    <div class="container">
+        <h1 class="mt-4">Gestione Parole</h1>
+        <form @submit.prevent="addWord" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" v-model="newWord" placeholder="Nuova parola" required>
+                <select class="form-control" v-model="selectedCollection">
+                    <option value="Facile">Facile</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Difficile">Difficile</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Aggiungi parola</button>
+            </div>
+        </form>
+
+        <ul class="list-group">
+            <li v-for="word in words" :key="word.id"
+                class="list-group-item d-flex justify-content-between align-items-center">
+                {{ word.word }} ({{ word.id }})
+                <button @click="removeWord(word.id.toString())" class="btn btn-danger">Rimuovi</button>
+            </li>
+        </ul>
+    </div>
+</template>
