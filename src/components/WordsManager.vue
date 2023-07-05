@@ -51,10 +51,12 @@ async function fetchWords() {
             nextWordId.value = 1;
             words.value = [];
         } else {
-            words.value = querySnapshot.docs.map((doc) => ({
-                id: parseInt(doc.id),
-                ...doc.data()
-            }));
+            words.value = querySnapshot.docs
+                .map((doc) => ({
+                    id: parseInt(doc.id),
+                    ...doc.data()
+                }))
+                .sort((a, b) => a.id - b.id);
 
 
             console.log('Parole recuperate:', words.value);
