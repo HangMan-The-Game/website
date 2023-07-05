@@ -80,13 +80,13 @@ async function removeWord(wordId) {
         const wordDocRef = doc(db, collectionName, wordId);
         await deleteDoc(wordDocRef);
         console.log('Parola rimossa con successo!');
-        fetchWords(); // Aggiorna l'elenco delle parole
+        fetchWords();
     } catch (error) {
         console.error('Errore durante la rimozione della parola:', error);
     }
 }
 
-onMounted(fetchWords); // Recupera le parole all'avvio del componente
+onMounted(fetchWords);
 </script>
 
 <template>
