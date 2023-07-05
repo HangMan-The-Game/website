@@ -1,6 +1,6 @@
 <script setup>
 import { db } from '@/firebase.js';
-import { collection, addDoc, getDocs, doc, deleteDoc, setDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, deleteDoc, setDoc, writeBatch } from 'firebase/firestore';
 import { ref, onMounted } from 'vue';
 import { watch } from 'vue';
 
@@ -40,6 +40,34 @@ async function addWordToDocument(word, documentId, collectionName) {
         console.error('Errore durante l\'aggiunta della parola:', error);
     }
 }
+
+/* const wordsToImport = [
+    "ACQUA", "AUTO", "ASTUCCIO", "ASPIRAPOLVERE", "APE", "BICICLETTA", "BORSA", "BOTTIGLIA", "BATTERIA", "BIGLIETTO",
+    "PORTAFOGLIO", "CUFFIE", "CANE", "CAMICIA", "CHIAVE", "CANDELA", "DETERSIVO", "DIARIO", "DOLCI", "ERRORE",
+    "FRIGORIFERO", "FELPA", "FIORE", "FORNO", "FOTO", "GATTO", "GIORNALE", "GOMMA", "GELATO", "GIOIELLO", "HOTDOG",
+    "HOTEL", "IPPOPOTAMO", "IMBUTO", "JEANS", "KETCHUP", "MAIONESE", "LIBRO", "LETTO", "LATTINA", "FOTOCAMERA",
+    "MAGLIETTA", "CANOTTIERA", "BARCA", "MATITA", "MOUSE", "MELA", "MACCHINA", "NASTRO", "NUVOLA", "NAVE", "OROLOGIO",
+    "OMBRELLO", "OLIO", "MOTO", "OCCHIALI", "PALLA", "ORECCHIO", "BOCCA", "NASO", "OCCHI", "DENTI", "BRACCIO",
+    "POLSO", "MANO", "CAPELLI"
+]; */
+
+/* async function importWords(words, collectionName) {
+    const batch = writeBatch(db);
+
+    for (let i = 0; i < words.length; i++) {
+        const word = words[i];
+        const wordDocRef = doc(collection(db, collectionName), i.toString());
+        const wordData = {
+            id: i + 1,
+            word: word
+        };
+
+        batch.set(wordDocRef, wordData);
+    }
+
+    await batch.commit();
+    console.log('Importazione completata con successo!');
+} */
 
 async function fetchWords() {
     try {
@@ -86,6 +114,7 @@ async function removeWord(wordId) {
     }
 }
 
+// onMounted(fetchWords, importWords(wordsToImport, "Facile"));
 onMounted(fetchWords);
 </script>
 
