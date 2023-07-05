@@ -104,6 +104,9 @@ onMounted(fetchWords);
             </div>
         </form>
 
+        <p v-if="words.length === 0">Nessuna parola trovata.</p>
+        <p v-else>Numero di parole: {{ words.length }}</p>
+
         <ul class="list-group">
             <li v-for="word in words" :key="word.id"
                 class="list-group-item d-flex justify-content-between align-items-center">
