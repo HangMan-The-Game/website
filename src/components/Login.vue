@@ -50,7 +50,7 @@ async function register(email, password, username, role) {
     }
     await createUserWithEmailAndPassword(auth, email, password).then(async (result) => {
         await updateProfileWithUsername(result.user, username);
-        await updateProfile(result.user, { role }); // Imposta il ruolo dell'utente
+        await updateProfile(result.user, { role });
         router.push('/profile');
         console.log(result);
     }).catch((error) => {
@@ -61,7 +61,7 @@ async function register(email, password, username, role) {
 async function updateProfileWithUsername(user, username) {
     await updateProfile(user, {
         displayName: username,
-        role: data.value.role // Imposta il ruolo dell'utente
+        role: data.value.role
     });
 }
 
@@ -105,13 +105,6 @@ onAuthStateChanged(auth, currentUser => {
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label d-block mb-2 fw-bold text-center">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" v-model="data.password">
-            </div>
-            <div v-if="mode === 'register'" class="mb-3">
-                <label for="exampleInputRole" class="form-label d-block mb-2 fw-bold text-center">Ruolo</label>
-                <select class="form-control" id="exampleInputRole" v-model="data.role">
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                </select>
             </div>
             <button type="submit" class="btn btn-primary d-block mx-auto">{{ mode === 'login' ? 'Login' :
                 'Register' }}</button>
