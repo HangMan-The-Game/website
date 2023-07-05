@@ -16,7 +16,6 @@ const newPassword = ref('');
 const editMsg = ref('');
 
 const isUsernameEditable = ref(false);
-const isEmailEditable = ref(false);
 
 const auth = getAuth();
 
@@ -63,10 +62,6 @@ const toggleUsernameEditable = () => {
     isUsernameEditable.value = !isUsernameEditable.value;
 };
 
-const toggleEmailEditable = () => {
-    isEmailEditable.value = !isEmailEditable.value;
-};
-
 async function updateAccount() {
     const user = auth.currentUser;
 
@@ -111,11 +106,7 @@ async function updateAccount() {
                     <div class="mb-3">
                         <label for="email" class="form-label">Email:</label>
                         <div class="input-group">
-                            <input type="email" class="form-control" id="email" v-model="email" required
-                                :disabled="!isEmailEditable">
-                            <button class="btn btn-outline-primary" type="button" @click="toggleEmailEditable">
-                                <i class="bi bi-pencil-fill"></i>
-                            </button>
+                            <input type="email" class="form-control" id="email" v-model="email" disabled>
                         </div>
                     </div>
                     <div class="mb-3">
