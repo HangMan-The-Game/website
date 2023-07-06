@@ -157,14 +157,6 @@ async function removeAllWords() {
     }
 }
 
-function confirmDeleteAllWords() {
-    this.removeAllWords();
-
-    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-    modal.hide();
-}
-
-
 // onMounted(fetchWords, importWords(wordsToImport, "Facile"));
 onMounted(fetchWords);
 </script>
