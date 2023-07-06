@@ -31,7 +31,8 @@ async function addWord() {
             newWordId++;
         }
 
-        await addWordToDocument(newWord.value, newWordId.toString(), collectionName);
+        const uppercaseWord = newWord.value.toUpperCase();
+        await addWordToDocument(uppercaseWord, newWordId.toString(), collectionName);
         console.log('Parola aggiunta con successo!');
         newWord.value = '';
         fetchWords();
@@ -39,7 +40,7 @@ async function addWord() {
         nextWordId.value = newWordId + 1;
 
         // Ordina le parole in base all'ID
-        existingWords.push({ id: newWordId, word: newWord.value });
+        existingWords.push({ id: newWordId, word: uppercaseWord });
         existingWords.sort((a, b) => a.id - b.id);
         words.value = existingWords;
     } catch (error) {
