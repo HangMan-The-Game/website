@@ -31,21 +31,22 @@ async function addWord() {
             newWordId++;
         }
 
-        const lastWord = existingWords.reduce((prev, current) => (prev.id > current.id) ? prev : current);
-        if (newWordId > lastWord.id + 1) {
-            newWordId = lastWord.id + 1;
-        }
-
         await addWordToDocument(newWord.value, newWordId.toString(), collectionName);
         console.log('Parola aggiunta con successo!');
         newWord.value = '';
         fetchWords();
 
         nextWordId.value = newWordId + 1;
+
+        // Ordina le parole in base all'ID
+        existingWords.push({ id: newWordId, word: newWord.value });
+        existingWords.sort((a, b) => a.id - b.id);
+        words.value = existingWords;
     } catch (error) {
         console.error('Errore durante l\'aggiunta della parola:', error);
     }
 }
+
 
 async function addWordToDocument(word, documentId, collectionName) {
     try {
