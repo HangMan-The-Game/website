@@ -59,7 +59,7 @@ async function addWordToDocument(word, documentId, collectionName) {
     }
 }
 
-/* const wordsToImport = [
+const wordsToImport = [
     "ACQUA", "AUTO", "ASTUCCIO", "ASPIRAPOLVERE", "APE", "BICICLETTA", "BORSA", "BOTTIGLIA", "BATTERIA", "BIGLIETTO",
     "PORTAFOGLIO", "CUFFIE", "CANE", "CAMICIA", "CHIAVE", "CANDELA", "DETERSIVO", "DIARIO", "DOLCI", "ERRORE",
     "FRIGORIFERO", "FELPA", "FIORE", "FORNO", "FOTO", "GATTO", "GIORNALE", "GOMMA", "GELATO", "GIOIELLO", "HOTDOG",
@@ -67,25 +67,16 @@ async function addWordToDocument(word, documentId, collectionName) {
     "MAGLIETTA", "CANOTTIERA", "BARCA", "MATITA", "MOUSE", "MELA", "MACCHINA", "NASTRO", "NUVOLA", "NAVE", "OROLOGIO",
     "OMBRELLO", "OLIO", "MOTO", "OCCHIALI", "PALLA", "ORECCHIO", "BOCCA", "NASO", "OCCHI", "DENTI", "BRACCIO",
     "POLSO", "MANO", "CAPELLI"
-]; */
+];
 
-/* async function importWords(words, collectionName) {
-    const batch = writeBatch(db);
+async function importWords(words, collectionName) {
 
+    const uppercaseWord = newWord.value.toUpperCase();
     for (let i = 0; i < words.length; i++) {
-        const word = words[i];
-        const wordDocRef = doc(collection(db, collectionName), i.toString());
-        const wordData = {
-            id: i + 1,
-            word: word
-        };
-
-        batch.set(wordDocRef, wordData);
+        await addWordToDocument(words[i], i, collectionName);
     }
-
-    await batch.commit();
     console.log('Importazione completata con successo!');
-} */
+}
 
 async function fetchWords() {
     try {
