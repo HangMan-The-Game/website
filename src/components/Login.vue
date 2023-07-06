@@ -90,29 +90,53 @@ onAuthStateChanged(auth, currentUser => {
 </script>
 
 <template>
-    <div class="container w-25 my-5">
-        <div v-if="user">{{ user?.email }} <button @click="signout">Sign Out</button></div>
-        <form @submit.prevent="submit">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label d-block mb-2 fw-bold text-center">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    v-model="data.email">
+    <div class="container w-50 my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">{{ mode === 'login' ? 'Login' : 'Register' }}</h3>
+                        <form @submit.prevent="submit">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" v-model="data.email">
+                            </div>
+                            <div v-if="mode === 'register'" class="mb-3">
+                                <label for="exampleInputUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="exampleInputUsername" v-model="data.username"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                    v-model="data.password">
+                            </div>
+                            <button type="submit" class="btn btn-danger w-100">{{ mode === 'login' ? 'Login' : 'Register'
+                            }}</button>
+                            <p class="text-warning text-center fw-bold my-3" v-if="errMsg">{{ errMsg }}</p>
+                            <p class="text-center mb-0">
+                                {{ mode === 'login' ? 'Not registered yet?' : 'Already registered?' }}
+                                <a class="text-decoration-none fw-bold"
+                                    @click="toggleMode(mode === 'login' ? 'register' : 'login')">
+                                    {{ mode === 'login' ? 'Register here' : 'Login here' }}
+                                </a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div v-if="mode === 'register'" class="mb-3">
-                <label for="exampleInputUsername" class="form-label d-block mb-2 fw-bold text-center">Username</label>
-                <input type="text" class="form-control" id="exampleInputUsername" v-model="data.username" required>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label d-block mb-2 fw-bold text-center">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" v-model="data.password">
-            </div>
-            <button type="submit" class="btn btn-primary d-block mx-auto">{{ mode === 'login' ? 'Login' :
-                'Register' }}</button>
-            <p class="text-danger text-center fw-bold fw-2 my-2" v-if="errMsg">{{ errMsg }}</p>
-            <a class="text-center text-decoration-none d-block mx-auto"
-                @click="toggleMode(mode === 'login' ? 'register' : 'login')">
-                {{ mode === 'login' ? 'Not registered yet?' : 'Already registered ?' }}
-            </a>
-        </form>
+        </div>
     </div>
 </template>
+
+
+<style scoped> a {
+     color: #FF4D4D;
+     cursor: pointer;
+ }
+
+ a:hover {
+     color: #b33636;
+ }
+</style>  
