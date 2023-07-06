@@ -123,12 +123,35 @@ async function removeWord(wordId) {
         const collectionName = selectedCollection.value;
         const wordDocRef = doc(db, collectionName, wordId);
         await deleteDoc(wordDocRef);
+
         console.log('Parola rimossa con successo!');
         fetchWords();
     } catch (error) {
         console.error('Errore durante la rimozione della parola:', error);
     }
 }
+
+async function removeAllWords() {
+    try {
+        const collectionName = selectedCollection.value;
+        const wordsCollectionRef = collection(db, collectionName);
+
+        const querySnapshot = await getDocs(wordsCollectionRef);
+
+        const batch = writeBatch(db);
+        querySnapshot.forEach((docs) => {
+            const wordDocRef = doc(db, collectionName, docs.id);
+            batch.delete(wordDocRef);
+        });
+
+        await batch.commit();
+        console.log('Tutte le parole sono state rimosse con successo!');
+        fetchWords();
+    } catch (error) {
+        console.error('Errore durante la rimozione delle parole:', error);
+    }
+}
+
 
 // onMounted(fetchWords, importWords(wordsToImport, "Facile"));
 onMounted(fetchWords);
@@ -151,6 +174,7 @@ onMounted(fetchWords);
 
         <p v-if="words.length === 0">Nessuna parola trovata.</p>
         <p v-else>Numero di parole: {{ words.length }}</p>
+        <button @click="removeAllWords" class="btn btn-danger my-3">Rimuovi Tutto</button>
 
         <ul class="list-group mb-4">
             <li v-for="word in words" :key="word.id"
