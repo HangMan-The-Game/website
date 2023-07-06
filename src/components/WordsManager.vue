@@ -131,6 +131,8 @@ async function removeWord(wordId) {
     }
 }
 
+const showModal = ref(false);
+
 async function removeAllWords() {
     try {
         const collectionName = selectedCollection.value;
@@ -146,10 +148,18 @@ async function removeAllWords() {
 
         await batch.commit();
         console.log('Tutte le parole sono state rimosse con successo!');
+        showModal.value = false;
         fetchWords();
     } catch (error) {
         console.error('Errore durante la rimozione delle parole:', error);
     }
+}
+
+function confirmDeleteAllWords() {
+    this.removeAllWords();
+
+    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    modal.hide();
 }
 
 
@@ -174,7 +184,28 @@ onMounted(fetchWords);
 
         <p v-if="words.length === 0">Nessuna parola trovata.</p>
         <p v-else>Numero di parole: {{ words.length }}</p>
-        <button @click="removeAllWords" class="btn btn-danger my-3">Rimuovi Tutto</button>
+        <button v-if="words.length > 0" @click="showModal = true" class="btn btn-danger my-3" data-bs-toggle="modal"
+            data-bs-target="#confirmDeleteModal">Rimuovi
+            Tutto</button>
+
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+            aria-hidden="true" :class="{ 'show': showModal }">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel">Conferma Rimozione Parole</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Sei sicuro di voler rimuovere tutte le parole?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                        <button type="button" class="btn btn-danger" @click="removeAllWords">Si sono sicuro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <ul class="list-group mb-4">
             <li v-for="word in words" :key="word.id"
