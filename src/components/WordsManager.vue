@@ -18,14 +18,30 @@ const nextWordId = ref("1");
 async function addWord() {
     try {
         const collectionName = selectedCollection.value;
-        const documentId = nextWordId.value;
+        const wordsCollectionRef = collection(db, collectionName);
 
-        await addWordToDocument(newWord.value, documentId, collectionName);
+        const querySnapshot = await getDocs(wordsCollectionRef);
+        const existingWords = querySnapshot.docs.map((doc) => ({
+            id: parseInt(doc.id),
+            word: doc.data().word
+        }));
+
+        let newWordId = 1;
+        while (existingWords.some((word) => word.id === newWordId)) {
+            newWordId++;
+        }
+
+        const lastWord = existingWords.reduce((prev, current) => (prev.id > current.id) ? prev : current);
+        if (newWordId > lastWord.id + 1) {
+            newWordId = lastWord.id + 1;
+        }
+
+        await addWordToDocument(newWord.value, newWordId.toString(), collectionName);
         console.log('Parola aggiunta con successo!');
         newWord.value = '';
         fetchWords();
 
-        nextWordId.value++;
+        nextWordId.value = newWordId + 1;
     } catch (error) {
         console.error('Errore durante l\'aggiunta della parola:', error);
     }
