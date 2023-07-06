@@ -203,7 +203,8 @@ onMounted(fetchWords);
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                        <button type="button" class="btn btn-danger" @click="removeAllWords">Si sono sicuro</button>
+                        <button type="button" class="btn btn-primary" @click="removeAllWords" data-bs-dismiss="modal">Si,
+                            sono sicuro</button>
                     </div>
                 </div>
             </div>
