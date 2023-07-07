@@ -72,7 +72,7 @@ const wordsToImport = [
 async function importWords(words, collectionName) {
 
     const uppercaseWord = newWord.value.toUpperCase();
-    for (let i = 0; i < words.length; i++) {
+    for (let i = 1; i <= words.length; i++) {
         await addWordToDocument(words[i], i, collectionName);
     }
     console.log('Importazione completata con successo!');
