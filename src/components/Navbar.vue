@@ -140,6 +140,10 @@ export default {
           <a href="https://twitter.com/HangManGameIT" class="btn btn-link fs-3 px-2 text-decoration-none"><i
               class="bi bi-twitter"></i>
           </a>
+          |
+          <RouterLink to="/profile" class="btn btn-link fs-3 px-2 text-decoration-none"><i
+              class="bi bi-person-circle"></i>
+          </RouterLink>
         </div>
       </div>
     </div>
