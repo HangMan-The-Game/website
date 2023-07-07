@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword, /* EmailAuthProvider, reauthenticateWithCredential */ } from 'firebase/auth';
 import { collection, addDoc, getDocs, doc, deleteDoc, setDoc, getDoc } from 'firebase/firestore';
 import router from '../router';
 
@@ -9,10 +9,15 @@ import { db } from '@/firebase.js';
 import { computed } from 'vue';
 
 const isLoggedIn = ref(false);
+
 const username = ref('');
 const email = ref('');
 const role = ref('');
+
 const newPassword = ref('');
+/* const currentPassword = ref('');
+const confirmNewPassword = ref(''); */
+
 const editMsg = ref();
 
 const isUsernameEditable = ref(false);
@@ -63,8 +68,6 @@ const toggleUsernameEditable = () => {
 };
 
 async function updateAccount() {
-    const user = auth.currentUser;
-
     try {
         if (username.value !== user.displayName) {
             await updateProfile(user, {
@@ -98,7 +101,7 @@ async function updateAccount() {
             <RouterLink v-if="role === 'admin'" to="/words" class="card-footer text-center mt-4">Gestisci Parole
             </RouterLink>
         </div>
-        <div class="card shadow mt-2">
+        <!--         <div class="card shadow mt-2">
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Impostazioni dell'account</h2>
                 <form @submit="updateAccount">
@@ -123,9 +126,9 @@ async function updateAccount() {
                         <input type="password" class="form-control" id="newPassword" v-model="newPassword">
                     </div>
                     <button type="submit" class="btn btn-primary">Salva modifiche</button>
-                    <p class="text-success text-center fw-bold mt-2" v-if="editMsg">{{ editMsg }}</p>
+                    <p class="text-primary text-center fw-bold mt-2" v-if="editMsg">{{ editMsg }}</p>
                 </form>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
