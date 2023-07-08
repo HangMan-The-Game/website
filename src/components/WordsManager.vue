@@ -153,7 +153,7 @@ onMounted(fetchWords);
 </script>
 
 <template>
-    <div class="container w-50">
+    <div class="container w-75">
         <h1 class="mt-4">Gestione Parole</h1>
         <form @submit.prevent="addWord" class="mb-4">
             <div class="input-group">
