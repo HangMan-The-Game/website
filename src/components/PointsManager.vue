@@ -62,8 +62,8 @@ export default {
 </script>
 
 <template>
-    <div class="container">
-        <h1>Gestisci Punti</h1>
+    <div class="container w-75">
+        <h1 class="mt-4">Gestisci Punti</h1>
         <table class="table">
             <thead>
                 <tr>
