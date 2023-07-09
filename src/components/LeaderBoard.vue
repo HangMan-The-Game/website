@@ -72,55 +72,66 @@
 <style scoped></style> -->
 
 <script setup>
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 import { ref, onMounted } from 'vue';
 import { db } from '@/firebase.js';
-import { collection, getDocs } from 'firebase/firestore';
 
 const users = ref([]);
 
-onMounted(fetchUsers);
-
-async function fetchUsers() {
-    try {
-        const usersCollectionRef = collection(db, 'users');
-        const querySnapshot = await getDocs(usersCollectionRef);
-
-        const usersData = querySnapshot.docs.map((doc) => {
-            const points = parseInt(doc.data().punti);
-            return {
-                uid: doc.id,
-                points: doc.data().punti,
-                role: doc.data().role,
-            };
+onSnapshot(collection(db, 'users'), (snapshot) => {
+    const updatedUsers = [];
+    snapshot.forEach((doc) => {
+        updatedUsers.push({
+            id: doc.id,
+            ...doc.data()
         });
-
-        users.value = usersData.sort((a, b) => b.points - a.points);
-    } catch (error) {
-        console.error('Errore durante il recupero degli utenti:', error);
-    }
-}
-
-
+    });
+    users.value = updatedUsers;
+});
 </script>
 
 <template>
     <div class="container">
-        <h1>Classifica Utenti</h1>
-        <table class="table">
+        <table class="rounded w-25 shadow mx-auto table table-hover">
             <thead>
                 <tr>
-                    <th>Posizione</th>
-                    <th>UID</th>
-                    <th>Punti</th>
-                    <th>Ruolo</th>
+                    <th class="fw-bold h3 t-lead" scope="col">#</th>
+                    <th class="fw-bold h3 t-lead" scope="col">Nickname</th>
+                    <th class="fw-bold h3 t-lead" scope="col">{{ $t("leaderboard.points") }}</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="(user, index) in users" :key="user.uid">
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ user.uid }}</td>
-                    <td>{{ user.points }}</td>
-                    <td>{{ user.role }}</td>
+            <tbody class="table-group-divider">
+                <tr v-for="(user, index) in users" :key="user.id" :class="{ 'table-danger': index === 0 }">
+                    <th scope="row">
+                        <span v-if="index === 0">
+                            🏆
+                        </span>
+                        <span v-else>
+                            {{ index + 1 }}
+                        </span>
+                    </th>
+                    <td class="t-lead">
+                        <span v-if="user.points >= 100">
+                            😎 {{ user.name }}
+                        </span>
+                        <span v-else-if="user.points >= 50">
+                            🌟 {{ user.name }}
+                        </span>
+                        <span v-else>
+                            {{ user.name }}
+                        </span>
+                    </td>
+                    <td class="t-lead">
+                        <span v-if="user.points >= 100">
+                            💯 {{ user.points }}
+                        </span>
+                        <span v-else-if="user.points >= 50">
+                            ✨ {{ user.points }}
+                        </span>
+                        <span v-else>
+                            {{ user.points }}
+                        </span>
+                    </td>
                 </tr>
             </tbody>
         </table>
