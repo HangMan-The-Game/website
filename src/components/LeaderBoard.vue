@@ -113,7 +113,7 @@ const sortedUsers = computed(() => {
         </h1>
         <h4 class="text-center my-3">{{ $t("leaderboard.description") }}</h4>
         <h5 class="text-center my-3 fst-italic">{{ $t("leaderboard.reachTheTop") }}</h5>
-        <Loader v-if="isLoading" class="mx-auto" />
+        <Loader v-if="isLoading" class="mx-auto my-5" />
         <!--         <div v-if="isLoading" class="text-center my-3">
             <i class="bi bi-arrow-repeat animate-spin text-primary"></i> Loading...
         </div> -->
