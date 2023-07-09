@@ -1,4 +1,4 @@
-<script setup></script>
+<!-- <script setup></script>
 
 <template>
     <h1 class="text-center my-3 fw-bold">{{ $t("leaderboard.title") }} <i class="bi bi-trophy-fill text-danger"></i></h1>
@@ -69,4 +69,60 @@
     </div>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import { db } from '@/firebase.js';
+import { collection, getDocs } from 'firebase/firestore';
+
+const users = ref([]);
+
+onMounted(fetchUsers);
+
+async function fetchUsers() {
+    try {
+        const usersCollectionRef = collection(db, 'users');
+        const querySnapshot = await getDocs(usersCollectionRef);
+
+        const usersData = querySnapshot.docs.map((doc) => {
+            const points = parseInt(doc.data().punti);
+            return {
+                uid: doc.id,
+                points: doc.data().punti,
+                role: doc.data().role,
+            };
+        });
+
+        users.value = usersData.sort((a, b) => b.points - a.points);
+    } catch (error) {
+        console.error('Errore durante il recupero degli utenti:', error);
+    }
+}
+
+
+</script>
+
+<template>
+    <div class="container">
+        <h1>Classifica Utenti</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Posizione</th>
+                    <th>UID</th>
+                    <th>Punti</th>
+                    <th>Ruolo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(user, index) in users" :key="user.uid">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ user.uid }}</td>
+                    <td>{{ user.points }}</td>
+                    <td>{{ user.role }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
