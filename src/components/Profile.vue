@@ -38,7 +38,7 @@ onMounted(async () => {
                 const userData = userSnap.data();
                 role.value = userData.role;
             } else {
-                await setDoc(userDoc, { role: 'user' });
+                await setDoc(userDoc, { role: 'user', nickname: username.value });
                 role.value = 'user';
             }
         } else {
@@ -46,6 +46,7 @@ onMounted(async () => {
         }
     });
 });
+
 
 const roleLabel = computed(() => {
     if (role.value === 'user') {
