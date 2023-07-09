@@ -3,9 +3,7 @@ import { onMounted, ref } from 'vue';
 import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword, /* EmailAuthProvider, reauthenticateWithCredential */ } from 'firebase/auth';
 import { collection, addDoc, getDocs, doc, deleteDoc, setDoc, getDoc } from 'firebase/firestore';
 import router from '../router';
-
 import { db } from '@/firebase.js';
-
 import { computed } from 'vue';
 
 const isLoggedIn = ref(false);
@@ -13,6 +11,7 @@ const isLoggedIn = ref(false);
 const username = ref('');
 const email = ref('');
 const role = ref('');
+const punti = ref('');
 
 const newPassword = ref('');
 /* const currentPassword = ref('');
@@ -37,8 +36,10 @@ onMounted(async () => {
             if (userSnap.exists()) {
                 const userData = userSnap.data();
                 role.value = userData.role;
+                punti.value = userData.points;
             } else {
-                await setDoc(userDoc, { role: 'user', nickname: username.value });
+                await setDoc(userDoc, { role: 'user', name: username.value, points: 0 });
+                punti.value = 0;
                 role.value = 'user';
             }
         } else {
@@ -96,6 +97,7 @@ async function updateAccount() {
                     Email: <span class="text-primary">{{ email }}</span>
                     <br>Username: <span class="fw-bold text-danger">{{ username }}</span>
                     <br>Ruolo: <span class="text-info">{{ roleLabel }}</span>
+                    <br>Punti: <span class="text-success">{{ punti }}</span>
                 </h4>
                 <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
             </div>
