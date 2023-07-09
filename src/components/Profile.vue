@@ -35,6 +35,7 @@ onMounted(async () => {
 
             if (userSnap.exists()) {
                 const userData = userSnap.data();
+                await setDoc(userDoc, { role: userData.role, name: username.value, points: userData.points });
                 role.value = userData.role;
                 punti.value = userData.points;
             } else {
@@ -102,6 +103,8 @@ async function updateAccount() {
                 <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
             </div>
             <RouterLink v-if="role === 'admin'" to="/words" class="card-footer text-center mt-4">Gestisci Parole
+            </RouterLink>
+            <RouterLink v-if="role === 'admin'" to="/points" class="card-footer text-center">Gestisci Punti
             </RouterLink>
         </div>
         <!--         <div class="card shadow mt-2">
