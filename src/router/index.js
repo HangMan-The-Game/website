@@ -57,6 +57,15 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/game",
+      name: "game",
+      component: () => import("../views/GameView.vue"),
+      /* fare il controllo se è loggato, se non lo è allora lo porta nella schermata login e succesivamente nel game e non nel profile */
+      meta: {
+        requiresAuth: true
+      }
     }
   ],
 });
