@@ -20,6 +20,7 @@
                 <span v-for="letter in wrongLetters" :key="letter" class="wrong-letter">{{ letter }}</span>
             </div>
         </div>
+
     </div>
 </template>
   
@@ -33,7 +34,13 @@ const remainingAttempts = ref(6);
 const correctLetters = ref([]);
 const wrongLetters = ref([]);
 
+const gameOver = ref(false);
+
 const handleInput = (key) => {
+    if (gameOver.value) {
+        return;
+    }
+
     const uppercaseKey = key.toUpperCase();
     if (!guessedLetters.value.includes(uppercaseKey)) {
         guessedLetters.value.push(uppercaseKey);
@@ -47,6 +54,21 @@ const handleInput = (key) => {
             remainingAttempts.value = 0;
         }
     }
+
+    if (isWordGuessed()) {
+        gameOver.value = true;
+    } else if (isOutOfAttempts()) {
+        gameOver.value = true;
+    }
+};
+
+const resetGame = () => {
+    word.value = "HELLO";
+    guessedLetters.value = [];
+    remainingAttempts.value = 6;
+    correctLetters.value = [];
+    wrongLetters.value = [];
+    gameOver.value = false;
 };
 
 const isLetterGuessed = (letter) => {
