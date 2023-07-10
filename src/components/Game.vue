@@ -43,6 +43,9 @@ const handleInput = (key) => {
         } else {
             correctLetters.value.push(uppercaseKey);
         }
+        if (remainingAttempts.value < 0) {
+            remainingAttempts.value = 0;
+        }
     }
 };
 
