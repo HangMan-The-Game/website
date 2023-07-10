@@ -1,31 +1,3 @@
-<template>
-    <div class="container w-50 mx-auto my-5">
-        <div class="word-container">
-            <span v-for="(letter, index) in word" :key="index">
-                <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
-                <span v-else>-</span>
-            </span>
-        </div>
-        <div class="keyboard-container">
-            <SimpleKeyboard @onKeyPress="handleInput" :guessedLetters="guessedLetters" />
-        </div>
-        <div v-if="isWordGuessed()" class="result text-success">WIN!</div>
-        <div v-if="isOutOfAttempts()" class="result text-danger">LOSS</div>
-        <div class="attempt-count">Attempts left: {{ remainingAttempts }}</div>
-        <div class="letters-container">
-            <div class="correct-letters">
-                <span v-for="letter in guessedLetters.correct" :key="letter" class="correct-letter">{{ letter }}</span>
-            </div>
-            <div class="wrong-letters">
-                <span v-for="letter in guessedLetters.wrong" :key="letter" class="wrong-letter">{{ letter }}</span>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center mt-3">
-            <button v-if="gameOver" @click="resetGame" class="btn btn-primary">Reset Game</button>
-        </div>
-    </div>
-</template>
-
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import SimpleKeyboard from '../components/SimpleKeyboard.vue';
@@ -102,6 +74,34 @@ watch(word, () => {
     remainingAttempts.value = 6;
 });
 </script>
+
+<template>
+    <div class="container w-50 mx-auto my-5">
+        <div class="word-container">
+            <span v-for="(letter, index) in word" :key="index">
+                <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
+                <span v-else>_</span>
+            </span>
+        </div>
+        <div class="keyboard-container">
+            <SimpleKeyboard @onKeyPress="handleInput" :guessedLetters="guessedLetters" />
+        </div>
+        <div v-if="isWordGuessed()" class="result text-success">WIN!</div>
+        <div v-if="isOutOfAttempts()" class="result text-danger">LOSS</div>
+        <div class="attempt-count">Attempts left: {{ remainingAttempts }}</div>
+        <div class="letters-container">
+            <div class="correct-letters">
+                <span v-for="letter in guessedLetters.correct" :key="letter" class="correct-letter">{{ letter }}</span>
+            </div>
+            <div class="wrong-letters">
+                <span v-for="letter in guessedLetters.wrong" :key="letter" class="wrong-letter">{{ letter }}</span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <button v-if="gameOver" @click="resetGame" class="btn btn-primary">Reset Game</button>
+        </div>
+    </div>
+</template>
 
 <style>
 .word-container {
