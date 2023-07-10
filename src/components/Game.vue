@@ -11,12 +11,14 @@ const guessedLetters = ref({
 });
 const remainingAttempts = ref(6);
 const gameOver = ref(false);
+const wordToGuess = ref("");
 
 onMounted(async () => {
     const querySnapshot = await getDocs(collection(db, 'Facile'));
     const words = querySnapshot.docs.map(doc => doc.data().word);
     const randomIndex = Math.floor(Math.random() * words.length);
-    word.value = words[randomIndex];
+    wordToGuess.value = words[randomIndex];
+    word.value = wordToGuess.value;
 });
 
 const handleInput = (key) => {
@@ -45,7 +47,6 @@ const handleInput = (key) => {
 };
 
 const resetGame = () => {
-    word.value = "HELLO";
     guessedLetters.value.correct = [];
     guessedLetters.value.wrong = [];
     remainingAttempts.value = 6;
@@ -97,7 +98,10 @@ watch(word, () => {
             <SimpleKeyboard @onKeyPress="handleInput" :guessedLetters="guessedLetters" />
         </div>
         <div v-if="isWordGuessed()" class="result text-success">WIN!</div>
-        <div v-if="isOutOfAttempts()" class="result text-danger">LOSS</div>
+        <div v-if="isOutOfAttempts()" class="result text-danger">
+            LOSS
+            <div class="word-to-guess">The word was: {{ wordToGuess }}</div>
+        </div>
         <div class="attempt-count">Attempts left: {{ remainingAttempts }}</div>
         <div class="letters-container">
             <div class="correct-letters">
@@ -165,5 +169,11 @@ watch(word, () => {
     display: inline-block;
     margin-right: 0.5rem;
     color: red;
+}
+
+.word-to-guess {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 1rem;
 }
 </style>
