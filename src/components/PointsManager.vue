@@ -87,7 +87,7 @@ export default {
 </template>
 
 <style scoped>
-table {
+/* table {
     border: 1.5px solid #FF4D4D;
     border-radius: 10px;
     border-collapse: separate !important;
@@ -95,5 +95,5 @@ table {
 
 td {
     border: none;
-}
+} */
 </style>
