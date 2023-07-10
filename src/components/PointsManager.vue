@@ -79,8 +79,8 @@ export default {
                     <td>{{ user.name }}</td>
                     <td>{{ user.points }}</td>
                     <td>
-                        <button class="btn btn-primary me-2" @click="incrementPoints(user.id)">Incrementa</button>
-                        <button class="btn btn-danger" @click="decrementPoints(user.id)">Decrementa</button>
+                        <button class="btn btn-primary me-2" @click="incrementPoints(user.id)">+</button>
+                        <button class="btn btn-danger" @click="decrementPoints(user.id)">-</button>
                     </td>
                 </tr>
             </tbody>
