@@ -36,7 +36,6 @@ export default {
         onMounted(() => {
             fetchUsers();
 
-            // Aggiorna i dati degli utenti in tempo reale
             const usersCollection = collection(db, 'users');
             const unsubscribe = onSnapshot(usersCollection, (snapshot) => {
                 users.value = snapshot.docs.map((doc) => ({
@@ -45,7 +44,6 @@ export default {
                 }));
             });
 
-            // Cleanup della sottoscrizione quando il componente viene distrutto
             onUnmounted(() => {
                 unsubscribe();
             });
