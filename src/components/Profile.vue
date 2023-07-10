@@ -35,11 +35,11 @@ onMounted(async () => {
 
             if (userSnap.exists()) {
                 const userData = userSnap.data();
-                await setDoc(userDoc, { role: userData.role, name: username.value, points: userData.points });
+                await setDoc(userDoc, { role: userData.role, mail: email.value, name: username.value, points: userData.points });
                 role.value = userData.role;
                 punti.value = userData.points;
             } else {
-                await setDoc(userDoc, { role: 'user', name: username.value, points: 0 });
+                await setDoc(userDoc, { role: 'user', mail: email.value, name: username.value, points: 0 });
                 punti.value = 0;
                 role.value = 'user';
             }
@@ -102,9 +102,14 @@ async function updateAccount() {
                 </h4>
                 <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
             </div>
-            <RouterLink v-if="role === 'admin'" to="/words" class="card-footer text-center mt-4">Gestisci Parole
+            <RouterLink v-if="role === 'admin'" to="/words" class="card-footer text-center mt-4 text-decoration-none">
+                Gestisci Parole
             </RouterLink>
-            <RouterLink v-if="role === 'admin'" to="/points" class="card-footer text-center">Gestisci Punti
+            <RouterLink v-if="role === 'admin'" to="/points" class="card-footer text-center text-decoration-none">Gestisci
+                Punti
+            </RouterLink>
+            <RouterLink v-if="role === 'admin'" to="/users" class="card-footer text-center text-decoration-none">Gestisci
+                Utenti
             </RouterLink>
         </div>
         <!--         <div class="card shadow mt-2">
