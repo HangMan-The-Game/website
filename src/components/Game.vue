@@ -1,14 +1,23 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import SimpleKeyboard from '../components/SimpleKeyboard.vue';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/firebase.js';
 
-const word = ref("HELLO");
+const word = ref("");
 const guessedLetters = ref({
     correct: [],
     wrong: []
 });
 const remainingAttempts = ref(6);
 const gameOver = ref(false);
+
+onMounted(async () => {
+    const querySnapshot = await getDocs(collection(db, 'Facile'));
+    const words = querySnapshot.docs.map(doc => doc.data().word);
+    const randomIndex = Math.floor(Math.random() * words.length);
+    word.value = words[randomIndex];
+});
 
 const handleInput = (key) => {
     if (gameOver.value) {
@@ -41,6 +50,7 @@ const resetGame = () => {
     guessedLetters.value.wrong = [];
     remainingAttempts.value = 6;
     gameOver.value = false;
+    location.reload();
 };
 
 const isLetterGuessed = (letter) => {
