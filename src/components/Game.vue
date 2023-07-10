@@ -2,7 +2,7 @@
     <div class="container w-50 mx-auto my-5">
         <div class="word-container">
             <span v-for="(letter, index) in word" :key="index">
-                <span v-if="guessedLetters.includes(letter)">{{ letter }}</span>
+                <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
                 <span v-else>-</span>
             </span>
         </div>
@@ -14,26 +14,28 @@
         <div class="attempt-count">Attempts left: {{ remainingAttempts }}</div>
         <div class="letters-container">
             <div class="correct-letters">
-                <span v-for="letter in correctLetters" :key="letter" class="correct-letter">{{ letter }}</span>
+                <span v-for="letter in guessedLetters.correct" :key="letter" class="correct-letter">{{ letter }}</span>
             </div>
             <div class="wrong-letters">
-                <span v-for="letter in wrongLetters" :key="letter" class="wrong-letter">{{ letter }}</span>
+                <span v-for="letter in guessedLetters.wrong" :key="letter" class="wrong-letter">{{ letter }}</span>
             </div>
         </div>
-
+        <div class="d-flex justify-content-center mt-3">
+            <button v-if="gameOver" @click="resetGame" class="btn btn-primary">Reset Game</button>
+        </div>
     </div>
 </template>
-  
+
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import SimpleKeyboard from '../components/SimpleKeyboard.vue';
 
 const word = ref("HELLO");
-const guessedLetters = ref([]);
+const guessedLetters = ref({
+    correct: [],
+    wrong: []
+});
 const remainingAttempts = ref(6);
-const correctLetters = ref([]);
-const wrongLetters = ref([]);
-
 const gameOver = ref(false);
 
 const handleInput = (key) => {
@@ -42,16 +44,15 @@ const handleInput = (key) => {
     }
 
     const uppercaseKey = key.toUpperCase();
-    if (!guessedLetters.value.includes(uppercaseKey)) {
-        guessedLetters.value.push(uppercaseKey);
-        if (!word.value.includes(uppercaseKey)) {
-            remainingAttempts.value--;
-            wrongLetters.value.push(uppercaseKey);
+    if (!guessedLetters.value.correct.includes(uppercaseKey) && !guessedLetters.value.wrong.includes(uppercaseKey)) {
+        if (word.value.includes(uppercaseKey)) {
+            guessedLetters.value.correct.push(uppercaseKey);
         } else {
-            correctLetters.value.push(uppercaseKey);
-        }
-        if (remainingAttempts.value < 0) {
-            remainingAttempts.value = 0;
+            guessedLetters.value.wrong.push(uppercaseKey);
+            remainingAttempts.value--;
+            if (remainingAttempts.value < 0) {
+                remainingAttempts.value = 0;
+            }
         }
     }
 
@@ -64,15 +65,14 @@ const handleInput = (key) => {
 
 const resetGame = () => {
     word.value = "HELLO";
-    guessedLetters.value = [];
+    guessedLetters.value.correct = [];
+    guessedLetters.value.wrong = [];
     remainingAttempts.value = 6;
-    correctLetters.value = [];
-    wrongLetters.value = [];
     gameOver.value = false;
 };
 
 const isLetterGuessed = (letter) => {
-    return guessedLetters.value.includes(letter);
+    return guessedLetters.value.correct.includes(letter);
 };
 
 const isWordGuessed = () => {
@@ -97,13 +97,12 @@ onMounted(() => {
 });
 
 watch(word, () => {
-    guessedLetters.value = [];
+    guessedLetters.value.correct = [];
+    guessedLetters.value.wrong = [];
     remainingAttempts.value = 6;
-    correctLetters.value = [];
-    wrongLetters.value = [];
 });
 </script>
-  
+
 <style>
 .word-container {
     display: flex;
@@ -148,10 +147,13 @@ watch(word, () => {
     color: green;
 }
 
+.wrong-letters {
+    margin-right: 2rem;
+}
+
 .wrong-letter {
     display: inline-block;
     margin-right: 0.5rem;
     color: red;
 }
 </style>
-  
