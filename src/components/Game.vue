@@ -4,6 +4,14 @@ import SimpleKeyboard from '../components/SimpleKeyboard.vue';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase.js';
 
+const layout = {
+    default: [
+        "Q W E R T Y U I O P",
+        "A S D F G H J K L",
+        "Z X C V B N M",
+    ],
+};
+
 const word = ref("");
 const guessedLetters = ref({
     correct: [],
@@ -27,7 +35,7 @@ const handleInput = (key) => {
     }
 
     const uppercaseKey = key.toUpperCase();
-    if (!guessedLetters.value.correct.includes(uppercaseKey) && !guessedLetters.value.wrong.includes(uppercaseKey)) {
+    if (isValidKey(uppercaseKey) && !guessedLetters.value.correct.includes(uppercaseKey) && !guessedLetters.value.wrong.includes(uppercaseKey)) {
         if (word.value.includes(uppercaseKey)) {
             guessedLetters.value.correct.push(uppercaseKey);
         } else {
@@ -44,6 +52,11 @@ const handleInput = (key) => {
     } else if (isOutOfAttempts()) {
         gameOver.value = true;
     }
+};
+
+const isValidKey = (key) => {
+    const allowedKeys = layout.default.join("").toUpperCase().split("");
+    return allowedKeys.includes(key);
 };
 
 const resetGame = () => {
