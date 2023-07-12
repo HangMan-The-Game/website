@@ -100,7 +100,7 @@ watch(word, () => {
 </script>
 
 <template>
-    <div class="container w-50 mx-auto my-5">
+    <div class="container w-25 mx-auto my-5">
         <div class="word-container">
             <span v-for="(letter, index) in word" :key="index">
                 <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
