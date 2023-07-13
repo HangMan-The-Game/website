@@ -100,14 +100,14 @@ watch(word, () => {
 </script>
 
 <template>
-    <div class="container w-25 mx-auto my-5">
+    <div class="container mx-auto my-5">
         <div class="word-container">
             <span v-for="(letter, index) in word" :key="index">
                 <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
                 <span v-else>_</span>
             </span>
         </div>
-        <div class="keyboard-container">
+        <div class="keyboard-container w-75 mx-auto">
             <SimpleKeyboard @onKeyPress="handleInput" :guessedLetters="guessedLetters" />
         </div>
         <div v-if="isWordGuessed()" class="result text-success">WIN!</div>
@@ -144,6 +144,14 @@ watch(word, () => {
 .keyboard-container {
     display: flex;
     justify-content: center;
+}
+
+@media screen and (max-width: 992px) {
+    body {
+        /* background-color: blue; */
+        width: 100%;
+    }
+
 }
 
 .result {
