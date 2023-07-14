@@ -16,9 +16,11 @@ const props = defineProps(['theme'])
                     <p class="fs-2 w-50 mx-auto text-center" v-html="$t('jumbotron.gameDescription')"></p>
                     <div class="d-flex flex-column gap-2 mb-5">
                         <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("jumbotron.learnMore") }}</a>
-                        <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>{{
+                        <RouterLink to="/menu" class="btn btn-primary btn-lg">{{ $t("jumbotron.playNow") }} <span
+                                class="badge rounded-pill text-bg-warning">WIP</span></RouterLink>
+                        <!--                         <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>{{
                             $t("jumbotron.playNow")
-                        }}<span class="badge rounded-pill text-bg-warning">WIP</span></button>
+                        }}<span class="badge rounded-pill text-bg-warning">WIP</span></button> -->
                     </div>
                 </div>
             </div>
