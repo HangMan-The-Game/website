@@ -12,6 +12,7 @@ const username = ref('');
 const email = ref('');
 const role = ref('');
 const punti = ref('');
+const vittorie = ref(0)
 
 const newPassword = ref('');
 /* const currentPassword = ref('');
@@ -35,12 +36,14 @@ onMounted(async () => {
 
             if (userSnap.exists()) {
                 const userData = userSnap.data();
-                await setDoc(userDoc, { role: userData.role, mail: email.value, name: username.value, points: userData.points });
+                await setDoc(userDoc, { role: userData.role, mail: email.value, name: username.value, points: userData.points, vittorie: userData.vittorie });
                 role.value = userData.role;
+                vittorie.value = userData.vittorie;
                 punti.value = userData.points;
             } else {
-                await setDoc(userDoc, { role: 'user', mail: email.value, name: username.value, points: 0 });
+                await setDoc(userDoc, { role: 'user', mail: email.value, name: username.value, points: 0, vittorie: 0 });
                 punti.value = 0;
+                vittorie.value = 0;
                 role.value = 'user';
             }
         } else {
@@ -99,6 +102,7 @@ async function updateAccount() {
                     <br>Username: <span class="fw-bold text-danger">{{ username }}</span>
                     <br>Ruolo: <span class="text-info">{{ roleLabel }}</span>
                     <br>Punti: <span class="text-success">{{ punti }}</span>
+                    <br>Vittorie: <span class="text-success">{{ vittorie }}</span>
                 </h4>
                 <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
             </div>
