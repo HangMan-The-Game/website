@@ -1,3 +1,52 @@
+<script>
+import { ref, onMounted } from 'vue';
+import { auth } from '@/firebase.js';
+
+export default {
+    data() {
+        return {
+            user: null,
+            selectedMode: localStorage.getItem('selectedMode') || 'Easy',
+        };
+    },
+    methods: {
+        startGame() {
+            this.$router.push({ name: 'game' });
+        },
+        openModal() {
+            this.$refs.modal.classList.add('show');
+            document.body.classList.add('modal-open');
+        },
+        closeModal() {
+            this.$refs.modal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+        },
+        openHelp() {
+        },
+        handleSelectMode() {
+            this.closeModal();
+            if (this.selectedMode) {
+                console.log('Selected Mode:', this.selectedMode);
+                localStorage.setItem('selectedMode', this.selectedMode);
+            }
+        },
+    },
+    setup() {
+        const user = ref(null);
+
+        onMounted(() => {
+            auth.onAuthStateChanged((currentUser) => {
+                user.value = currentUser;
+            });
+        });
+
+        return {
+            user,
+        };
+    },
+};
+</script>
+
 <template>
     <div class="main-menu">
         <div v-if="user">
@@ -13,7 +62,7 @@
         <div class="d-grid gap-3 w-25 mx-auto">
             <button class="btn btn-primary btn-lg" @click="startGame">Start Game</button>
             <button class="btn btn-secondary btn-lg" @click="openModal">Select Mode</button>
-            <button class="btn btn-info btn-lg" @click="openHelp">Help</button>
+            <!-- <button class="btn btn-info btn-lg" @click="openHelp">Help</button> -->
         </div>
 
         <div class="modal" ref="modal" tabindex="-1" role="dialog">
@@ -51,56 +100,6 @@
         </div>
     </div>
 </template>
-  
-<script>
-import { ref, onMounted } from 'vue';
-import { auth } from '@/firebase.js';
-
-export default {
-    data() {
-        return {
-            user: null,
-            selectedMode: localStorage.getItem('selectedMode') || 'Easy',
-        };
-    },
-    methods: {
-        startGame() {
-            console.log('Start Game');
-        },
-        openModal() {
-            this.$refs.modal.classList.add('show');
-            document.body.classList.add('modal-open');
-        },
-        closeModal() {
-            this.$refs.modal.classList.remove('show');
-            document.body.classList.remove('modal-open');
-        },
-        openHelp() {
-            console.log('Open Help');
-        },
-        handleSelectMode() {
-            this.closeModal();
-            if (this.selectedMode) {
-                console.log('Selected Mode:', this.selectedMode);
-                localStorage.setItem('selectedMode', this.selectedMode);
-            }
-        },
-    },
-    setup() {
-        const user = ref(null);
-
-        onMounted(() => {
-            auth.onAuthStateChanged((currentUser) => {
-                user.value = currentUser;
-            });
-        });
-
-        return {
-            user,
-        };
-    },
-};
-</script>
   
 <style scoped>
 .main-menu {
