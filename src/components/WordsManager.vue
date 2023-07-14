@@ -59,7 +59,7 @@ async function addWordToDocument(word, documentId, collectionName) {
     }
 }
 
-const wordsToImport = [
+const wordsEasy = [
     "ACQUA", "AUTO", "ASTUCCIO", "ASPIRAPOLVERE", "APE", "BICICLETTA", "BORSA", "BOTTIGLIA", "BATTERIA", "BIGLIETTO",
     "PORTAFOGLIO", "CUFFIE", "CANE", "CAMICIA", "CHIAVE", "CANDELA", "DETERSIVO", "DIARIO", "DOLCI", "ERRORE",
     "FRIGORIFERO", "FELPA", "FIORE", "FORNO", "FOTO", "GATTO", "GIORNALE", "GOMMA", "GELATO", "GIOIELLO", "HOTDOG",
@@ -68,6 +68,25 @@ const wordsToImport = [
     "OMBRELLO", "OLIO", "MOTO", "OCCHIALI", "PALLA", "ORECCHIO", "BOCCA", "NASO", "OCCHI", "DENTI", "BRACCIO",
     "POLSO", "MANO", "CAPELLI"
 ];
+
+const wordsMedium = [
+    "PROFESSORE", "OPERAIO", "CASALINGA", "MAMMA", "PAPA", "NONNO", "NONNA", "ZIO", "ZIA", "CUGINA", "CUGINO", "NIPOTE",
+    "GEMELLI", "PRETE", "TELEVISIONE", "TELECOMANDO", "SPAZZATURA", "BIDONE", "LAVANDINO", "CESTINO", "CIELO", "STELLE",
+    "FIORE", "MARGHERITA", "PATATINE", "PANINO", "PASTA", "PENNA", "MATITA", "SPECCHIO", "CASCO", "AEREO", "ELICOTTERO",
+    "OSPEDALE", "MUNICIPIO", "BAR", "CARABINIERE", "VIGILE", "POMPIERE", "MEDICO", "CUOCO", "AVVOCATO", "GIUDICE", "CHIESA",
+    "VULCANO", "PARCO", "VILLA", "BAMBOLA", "CASTELLO", "SABBIA", "ARMADIO", "SCUOLA", "VASO", "FONTANA", "BALCONE", "CASA",
+    "CAFFE’", "GRATTACIELO", "GIRAFFA", "GIACCA"
+]
+
+const wordsHard = [
+    "CAPPELLO", "PIEDE", "PANCIA", "DITO", "PANTALONI", "PASSEGGINO", "PIUMONE", "QUADERNO", "QUADRO", "QUOTIDIANO", "RASOIO",
+    "RADIO", "SMARTPHONE", "CALZE", "SCARPE", "SEDIA", "SAPONE", "SPAZZOLINO", "TASTIERA", "TELEFONO", "TOVAGLIA", "TAZZA",
+    "TAPPETO", "UOVO", "UVA", "UCCELLO", "VALIGIA", "VETRO", "VASSOIO", "VINO", "VIDEOCAMERA", "XBOX", "YACHT", "ZAINO",
+    "ZUCCHERO", "ZAMPA", "ALLIGATORE", "ELEFANTE", "GATTO", "LEONE", "MUCCA", "SCIMMIE", "SERPENTE", "TIGRE", "VIPERA",
+    "BANANA", "DADO", "INVERNO", "LUNA", "MARE", "OMBRELLO", "SOLE", "TAVOLO", "FRAGOLA", "LIMONE", "ROSSO", "VERDE",
+    "ALBERO", "PIZZA", "CARBONARA", "DOLCE", "SALATO", "ANTIPASTO", "COLAZIONE", "CENA", "SPINACI", "ROMA",
+    "GIUBBOTTO", "ANELLO", "COLLANA", "BRACCIALE", "ORECCHINI", "ARGENTO", "POMODORO"
+]
 
 async function importWords(words, collectionName) {
 
@@ -148,7 +167,7 @@ async function removeAllWords() {
     }
 }
 
-// onMounted(fetchWords, importWords(wordsToImport, "Facile"));
+// onMounted(fetchWords, importWords(wordsHard, "Difficile"));
 onMounted(fetchWords);
 </script>
 
