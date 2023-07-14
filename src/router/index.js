@@ -59,6 +59,15 @@ const router = createRouter({
       }
     },
     {
+      path: "/menu",
+      name: "mainmenu",
+      component: () => import("../views/MenuView.vue"),
+      /* fare il controllo se è loggato, se non lo è allora lo porta nella schermata login e succesivamente nel game e non nel profile */
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/game",
       name: "game",
       component: () => import("../views/GameView.vue"),
@@ -83,16 +92,20 @@ const getCurrentUser = () => {
   })
 }
 
-router.beforeEach(async(to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (await getCurrentUser()) {
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+
+  if (requiresAuth) {
+    const currentUser = await getCurrentUser();
+
+    if (currentUser) {
       next();
     } else {
-      next("/login");
+      next('/login');
     }
   } else {
     next();
   }
-})
+});
 
 export default router;

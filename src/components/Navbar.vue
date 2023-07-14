@@ -204,6 +204,11 @@ export default {
 [theme="custom-dark"] .t-lead {
   color: #ffffff;
 }
+
+[theme="custom-dark"] #keyboard {
+  background-color: #43454e !important;
+  color: #16171d;
+}
 </style>
 
 <style scoped>

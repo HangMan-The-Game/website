@@ -1,8 +1,18 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import SimpleKeyboard from '../components/SimpleKeyboard.vue';
-import { collection, getDocs } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { collection, getDocs, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/firebase.js';
+
+const layout = {
+    default: [
+        "Q W E R T Y U I O P",
+        "A S D F G H J K L",
+        "Z X C V B N M",
+    ],
+};
+const mode = ref('');
 
 const word = ref("");
 const guessedLetters = ref({
@@ -13,12 +23,54 @@ const remainingAttempts = ref(6);
 const gameOver = ref(false);
 const wordToGuess = ref("");
 
+const username = ref('');
+const email = ref('');
+const role = ref('');
+const punti = ref(0);
+const vittorie = ref(0);
+const moltiplicatore = ref(1);
+
+const auth = getAuth();
+
 onMounted(async () => {
-    const querySnapshot = await getDocs(collection(db, 'Facile'));
+    mode.value = localStorage.getItem('selectedMode') || 'Easy';
+    if (mode.value === 'Easy') {
+        mode.value = 'Facile';
+        moltiplicatore.value = 1;
+    } else if (mode.value === 'Medium') {
+        mode.value = 'Medio';
+        moltiplicatore.value = 1.5;
+    } else if (mode.value === 'Hard') {
+        mode.value = 'Difficile';
+        moltiplicatore.value = 2;
+    }
+    const querySnapshot = await getDocs(collection(db, mode.value));
     const words = querySnapshot.docs.map(doc => doc.data().word);
     const randomIndex = Math.floor(Math.random() * words.length);
     wordToGuess.value = words[randomIndex];
     word.value = wordToGuess.value;
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            email.value = user.email;
+            username.value = user.displayName;
+
+            const userDoc = doc(db, 'users', user.uid);
+            const userSnap = await getDoc(userDoc);
+
+            if (userSnap.exists()) {
+                const userData = userSnap.data();
+                await setDoc(userDoc, { role: userData.role, mail: email.value, name: username.value, points: userData.points, vittorie: userData.vittorie });
+                vittorie.value = userData.vittorie;
+                role.value = userData.role;
+                punti.value = userData.points || 0;
+            } else {
+                await setDoc(userDoc, { role: 'user', mail: email.value, name: username.value, points: 0, vittorie: 0 });
+                vittorie.value = 0;
+                punti.value = 0;
+                role.value = 'user';
+            }
+        }
+    });
 });
 
 const handleInput = (key) => {
@@ -27,9 +79,11 @@ const handleInput = (key) => {
     }
 
     const uppercaseKey = key.toUpperCase();
-    if (!guessedLetters.value.correct.includes(uppercaseKey) && !guessedLetters.value.wrong.includes(uppercaseKey)) {
+    if (isValidKey(uppercaseKey) && !guessedLetters.value.correct.includes(uppercaseKey) && !guessedLetters.value.wrong.includes(uppercaseKey)) {
         if (word.value.includes(uppercaseKey)) {
             guessedLetters.value.correct.push(uppercaseKey);
+            punti.value += 1 * moltiplicatore.value;
+            updatePoints();
         } else {
             guessedLetters.value.wrong.push(uppercaseKey);
             remainingAttempts.value--;
@@ -41,9 +95,17 @@ const handleInput = (key) => {
 
     if (isWordGuessed()) {
         gameOver.value = true;
+        punti.value += 5 * moltiplicatore.value;
+        vittorie.value += 1;
+        updatePoints();
     } else if (isOutOfAttempts()) {
         gameOver.value = true;
     }
+};
+
+const isValidKey = (key) => {
+    const allowedKeys = layout.default.join("").toUpperCase().split("");
+    return allowedKeys.includes(key);
 };
 
 const resetGame = () => {
@@ -54,13 +116,29 @@ const resetGame = () => {
     location.reload();
 };
 
-const isLetterGuessed = (letter) => {
-    return guessedLetters.value.correct.includes(letter);
+/* const isLetterGuessed = (letter) => {
+    const isGuessed = guessedLetters.value.correct.includes(letter);
+
+    if (isGuessed) {
+        punti.value += 1;
+        console.log("punti", punti.value);
+        updatePoints();
+    }
+
+    return isGuessed;
+}; */
+
+const updatePoints = async () => {
+    const user = getAuth().currentUser;
+    if (user) {
+        const userDoc = doc(db, 'users', user.uid);
+        await updateDoc(userDoc, { points: punti.value, vittorie: vittorie.value });
+    }
 };
 
 const isWordGuessed = () => {
     for (const letter of word.value) {
-        if (!isLetterGuessed(letter)) {
+        if (!guessedLetters.value.correct.includes(letter)) {
             return false;
         }
     }
@@ -87,30 +165,47 @@ watch(word, () => {
 </script>
 
 <template>
-    <div class="container w-50 mx-auto my-5">
-        <div class="word-container">
+    <div class="container mx-auto my-3">
+        <div class="card w-50 mx-auto mb-2">
+            <div class="card-body mx-auto">
+                <h5 class="card-title text-center">Player Info</h5>
+                <p class="card-text text-center">
+                    <span class="text-danger fw-bold">{{ username }}</span>
+                    <br>
+                    Points: <span class="fw-bold">{{ punti }}</span>
+                    <br>
+                    Wins: <span class="fw-bold">{{ vittorie }}</span>
+                </p>
+                <RouterLink to="/menu" class="btn btn-primary">Return to Menu</RouterLink>
+            </div>
+        </div>
+        <div class="text-center">
+            Selected Mode: <span class="text-success fw-bold">{{ mode }}</span>
+            <br>Multiplier points: <span class="fw-bold text-warning">{{ moltiplicatore }}x</span>
+        </div>
+        <div v-if="isWordGuessed()" class="fs-1 text-center fw-bold text-success">WIN!</div>
+        <div v-if="isOutOfAttempts()" class="fs-1 text-center fw-bold text-danger">
+            LOSS
+            <div class="fs-5">The word was: <span class="fw-bold">{{ wordToGuess }}</span></div>
+        </div>
+        <div class="text-center fs-1">
             <span v-for="(letter, index) in word" :key="index">
                 <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
                 <span v-else>_</span>
             </span>
         </div>
-        <div class="keyboard-container">
+        <div class="attempt-count mb-3">Attempts left: {{ remainingAttempts }}</div>
+        <div class="keyboard-container w-75 mx-auto">
             <SimpleKeyboard @onKeyPress="handleInput" :guessedLetters="guessedLetters" />
         </div>
-        <div v-if="isWordGuessed()" class="result text-success">WIN!</div>
-        <div v-if="isOutOfAttempts()" class="result text-danger">
-            LOSS
-            <div class="word-to-guess">The word was: {{ wordToGuess }}</div>
-        </div>
-        <div class="attempt-count">Attempts left: {{ remainingAttempts }}</div>
-        <div class="letters-container">
+        <!--         <div class="letters-container">
             <div class="correct-letters">
                 <span v-for="letter in guessedLetters.correct" :key="letter" class="correct-letter">{{ letter }}</span>
             </div>
             <div class="wrong-letters">
                 <span v-for="letter in guessedLetters.wrong" :key="letter" class="wrong-letter">{{ letter }}</span>
             </div>
-        </div>
+        </div> -->
         <div class="d-flex justify-content-center mt-3">
             <button v-if="gameOver" @click="resetGame" class="btn btn-primary">Reset Game</button>
         </div>
@@ -118,25 +213,16 @@ watch(word, () => {
 </template>
 
 <style>
-.word-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
 .keyboard-container {
     display: flex;
     justify-content: center;
 }
 
-.result {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
+@media screen and (max-width: 992px) {
+    body {
+        /* background-color: blue; */
+        width: 100%;
+    }
 }
 
 .attempt-count {

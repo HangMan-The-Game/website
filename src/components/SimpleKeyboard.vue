@@ -45,7 +45,7 @@ watch(() => props.guessedLetters, (guessedLetters, prevGuessedLetters) => {
 </script>
 
 <template>
-    <div class="simple-keyboard"></div>
+    <div id="keyboard" class="simple-keyboard"></div>
 </template>
 
 <style>
