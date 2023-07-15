@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
 import { ref } from "vue";
 
 </script>
@@ -13,7 +14,8 @@ export default {
   created() {
     if (previousLang) {
       this.$i18n.locale = previousLang;
-    } else {
+    }
+    else {
       this.$i18n.locale = "English";
     }
   },
@@ -26,12 +28,14 @@ export default {
       theme.value = isDark;
     }
   },
+  components: { Footer }
 };
 </script>
 
 <template>
   <Navbar @locale-changed="saveLocale" @toggle-theme="toggleTheme" />
   <RouterView :theme="theme" />
+  <Footer />
 </template>
 
 <style>
