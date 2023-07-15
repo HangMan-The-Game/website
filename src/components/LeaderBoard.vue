@@ -103,7 +103,7 @@ onMounted(() => {
 });
 
 const sortedUsers = computed(() => {
-    return users.value.sort((a, b) => b.points - a.points);
+    return users.value.filter(user => user.points > 5).sort((a, b) => b.points - a.points);
 });
 </script>
 
