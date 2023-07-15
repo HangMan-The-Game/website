@@ -61,7 +61,7 @@ export default {
 
         <div class="d-grid gap-3 w-25 mx-auto">
             <button class="btn btn-primary btn-lg" @click="startGame">Start Game</button>
-            <button class="btn btn-secondary btn-lg" @click="openModal">Select Mode</button>
+            <button class="btn btn-secondary btn-lg mb-5" @click="openModal">Select Mode</button>
             <!-- <button class="btn btn-info btn-lg" @click="openHelp">Help</button> -->
         </div>
 
@@ -100,8 +100,12 @@ export default {
         </div>
     </div>
 </template>
-  
+
 <style scoped>
+[theme="custom-dark"] .modal-content {
+    background-color: #43454e !important;
+}
+
 .main-menu {
     margin-top: 100px;
     padding: 0 20px;
