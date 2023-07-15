@@ -16,7 +16,7 @@
       "title": "Cinque studenti, indirizzo: <strong>Informatica</strong> <i class='bi bi-people'></i>",
       "description1": "Ciao a tutti! Siamo un gruppo di <a href='#team' v-scroll-to>cinque studenti</a> dell'<a href='https://www.rapisardidavinci.edu.it/'>ITET Rapisardi - Da Vinci</a> che stanno per iniziare l'ultimo anno di scuola superiore. E quale modo migliore per concludere il nostro percorso scolastico se non realizzare un progetto incredibile insieme?",
       "description2": "La nostra idea <strong>innovativa</strong> riguarda il 'pupazzo' nel gioco dell'impiccato. Abbiamo introdotto una variante interessante: invece di cadere, il 'pupazzo' è già presente, ma ogni volta che si commette un errore, ne viene rimossa una parte! Questo rende il gioco ancora più <strong>coinvolgente</strong> e <strong>divertente</strong>.",
-      "description3": "In <strong>oltre</strong>, abbiamo incluso un <strong>display touch</strong> nel nostro progetto. Il display è principalmente utilizzato per la gestione del menu, consentendo un'interazione intuitiva e facile da usare. Per quanto riguarda l'immissione delle lettere, abbiamo una <strong>tastiera dedicata</strong> che rende l'inserimento delle scelte <strong>rapide</strong> e <strong>facili</strong>."
+      "description3": "<strong>Inoltre</strong>, abbiamo incluso un <strong>display touch</strong> nel nostro progetto. Il display è principalmente utilizzato per la gestione del menu, consentendo un'interazione intuitiva e facile da usare. Per quanto riguarda l'immissione delle lettere, abbiamo una <strong>tastiera dedicata</strong> che rende l'inserimento delle scelte <strong>rapide</strong> e <strong>facili</strong>."
     },
     "gameDescription": {
       "title": "Descrizione del gioco",
