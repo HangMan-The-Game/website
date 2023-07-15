@@ -62,12 +62,7 @@ onMounted(async () => {
                 await setDoc(userDoc, { role: userData.role, mail: email.value, name: username.value, points: userData.points, vittorie: userData.vittorie });
                 vittorie.value = userData.vittorie;
                 role.value = userData.role;
-                punti.value = userData.points || 0;
-            } else {
-                await setDoc(userDoc, { role: 'user', mail: email.value, name: username.value, points: 0, vittorie: 0 });
-                vittorie.value = 0;
-                punti.value = 0;
-                role.value = 'user';
+                punti.value = userData.points;
             }
         }
     });
