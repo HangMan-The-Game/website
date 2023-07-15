@@ -186,7 +186,7 @@ watch(word, () => {
         <div class="text-center fs-1">
             <span v-for="(letter, index) in word" :key="index">
                 <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
-                <span v-else>_</span>
+                <span v-else class="mx-1">_</span>
             </span>
         </div>
         <div class="attempt-count mb-3">Attempts left: {{ remainingAttempts }}</div>
