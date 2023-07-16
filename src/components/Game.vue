@@ -130,6 +130,7 @@ const updatePoints = async () => {
         try {
             await updateDoc(userDoc, { points: punti.value, vittorie: vittorie.value });
             localStorage.setItem('punti', punti.value);
+            localStorage.setItem('vittorie', vittorie.value);
         } catch (error) {
             console.error('Errore durante l\'aggiornamento dei punti:', error);
         }
@@ -158,7 +159,9 @@ onMounted(() => {
     });
 
     const savedPunti = localStorage.getItem('punti');
-    if (savedPunti) {
+    const savedWins = localStorage.getItem('vittorie');
+    if (savedPunti && savedWins) {
+        vittorie.value = parseInt(savedWins, 0);
         punti.value = parseInt(savedPunti, 0);
     }
 });
