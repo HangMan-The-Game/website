@@ -127,9 +127,15 @@ const updatePoints = async () => {
     const user = getAuth().currentUser;
     if (user) {
         const userDoc = doc(db, 'users', user.uid);
-        await updateDoc(userDoc, { points: punti.value, vittorie: vittorie.value });
+        try {
+            await updateDoc(userDoc, { points: punti.value, vittorie: vittorie.value });
+            localStorage.setItem('punti', punti.value);
+        } catch (error) {
+            console.error('Errore durante l\'aggiornamento dei punti:', error);
+        }
     }
 };
+
 
 const isWordGuessed = () => {
     for (const letter of word.value) {
@@ -150,6 +156,11 @@ onMounted(() => {
         const key = e.key.toUpperCase();
         handleInput(key);
     });
+
+    const savedPunti = localStorage.getItem('punti');
+    if (savedPunti) {
+        punti.value = parseInt(savedPunti, 0);
+    }
 });
 
 watch(word, () => {
