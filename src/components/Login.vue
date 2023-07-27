@@ -1,20 +1,28 @@
 <script setup>
 import { auth } from '@/firebase.js'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from 'firebase/auth'
-import { ref } from 'vue';
+import { getDocs, collection } from 'firebase/firestore';
+import { db } from '@/firebase.js';
+import { ref, reactive } from 'vue';
 import router from '../router';
 
 const data = ref({
     email: '',
     password: '',
-    username: '',
     role: ''
 })
 
-const mode = ref('login')
+const username = reactive({
+    value: '',
+})
 
-const user = ref(null)
-const errMsg = ref()
+const usernameRef = ref(username.value);
+
+const mode = ref('login');
+
+const user = ref(null);
+const errMsg = ref();
+const usernameError = ref('');
 
 function toggleMode(val) {
     mode.value = val
@@ -48,6 +56,13 @@ async function register(email, password, username, role) {
         errMsg.value = 'La password deve essere di almeno 6 caratteri';
         return;
     }
+
+    await checkUsername();
+
+    if (usernameError.value) {
+        return;
+    }
+
     await createUserWithEmailAndPassword(auth, email, password).then(async (result) => {
         await updateProfileWithUsername(result.user, username);
         await updateProfile(result.user, { role });
@@ -68,13 +83,32 @@ async function updateProfileWithUsername(user, username) {
 function submit() {
     let email = data.value.email
     let password = data.value.password
-    let username = data.value.username
     if (mode.value === 'login') {
         login(email, password)
     } else {
-        register(email, password, username)
+        register(email, password, usernameRef.value)
     }
 }
+
+async function checkUsername() {
+    const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
+    if (!usernameRegex.test(usernameRef.value)) {
+        usernameError.value = 'L\'username deve contenere solo lettere, numeri, trattini e underscore e deve essere lungo tra 3 e 16 caratteri.';
+    } else {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const users = querySnapshot.docs.map(doc => doc.data());
+
+        const usernameExists = users.some(user => user.name.toLowerCase() === usernameRef.value.toLowerCase());
+
+        if (usernameExists) {
+            usernameError.value = 'L\'username è già occupato. Scegli un altro username.';
+        } else {
+            usernameError.value = null;
+        }
+    }
+};
+
+
 
 async function signout() {
     await signOut(auth).then((result) => {
@@ -127,8 +161,10 @@ onAuthStateChanged(auth, currentUser => {
                             </div>
                             <div v-if="mode === 'register'" class="mb-3">
                                 <label for="exampleInputUsername" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="exampleInputUsername" v-model="data.username"
-                                    required>
+                                <input type="text" class="form-control" id="exampleInputUsername" v-model="usernameRef"
+                                    required @input="checkUsername">
+                                <div v-if="usernameError && usernameRef.length > 0" class="text-danger">{{ usernameError
+                                }}</div>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
