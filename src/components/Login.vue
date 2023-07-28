@@ -3,7 +3,7 @@ import { auth } from '@/firebase.js'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from 'firebase/auth'
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from '@/firebase.js';
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import router from '../router';
 
 const data = ref({
@@ -130,6 +130,43 @@ async function checkEmail() {
     }
 };
 
+/* function checkPasswordStrength(password) {
+    const minPasswordLength = 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChars = /[!@#$%^&*()_+[\]{};':"\\|,.<>?]/.test(password);
+
+    let score = 0;
+    if (password.length >= minPasswordLength) score += 2;
+    if (hasUppercase) score += 1;
+    if (hasLowercase) score += 1;
+    if (hasNumbers) score += 1;
+    if (hasSpecialChars) score += 1;
+
+    if (score >= 5) {
+        return 'strong';
+    } else if (score >= 3) {
+        return 'moderate';
+    } else {
+        return 'weak';
+    }
+}
+
+
+function getPasswordStrengthMessage(password) {
+    const strength = checkPasswordStrength(password);
+    if (strength === 'strong') {
+        return 'Password forte';
+    } else if (strength === 'moderate') {
+        return 'Password moderata';
+    } else {
+        return 'Password debole';
+    }
+}
+
+const passwordStrengthMessage = computed(() => getPasswordStrengthMessage(data.password)); */
+
 async function signout() {
     await signOut(auth).then((result) => {
         console.log(result)
@@ -208,7 +245,8 @@ onAuthStateChanged(auth, currentUser => {
                             <p class="text-warning text-center fw-bold my-3" v-if="errMsg">{{ errMsg }}</p>
                             <div>
 
-                                <button type="button" class="btn btn-primary mx-auto d-flex justify-content-center mt-2"
+                                <button v-if="mode === 'login'" type="button"
+                                    class="btn btn-primary mx-auto d-flex justify-content-center mt-2"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">
                                     test
                                 </button>
@@ -263,4 +301,5 @@ onAuthStateChanged(auth, currentUser => {
 
  a:hover {
      color: #b33636;
- }</style>  
+ }
+</style>  
