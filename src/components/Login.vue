@@ -7,9 +7,12 @@ import { ref, reactive } from 'vue';
 import router from '../router';
 
 const data = ref({
-    email: '',
     password: '',
     role: ''
+})
+
+const email = reactive({
+    value: '',
 })
 
 const username = reactive({
@@ -17,12 +20,14 @@ const username = reactive({
 })
 
 const usernameRef = ref(username.value);
+const emailRef = ref(email.value);
 
 const mode = ref('login');
 
 const user = ref(null);
 const errMsg = ref();
 const usernameError = ref('');
+const emailError = ref('');
 
 function toggleMode(val) {
     mode.value = val
@@ -81,12 +86,11 @@ async function updateProfileWithUsername(user, username) {
 }
 
 function submit() {
-    let email = data.value.email
     let password = data.value.password
     if (mode.value === 'login') {
-        login(email, password)
+        login(emailRef.value, password)
     } else {
-        register(email, password, usernameRef.value)
+        register(emailRef.value, password, usernameRef.value)
     }
 }
 
@@ -108,7 +112,23 @@ async function checkUsername() {
     }
 };
 
+async function checkEmail() {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!emailRegex.test(emailRef.value)) {
+        emailError.value = 'L\'indirizzo email non è valido.';
+    } else {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const users = querySnapshot.docs.map(doc => doc.data());
 
+        const emailExists = users.some(user => user.mail.toLowerCase() === emailRef.value.toLowerCase());
+
+        if (emailExists) {
+            emailError.value = 'L\'indirizzo email è già in uso. Scegli un altro indirizzo email.';
+        } else {
+            emailError.value = null;
+        }
+    }
+};
 
 async function signout() {
     await signOut(auth).then((result) => {
@@ -154,10 +174,17 @@ onAuthStateChanged(auth, currentUser => {
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">{{ mode === 'login' ? 'Login' : 'Register' }}</h3>
                         <form @submit.prevent="submit">
-                            <div class="mb-3">
+                            <div v-if="mode === 'register'" class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" v-model="data.email">
+                                    aria-describedby="emailHelp" v-model="emailRef" required @input="checkEmail">
+                                <div v-if="emailError && emailError.length > 0" class="text-danger">{{ emailError
+                                }}</div>
+                            </div>
+                            <div v-else class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" v-model="emailRef">
                             </div>
                             <div v-if="mode === 'register'" class="mb-3">
                                 <label for="exampleInputUsername" class="form-label">Username</label>
@@ -166,7 +193,12 @@ onAuthStateChanged(auth, currentUser => {
                                 <div v-if="usernameError && usernameRef.length > 0" class="text-danger">{{ usernameError
                                 }}</div>
                             </div>
-                            <div class="mb-3">
+                            <div v-if="mode === 'register'" class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                    v-model="data.password">
+                            </div>
+                            <div v-else class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="exampleInputPassword1"
                                     v-model="data.password">
@@ -231,5 +263,4 @@ onAuthStateChanged(auth, currentUser => {
 
  a:hover {
      color: #b33636;
- }
-</style>  
+ }</style>  
