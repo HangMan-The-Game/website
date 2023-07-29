@@ -1,6 +1,6 @@
 <script setup>
 import { auth } from '@/firebase.js'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail, sendEmailVerification } from 'firebase/auth'
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from '@/firebase.js';
 import { ref, reactive, computed } from 'vue';
@@ -32,6 +32,37 @@ const emailError = ref('');
 function toggleMode(val) {
     mode.value = val
 }
+
+/* async function login(emailOrUsername, password) {
+    // Controlla se l'input è una email o un username
+    const isEmail = /\S+@\S+\.\S+/.test(emailOrUsername);
+    let userCredential;
+
+    if (isEmail) {
+        // Effettua il login tramite email e password
+        userCredential = await signInWithEmailAndPassword(auth, emailOrUsername, password);
+    } else {
+        // Effettua il login tramite username
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const users = querySnapshot.docs.map(doc => doc.data());
+        const user = users.find(u => u.name.toLowerCase() === emailOrUsername.toLowerCase());
+
+        if (user) {
+            // Trovato l'utente con l'username fornito, effettua il login con la sua email e password
+            userCredential = await signInWithEmailAndPassword(auth, user.email, password);
+        } else {
+            // Nessun utente trovato con l'username fornito
+            errMsg.value = 'Username non valido';
+            return;
+        }
+    }
+
+    // Login effettuato con successo, userCredential contiene le informazioni dell'utente loggato
+    router.push('/profile');
+    console.log(userCredential);
+} */
+
+
 
 async function login(email, password) {
     await signInWithEmailAndPassword(auth, email, password).then((result) => {
@@ -69,6 +100,7 @@ async function register(email, password, username, role) {
     }
 
     await createUserWithEmailAndPassword(auth, email, password).then(async (result) => {
+        result.user.sendEmailVerification();
         await updateProfileWithUsername(result.user, username);
         await updateProfile(result.user, { role });
         router.push('/profile');
@@ -187,14 +219,14 @@ async function signout() {
 }
  */
 
-async function forgotPassword() {
+async function forgotPassword(emailForgot) {
     try {
-        // await sendPasswordResetEmail(auth, email.value);
-        editMsg.value = 'Email inviata con successo';
+        await sendPasswordResetEmail(auth, emailForgot);
+        // editMsg.value = 'Email inviata con successo';
         closeModal();
     } catch (error) {
         console.error('Errore durante l\'invio dell\'email di reset password:', error);
-        editMsg.value = 'Errore durante l\'invio dell\'email di reset password';
+        // editMsg.value = 'Errore durante l\'invio dell\'email di reset password';
     }
 }
 
@@ -204,7 +236,7 @@ onAuthStateChanged(auth, currentUser => {
 </script>
 
 <template>
-    <div class="container w-50 my-5">
+    <div class="container w-75 my-5">
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="card shadow">
@@ -220,8 +252,8 @@ onAuthStateChanged(auth, currentUser => {
                             </div>
                             <div v-else class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" v-model="emailRef">
+                                <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    v-model="emailRef">
                             </div>
                             <div v-if="mode === 'register'" class="mb-3">
                                 <label for="exampleInputUsername" class="form-label">Username</label>
@@ -240,28 +272,30 @@ onAuthStateChanged(auth, currentUser => {
                                 <input type="password" class="form-control" id="exampleInputPassword1"
                                     v-model="data.password">
                             </div>
-                            <button type="submit" class="btn btn-danger w-100">{{ mode === 'login' ? 'Login' : 'Register'
-                            }}</button>
+                            <buttons type="submit" class="btn btn-danger w-100" @click="login(emailRef, data.password)">{{
+                                mode === 'login' ? 'Login' : 'Register'
+                            }}</buttons>
                             <p class="text-warning text-center fw-bold my-3" v-if="errMsg">{{ errMsg }}</p>
                             <div>
 
-                                <button v-if="mode === 'login'" type="button"
-                                    class="btn btn-primary mx-auto d-flex justify-content-center mt-2"
+                                <a v-if="mode === 'login'" type="button"
+                                    class="text-decoration-none mx-auto d-flex justify-content-center mt-2"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">
-                                    test
-                                </button>
-                                <div class=" modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    Forgot your password?
+                                </a>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Reset your password</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="mb-3">
-                                                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                    <label for="recipient-name" class="col-form-label">Put your
+                                                        email:</label>
                                                     <input type="email" id="email" v-model="data.email"
                                                         class="form-control">
                                                 </div>
@@ -269,15 +303,13 @@ onAuthStateChanged(auth, currentUser => {
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    @click="forgotPassword(data.email)">Submit</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- <a class="text-decoration-none fw-bold text-center d-flex justify-content-center"
-                                v-if="errMsg === 'Password errata'" @click="openModal">Forgot the
-                                Password?</a> -->
                             <p class="text-center mb-0">
                                 {{ mode === 'login' ? 'Not registered yet?' : 'Already registered?' }}
                                 <a class="text-decoration-none fw-bold"
