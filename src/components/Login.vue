@@ -1,6 +1,6 @@
 <script setup>
 import { auth } from '@/firebase.js'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail, sendEmailVerification } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail, sendEmailVerification, getAuth } from 'firebase/auth'
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from '@/firebase.js';
 import { ref, reactive, computed } from 'vue';
@@ -66,6 +66,12 @@ function toggleMode(val) {
 
 async function login(email, password) {
     await signInWithEmailAndPassword(auth, email, password).then((result) => {
+        /*         const user = getAuth().currentUser;
+                if (user && user.emailVerified) {
+                    console.log("email verificata")
+                } else {
+                    console.log("email non verificata")
+                } */
         router.push('/profile')
         console.log(result)
     }).catch((error) => {
@@ -100,8 +106,8 @@ async function register(email, password, username, role) {
     }
 
     await createUserWithEmailAndPassword(auth, email, password).then(async (result) => {
-        result.user.sendEmailVerification();
         await updateProfileWithUsername(result.user, username);
+        // await sendEmailVerification(result.user);
         await updateProfile(result.user, { role });
         router.push('/profile');
         console.log(result);
@@ -219,6 +225,7 @@ async function signout() {
 }
  */
 
+
 async function forgotPassword(emailForgot) {
     try {
         await sendPasswordResetEmail(auth, emailForgot);
@@ -272,9 +279,9 @@ onAuthStateChanged(auth, currentUser => {
                                 <input type="password" class="form-control" id="exampleInputPassword1"
                                     v-model="data.password">
                             </div>
-                            <buttons type="submit" class="btn btn-danger w-100" @click="login(emailRef, data.password)">{{
+                            <button type="submit" class="btn btn-danger w-100">{{
                                 mode === 'login' ? 'Login' : 'Register'
-                            }}</buttons>
+                            }}</button>
                             <p class="text-warning text-center fw-bold my-3" v-if="errMsg">{{ errMsg }}</p>
                             <div>
 
