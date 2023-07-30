@@ -86,7 +86,7 @@ const getCurrentUser = () => {
     const unsubscribe = onAuthStateChanged(
       auth,
       (user) => {
-        unsubscribe();
+        unsubscribe(); // Rimuovi l'ascoltatore una volta ottenuto l'utente
         resolve(user);
       },
       reject
@@ -96,18 +96,11 @@ const getCurrentUser = () => {
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  const requiresNotAuth = to.matched.some((record) => record.meta.requiresNotAuth);
   const requiresVerify = to.matched.some((record) => record.meta.requiresVerify);
-
-  const user = await getCurrentUser();ß
-
-  if (requiresNotAuth && user) {
-    next("/profile");
-    return;
-  }
+  const user = getCurrentUser();
 
   if (requiresVerify && user) {
-    const isEmailVerified = await checkEmailVerification(user);
+    const isEmailVerified = await checkEmailVerification(user); // Utilizza l'utente corrente per verificare l'email
     if (!isEmailVerified) {
       next("/profile");
       return;
@@ -121,7 +114,7 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 
-async function checkEmailVerification(user) {
+async function checkEmailVerification(user) { // Passa l'utente come parametro
   if (!user) {
     return false;
   }
@@ -134,5 +127,4 @@ async function checkEmailVerification(user) {
     return false;
   }
 }
-
 export default router;
