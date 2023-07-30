@@ -86,7 +86,7 @@ const getCurrentUser = () => {
     const unsubscribe = onAuthStateChanged(
       auth,
       (user) => {
-        unsubscribe(); // Rimuovi l'ascoltatore una volta ottenuto l'utente
+        unsubscribe();
         resolve(user);
       },
       reject
@@ -94,27 +94,38 @@ const getCurrentUser = () => {
   });
 }
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const requiresNotAuth = to.matched.some((record) => record.meta.requiresNotAuth);
   const requiresVerify = to.matched.some((record) => record.meta.requiresVerify);
-  const user = getCurrentUser();
 
-  if (requiresVerify && user) {
-    const isEmailVerified = await checkEmailVerification(user); // Utilizza l'utente corrente per verificare l'email
-    if (!isEmailVerified) {
+  const user = auth.currentUser;
+  
+  onAuthStateChanged(auth, (user) => {
+    if (requiresNotAuth && user) {
       next("/profile");
-      return;
+    } else if (requiresAuth && !user) {
+      next("/login");
+    } else if (requiresVerify && user) {
+      checkEmailVerification(user)
+        .then((isEmailVerified) => {
+          if (!isEmailVerified) {
+            next("/profile");
+          } else {
+            next();
+          }
+        })
+        .catch((error) => {
+          console.log("Errore durante la verifica dell'email:", error);
+          next("/");
+        });
+    } else {
+      next();
     }
-  }
-
-  if (requiresAuth && !user) {
-    next("/login");
-  } else {
-    next();
-  }
+  });
 });
 
-async function checkEmailVerification(user) { // Passa l'utente come parametro
+async function checkEmailVerification(user) {
   if (!user) {
     return false;
   }
@@ -127,4 +138,5 @@ async function checkEmailVerification(user) { // Passa l'utente come parametro
     return false;
   }
 }
+
 export default router;
