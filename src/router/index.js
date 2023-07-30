@@ -65,7 +65,7 @@ const router = createRouter({
       /* fare il controllo se è loggato, se non lo è allora lo porta nella schermata login e succesivamente nel game e non nel profile */
       meta: {
         requiresAuth: true,
-        requiresVerify: true
+        requiresVerify: true 
       }
     },
     {
@@ -81,58 +81,33 @@ const router = createRouter({
   ],
 });
 
-/* const getCurrentUser = () => {
+const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
-    const removeListener = onAuthStateChanged(
+    const unsubscribe = onAuthStateChanged(
       auth,
       (user) => {
-        removeListener();
+        unsubscribe();
         resolve(user);
       },
       reject
     );
   });
-}; */
-
-async function checkEmailVerification() {
-  const user = getAuth().currentUser;
-
-  if (!user) {
-    console.log('Utente non loggato.');
-    return false;
-  }
-
-  try {
-    await user.reload();
-    console.log('Stato dell\'email verificata:', user.emailVerified);
-
-    if (user.emailVerified) {
-      console.log('L\'email è stata verificata.');
-      return true;
-    } else {
-      console.log('L\'email non è stata verificata.');
-      return false;
-    }
-  } catch (error) {
-    console.log('Errore durante l\'aggiornamento dello stato dell\'utente:', error);
-    return false;
-  }
 }
-
-
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const requiresNotAuth = to.matched.some((record) => record.meta.requiresNotAuth);
   const requiresVerify = to.matched.some((record) => record.meta.requiresVerify);
-  const user = getAuth().currentUser;
 
-  /* console.log("to:", to.path);
-  console.log("requiresAuth:", requiresAuth);
-  console.log("requiresVerify:", requiresVerify);
-  console.log("currentUser:", user); */
+  const user = await getCurrentUser();ß
+
+  if (requiresNotAuth && user) {
+    next("/profile");
+    return;
+  }
 
   if (requiresVerify && user) {
-    const isEmailVerified = await checkEmailVerification();
+    const isEmailVerified = await checkEmailVerification(user);
     if (!isEmailVerified) {
       next("/profile");
       return;
@@ -146,5 +121,18 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 
+async function checkEmailVerification(user) {
+  if (!user) {
+    return false;
+  }
+
+  try {
+    await user.reload();
+    return user.emailVerified;
+  } catch (error) {
+    console.log("Errore durante l'aggiornamento dello stato dell'utente:", error);
+    return false;
+  }
+}
 
 export default router;
