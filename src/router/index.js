@@ -64,7 +64,8 @@ const router = createRouter({
       component: () => import("../views/MenuView.vue"),
       /* fare il controllo se è loggato, se non lo è allora lo porta nella schermata login e succesivamente nel game e non nel profile */
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresVerify: true
       }
     },
     {
@@ -73,13 +74,14 @@ const router = createRouter({
       component: () => import("../views/GameView.vue"),
       /* fare il controllo se è loggato, se non lo è allora lo porta nella schermata login e succesivamente nel game e non nel profile */
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresVerify: true
       }
     }
   ],
 });
 
-const getCurrentUser = () => {
+/* const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const removeListener = onAuthStateChanged(
       auth,
@@ -88,24 +90,61 @@ const getCurrentUser = () => {
         resolve(user);
       },
       reject
-    )
-  })
+    );
+  });
+}; */
+
+async function checkEmailVerification() {
+  const user = getAuth().currentUser;
+
+  if (!user) {
+    console.log('Utente non loggato.');
+    return false;
+  }
+
+  try {
+    await user.reload();
+    console.log('Stato dell\'email verificata:', user.emailVerified);
+
+    if (user.emailVerified) {
+      console.log('L\'email è stata verificata.');
+      return true;
+    } else {
+      console.log('L\'email non è stata verificata.');
+      return false;
+    }
+  } catch (error) {
+    console.log('Errore durante l\'aggiornamento dello stato dell\'utente:', error);
+    return false;
+  }
 }
+
+
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const requiresVerify = to.matched.some((record) => record.meta.requiresVerify);
+  const user = getAuth().currentUser;
 
-  if (requiresAuth) {
-    const currentUser = await getCurrentUser();
+  /* console.log("to:", to.path);
+  console.log("requiresAuth:", requiresAuth);
+  console.log("requiresVerify:", requiresVerify);
+  console.log("currentUser:", user); */
 
-    if (currentUser) {
-      next();
-    } else {
-      next('/login');
+  if (requiresVerify && user) {
+    const isEmailVerified = await checkEmailVerification();
+    if (!isEmailVerified) {
+      next("/profile");
+      return;
     }
+  }
+
+  if (requiresAuth && !user) {
+    next("/login");
   } else {
     next();
   }
 });
+
 
 export default router;
