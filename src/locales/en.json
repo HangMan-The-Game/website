@@ -5,7 +5,8 @@
       "team": "Team",
       "contactUs": "Contact us",
       "leaderboard": "Leaderboard",
-      "partners": "Partners"
+      "partners": "Partners",
+      "play": "Play Now"
     },
     "jumbotron": {
       "learnMore": "Learn More!",
@@ -38,5 +39,55 @@
       "description": "This LeaderBoard is synced with the Mobile APP and the Web APP in real time.",
       "reachTheTop": "reach the top!",
       "points": "Points"
+    },
+    "logreg": {
+      "login": "Login",
+      "register": "Register",
+      "already": "Already registered?",
+      "notalr": "Not registered yet?",
+      "reghere": "Register here",
+      "loghere": "Login here",
+      "forgpsw": "Forgot your password?",
+      "email": "Email address",
+      "respsw": "Reset your password",
+      "forgemail": "Put your email",
+      "close": "Close",
+      "submit": "Submit"
+    },
+    "profile": {
+      "welcome": "Welcome",
+      "logout": "Logout",
+      "role": "Role",
+      "points": "Points",
+      "wins": "Wins",
+      "emailver": "Verification email successfully sent",
+      "veryouremail": "Verify your email",
+      "manwords": "Manage Words",
+      "manpoints": "Manage Points",
+      "manusers": "Manage Users"
+    },
+    "menu": {
+      "welcome": "Welcome",
+      "mode": "Selected mode",
+      "game": "Start game",
+      "selemod": "Select mode",
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard",
+      "close": "Close",
+      "select": "Select"
+    },
+    "game": {
+      "info": "Player info",
+      "points": "Points",
+      "wins": "Wins",
+      "return": "Return to menu",
+      "mode": "Selected mode",
+      "mulpoints": "Multiplier points",
+      "attempts": "Attempts left",
+      "resgame": "Reset game",
+      "wordwas": "The word was",
+      "won": "WON",
+      "loss": "LOSS"
     }
 }  
