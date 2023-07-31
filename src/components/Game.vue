@@ -219,7 +219,7 @@ watch(word, () => {
         <div v-if="isWordGuessed()" class="fs-1 text-center fw-bold text-success">{{ $t('game.won') }}!</div>
         <div v-if="isOutOfAttempts()" class="fs-1 text-center fw-bold text-danger">
             {{ $t('game.loss') }}
-            <div class="fs-5">{{ $t('game.was') }}: <span class="fw-bold">{{ wordToGuess }}</span></div>
+            <div class="fs-5">{{ $t('game.wordwas') }}: <span class="fw-bold">{{ wordToGuess }}</span></div>
         </div>
         <div class="text-center fs-1">
             <span v-for="(letter, index) in word" :key="index">
