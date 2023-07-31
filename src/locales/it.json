@@ -5,7 +5,8 @@
       "team": "Team",
       "contactUs": "Contattaci",
       "leaderboard": "Classifica",
-      "partners": "Partners"
+      "partners": "Partners",
+      "play": "Gioca ora"
     },
     "jumbotron": {
       "learnMore": "Scopri di più!",
@@ -38,6 +39,55 @@
       "description": "Questa classifica è sincronizzata in tempo reale con l'APP Mobile e l'APP Web.",
       "reachTheTop": "raggiungi la vetta!",
       "points": "Punti"
-    }
+    },
+  "logreg": {
+    "login": "Accedi",
+    "register": "Registrati",
+    "already": "Già registrato?",
+    "notalr": "Non sei ancora registrato?",
+    "reghere": "Registrati qui",
+    "loghere": "Accedi qui",
+    "forgpsw": "Hai dimenticato la password?",
+    "email": "Indirizzo email",
+    "respsw": "Reimposta la password",
+    "forgemail": "Inserisci il tuo email",
+    "close": "Chiudi",
+    "submit": "Invia"
+  },
+  "profile": {
+    "welcome": "Benvenuto",
+    "logout": "Logout",
+    "role": "Ruolo",
+    "points": "Punti",
+    "wins": "Vittorie",
+    "emailver": "Email di verifica inviata con successo",
+    "veryouremail": "Verifica la tua email",
+    "manwords": "Gestisci Parole",
+    "manpoints": "Gestisci Punti",
+    "manusers": "Gestisci Utenti"
+  },
+  "menu": {
+    "welcome": "Benvenuto",
+    "mode": "Modalità selezionata",
+    "game": "Inizia gioco",
+    "selemod": "Seleziona modalità",
+    "easy": "Facile",
+    "medium": "Medio",
+    "hard": "Difficile",
+    "close": "Chiudi",
+    "select": "Seleziona"
+  },
+  "game": {
+    "info": "Informazioni giocatore",
+    "points": "Punti",
+    "wins": "Vittorie",
+    "return": "Torna al menu",
+    "mode": "Modalità selezionata",
+    "mulpoints": "Moltiplicatore punti",
+    "attempts": "Tentativi rimasti",
+    "resgame": "Ricomincia gioco",
+    "wordwas": "La parola era",
+    "won": "VITTORIA",
+    "loss": "SCONFITTA"
   }
-  
+}

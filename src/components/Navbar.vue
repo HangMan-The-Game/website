@@ -1,7 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import { useDark, useToggle } from "@vueuse/core";
-import { onMounted } from "vue";
+import { getAuth } from "firebase/auth";
+import { auth } from '@/firebase.js';
+import { onMounted, ref } from "vue";
 const isDark = useDark({
   selector: "body", //element to add attribute to
   attribute: "theme", // attribute name
@@ -9,14 +11,41 @@ const isDark = useDark({
   valueLight: "custom-light", // attribute value for light mode
 });
 const emit = defineEmits(['toggleTheme'])
+
 const toggleDark = useToggle(isDark);
 const toggleTheme = () => {
   toggleDark();
   emit("toggleTheme", isDark.value);
 }
 
+const isLoggedIn = ref(false);
+const isEmailVerified = ref(false);
+
+function checkEmailVerification() {
+  const user = getAuth().currentUser;
+  isLoggedIn.value = user !== null;
+
+  if (user) {
+    isEmailVerified.value = user.emailVerified;
+  } else {
+    isEmailVerified.value = false;
+  }
+
+  console.log(
+    `L'utente è ${isLoggedIn.value ? "loggato" : "non loggato"} e ${isEmailVerified.value ? "ha" : "non ha"
+    } verificato l'email.`
+  );
+
+  return isLoggedIn.value && !isEmailVerified.value;
+}
+
+const unsubscribe = auth.onAuthStateChanged(() => {
+  checkEmailVerification();
+});
+
 onMounted(() => {
   emit("toggleTheme", isDark.value || false);
+  unsubscribe();
 })
 </script>
 
@@ -33,7 +62,7 @@ export default {
     },
     changeLocale(locale) {
       this.$i18n.locale = locale;
-      this.$emit("locale-changed", locale); // Emetti l'evento con il locale selezionato
+      this.$emit("locale-changed", locale);
     },
   }
 }
@@ -103,6 +132,9 @@ export default {
           <li class="nav-item fs-5">
             <RouterLink to="/leaderboard" class="nav-link">{{ $t("navbar.leaderboard") }}</RouterLink>
           </li>
+          <li class="nav-item fs-5">
+            <RouterLink to="/menu" class="nav-link">{{ $t("navbar.play") }}</RouterLink>
+          </li>
         </ul>
         <div class="d-flex align-items-center">
           <!-- language selector : to-do -->
@@ -141,8 +173,13 @@ export default {
               class="bi bi-twitter"></i>
           </a>
           |
-          <RouterLink to="/profile" class="btn btn-link fs-3 px-2 text-decoration-none"><i
+          <RouterLink to="/profile" class="btn-link fs-3 px-2 text-decoration-none position-relative"><i
               class="bi bi-person-circle"></i>
+            <!-- to-do se non è verificata la mail -->
+            <span v-if="isLoggedIn && checkEmailVerification()"
+              class="position-absolute top-0 start-75 translate-middle badge rounded-pill bg-primary small-badge">
+              1
+            </span>
           </RouterLink>
         </div>
       </div>
@@ -268,5 +305,9 @@ a.router-link-active {
 
 nav {
   border-bottom: 0.5px solid black;
+}
+
+.small-badge {
+  font-size: 0.7rem;
 }
 </style>

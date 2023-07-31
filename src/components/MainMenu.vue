@@ -51,17 +51,17 @@ export default {
     <div class="main-menu">
         <div v-if="user">
             <div class="welcome-message">
-                Welcome, <span class="text-danger fw-bold">{{ user.displayName }}</span>
+                {{ $t("menu.welcome") }}, <span class="text-danger fw-bold">{{ user.displayName }}</span>
             </div>
         </div>
 
         <div class="welcome-message">
-            Mode selected: <span class="text-success fw-bold">{{ selectedMode }}</span>
+            {{ $t("menu.mode") }}: <span class="text-success fw-bold">{{ selectedMode }}</span>
         </div>
 
         <div class="d-grid gap-3 w-25 mx-auto">
-            <button class="btn btn-primary btn-lg" @click="startGame">Start Game</button>
-            <button class="btn btn-secondary btn-lg mb-5" @click="openModal">Select Mode</button>
+            <button class="btn btn-primary btn-lg" @click="startGame">{{ $t("menu.game") }}</button>
+            <button class="btn btn-secondary btn-lg mb-5" @click="openModal">{{ $t("menu.selemod") }}</button>
             <!-- <button class="btn btn-info btn-lg" @click="openHelp">Help</button> -->
         </div>
 
@@ -69,7 +69,7 @@ export default {
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Select Mode</h5>
+                        <h5 class="modal-title">{{ $t("menu.selemod") }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             @click="closeModal"></button>
                     </div>
@@ -77,23 +77,24 @@ export default {
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="mode" id="easyMode" value="Easy"
                                 v-model="selectedMode">
-                            <label class="form-check-label" for="easyMode">Easy</label>
+                            <label class="form-check-label" for="easyMode">{{ $t("menu.easy") }}</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="mode" id="mediumMode" value="Medium"
                                 v-model="selectedMode">
-                            <label class="form-check-label" for="mediumMode">Medium</label>
+                            <label class="form-check-label" for="mediumMode">{{ $t("menu.medium") }}</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="mode" id="hardMode" value="Hard"
                                 v-model="selectedMode">
-                            <label class="form-check-label" for="hardMode">Hard</label>
+                            <label class="form-check-label" for="hardMode">{{ $t("menu.hard") }}</label>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            @click="closeModal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="handleSelectMode">Select</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">{{
+                            $t("menu.close") }}</button>
+                        <button type="button" class="btn btn-primary" @click="handleSelectMode">{{ $t("menu.select")
+                        }}</button>
                     </div>
                 </div>
             </div>
