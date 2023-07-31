@@ -128,36 +128,35 @@ function hideAlert() {
     <div class="container w-50 py-5">
         <div class="card mt-4 shadow">
             <div class="card-body">
-                <h3 class="card-title text-center mb-4">Benvenuto</h3>
+                <h3 class="card-title text-center mb-4">{{ $t("profile.welcome") }}</h3>
                 <div v-if="showAlert" class="alert alert-success w-75 mx-auto d-flex" role="alert">
-                    <div class="flex-grow-1">Email di verifica inviata con successo.</div>
+                    <div class="flex-grow-1">{{ $t("profile.emailver") }}</div>
                     <button type="button" class="btn-close" @click="hideAlert" aria-label="Close"></button>
                 </div>
 
                 <button type="button" class="btn btn-danger d-block mx-auto mb-3 fs-5"
-                    @click="() => { sendVerificationEmail(); showAlert = true; }" v-if="checkEmailVerification()">Verifica
-                    la
-                    tua
-                    mail</button>
+                    @click="() => { sendVerificationEmail(); showAlert = true; }" v-if="checkEmailVerification()">{{
+                        $t("profile.veryouremail") }}</button>
                 <!-- <button class="btn btn-danger d-block mx-auto mb-3 fs-5" @click="sendVerificationEmail()"
                     v-if="checkEmailVerification()">Verifica la tua mail</button> -->
                 <h4 class="card-text text-center">
                     Email: <span class="text-primary">{{ email }}</span>
                     <br>Username: <span class="fw-bold text-danger">{{ username }}</span>
-                    <br>Ruolo: <span class="text-info">{{ roleLabel }}</span>
-                    <br>Punti: <span class="text-success">{{ punti }}</span>
-                    <br>Vittorie: <span class="text-success">{{ vittorie }}</span>
+                    <br>{{ $t("profile.role") }}: <span class="text-info">{{ roleLabel }}</span>
+                    <br>{{ $t("profile.points") }}: <span class="text-success">{{ punti }}</span>
+                    <br>{{ $t("profile.wins") }}: <span class="text-success">{{ vittorie }}</span>
                 </h4>
-                <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">Esci</button>
+                <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">{{
+                    $t("profile.logout") }}</button>
             </div>
             <RouterLink v-if="role === 'admin'" to="/words" class="card-footer text-center mt-4 text-decoration-none">
-                Gestisci Parole
+                {{ $t("profile.manwords") }}
             </RouterLink>
-            <RouterLink v-if="role === 'admin'" to="/points" class="card-footer text-center text-decoration-none">Gestisci
-                Punti
+            <RouterLink v-if="role === 'admin'" to="/points" class="card-footer text-center text-decoration-none">{{
+                $t("profile.points") }}
             </RouterLink>
-            <RouterLink v-if="role === 'admin'" to="/users" class="card-footer text-center text-decoration-none">Gestisci
-                Utenti
+            <RouterLink v-if="role === 'admin'" to="/users" class="card-footer text-center text-decoration-none">{{
+                $t("profile.manusers") }}
             </RouterLink>
         </div>
         <!--         <div class="card shadow mt-2">

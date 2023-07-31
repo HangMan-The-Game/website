@@ -62,7 +62,7 @@ export default {
     },
     changeLocale(locale) {
       this.$i18n.locale = locale;
-      this.$emit("locale-changed", locale); // Emetti l'evento con il locale selezionato
+      this.$emit("locale-changed", locale);
     },
   }
 }
@@ -133,7 +133,7 @@ export default {
             <RouterLink to="/leaderboard" class="nav-link">{{ $t("navbar.leaderboard") }}</RouterLink>
           </li>
           <li class="nav-item fs-5">
-            <RouterLink to="/menu" class="nav-link">Play Now</RouterLink>
+            <RouterLink to="/menu" class="nav-link">{{ $t("navbar.play") }}</RouterLink>
           </li>
         </ul>
         <div class="d-flex align-items-center">

@@ -251,14 +251,14 @@ onAuthStateChanged(auth, currentUser => {
                         <h3 class="card-title text-center mb-4">{{ mode === 'login' ? 'Login' : 'Register' }}</h3>
                         <form @submit.prevent="submit">
                             <div v-if="mode === 'register'" class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <label for="exampleInputEmail1" class="form-label">{{ $t("logreg.email") }}</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" v-model="emailRef" required @input="checkEmail">
                                 <div v-if="emailError && emailError.length > 0" class="text-danger">{{ emailError
                                 }}</div>
                             </div>
                             <div v-else class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <label for="exampleInputEmail1" class="form-label">{{ $t("logreg.email") }}</label>
                                 <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                     v-model="emailRef">
                             </div>
@@ -288,30 +288,31 @@ onAuthStateChanged(auth, currentUser => {
                                 <a v-if="mode === 'login'" type="button"
                                     class="text-decoration-none mx-auto d-flex justify-content-center mt-2"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">
-                                    Forgot your password?
+                                    {{ $t("logreg.forgpsw") }}
                                 </a>
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Reset your password</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ $t("logreg.respsw")
+                                                }}</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="mb-3">
-                                                    <label for="recipient-name" class="col-form-label">Put your
-                                                        email:</label>
+                                                    <label for="recipient-name" class="col-form-label">{{
+                                                        $t("logreg.forgemail") }}</label>
                                                     <input type="email" id="email" v-model="data.email"
                                                         class="form-control">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{
+                                                    $t("logreg.close") }}</button>
                                                 <button type="button" class="btn btn-primary"
-                                                    @click="forgotPassword(data.email)">Submit</button>
+                                                    @click="forgotPassword(data.email)">{{ $t("logreg.submit") }}</button>
                                             </div>
                                         </div>
                                     </div>

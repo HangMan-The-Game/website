@@ -13,6 +13,8 @@ const layout = {
     ],
 };
 const mode = ref('');
+const modeview = ref('');
+const lang = ref('');
 
 const word = ref("");
 const guessedLetters = ref({
@@ -34,14 +36,33 @@ const auth = getAuth();
 
 onMounted(async () => {
     mode.value = localStorage.getItem('selectedMode') || 'Easy';
+    lang.value = localStorage.getItem('lang') || 'English';
     if (mode.value === 'Easy') {
         mode.value = 'Facile';
+        if (lang.value === 'English') {
+            modeview.value = 'Easy';
+        }
+        else if (lang.value === 'Italiano') {
+            modeview.value = 'Facile';
+        }
         moltiplicatore.value = 1;
     } else if (mode.value === 'Medium') {
         mode.value = 'Medio';
+        if (lang.value === 'English') {
+            modeview.value = 'Medium';
+        }
+        else if (lang.value === 'Italiano') {
+            modeview.value = 'Medio';
+        }
         moltiplicatore.value = 1.5;
     } else if (mode.value === 'Hard') {
         mode.value = 'Difficile';
+        if (lang.value === 'English') {
+            modeview.value = 'Hard';
+        }
+        else if (lang.value === 'Italiano') {
+            modeview.value = 'Difficile';
+        }
         moltiplicatore.value = 2;
     }
     const querySnapshot = await getDocs(collection(db, mode.value));
@@ -177,25 +198,28 @@ watch(word, () => {
     <div class="container mx-auto my-3">
         <div class="card w-50 mx-auto mb-2">
             <div class="card-body mx-auto">
-                <h5 class="card-title text-center">Player Info</h5>
+                <h5 class="card-title text-center">{{ $t('game.info') }}</h5>
                 <p class="card-text text-center">
                     <span class="text-danger fw-bold">{{ username }}</span>
                     <br>
-                    Points: <span class="fw-bold">{{ punti }}</span>
+                    {{ $t('game.points') }}: <span class="fw-bold">{{ punti }}</span>
                     <br>
-                    Wins: <span class="fw-bold">{{ vittorie }}</span>
+                    {{ $t('game.wins') }}: <span class="fw-bold">{{ vittorie }}</span>
                 </p>
-                <RouterLink to="/menu" class="btn btn-primary">Return to Menu</RouterLink>
+                <div class="d-flex justify-content-center">
+                    <RouterLink to="/menu" class="btn btn-primary">{{ $t('game.return') }}</RouterLink>
+                </div>
+
             </div>
         </div>
         <div class="text-center">
-            Selected Mode: <span class="text-success fw-bold">{{ mode }}</span>
-            <br>Multiplier points: <span class="fw-bold text-warning">{{ moltiplicatore }}x</span>
+            {{ $t('game.mode') }}: <span class="text-success fw-bold">{{ modeview }}</span>
+            <br>{{ $t('game.mulpoints') }}: <span class="fw-bold text-warning">{{ moltiplicatore }}x</span>
         </div>
-        <div v-if="isWordGuessed()" class="fs-1 text-center fw-bold text-success">WIN!</div>
+        <div v-if="isWordGuessed()" class="fs-1 text-center fw-bold text-success">{{ $t('game.won') }}!</div>
         <div v-if="isOutOfAttempts()" class="fs-1 text-center fw-bold text-danger">
-            LOSS
-            <div class="fs-5">The word was: <span class="fw-bold">{{ wordToGuess }}</span></div>
+            {{ $t('game.loss') }}
+            <div class="fs-5">{{ $t('game.was') }}: <span class="fw-bold">{{ wordToGuess }}</span></div>
         </div>
         <div class="text-center fs-1">
             <span v-for="(letter, index) in word" :key="index">
@@ -203,7 +227,7 @@ watch(word, () => {
                 <span v-else class="mx-1">_</span>
             </span>
         </div>
-        <div class="attempt-count mb-3">Attempts left: {{ remainingAttempts }}</div>
+        <div class="attempt-count mb-3">{{ $t('game.attempts') }}: {{ remainingAttempts }}</div>
         <div class="keyboard-container w-75 mx-auto">
             <SimpleKeyboard @onKeyPress="handleInput" :guessedLetters="guessedLetters" />
         </div>
@@ -216,7 +240,7 @@ watch(word, () => {
             </div>
         </div> -->
         <div class="d-flex justify-content-center mt-3">
-            <button v-if="gameOver" @click="resetGame" class="btn btn-primary">Reset Game</button>
+            <button v-if="gameOver" @click="resetGame" class="btn btn-primary">{{ $t('game.resgame') }}</button>
         </div>
     </div>
 </template>
