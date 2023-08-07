@@ -153,7 +153,7 @@ function hideAlert() {
                 {{ $t("profile.manwords") }}
             </RouterLink>
             <RouterLink v-if="role === 'admin'" to="/points" class="card-footer text-center text-decoration-none">{{
-                $t("profile.points") }}
+                $t("profile.manpoints") }}
             </RouterLink>
             <RouterLink v-if="role === 'admin'" to="/users" class="card-footer text-center text-decoration-none">{{
                 $t("profile.manusers") }}
