@@ -17,7 +17,7 @@ const props = defineProps(['theme'])
                     <div class="d-flex flex-column gap-2 mb-5">
                         <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("jumbotron.learnMore") }}</a>
                         <RouterLink to="/menu" class="btn btn-primary btn-lg">{{ $t("jumbotron.playNow") }} <span
-                                class="badge rounded-pill text-bg-warning">WIP</span></RouterLink>
+                                class="badge rounded-pill text-bg-warning">beta</span></RouterLink>
                         <!--                         <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>{{
                             $t("jumbotron.playNow")
                         }}<span class="badge rounded-pill text-bg-warning">WIP</span></button> -->
