@@ -64,7 +64,8 @@
       "veryouremail": "Verify your email",
       "manwords": "Manage Words",
       "manpoints": "Manage Points",
-      "manusers": "Manage Users"
+      "manusers": "Manage Users",
+      "alertver": "You have to verify the mail to be able to play the game"
     },
     "menu": {
       "welcome": "Welcome",
