@@ -319,10 +319,12 @@ onAuthStateChanged(auth, currentUser => {
                                 </div>
                             </div>
                             <p class="text-center mb-0">
-                                {{ mode === 'login' ? 'Not registered yet?' : 'Already registered?' }}
+                                {{ $t(mode === 'login' ? 'logreg.notalr' : 'logreg.already') }}
+                                <!-- {{ mode === 'login' ? 'Not registered yet?' : 'Already registered?' }} -->
                                 <a class="text-decoration-none fw-bold"
                                     @click="toggleMode(mode === 'login' ? 'register' : 'login')">
-                                    {{ mode === 'login' ? 'Register here' : 'Login here' }}
+                                    {{ $t(mode === 'login' ? 'logreg.reghere' : 'logreg.loghere') }}
+                                    <!-- {{ mode === 'login' ? 'Register here' : 'Login here' }} -->
                                 </a>
                             </p>
                         </form>
