@@ -134,7 +134,9 @@ const sortedUsers = computed(() => {
                             <span v-else-if="index === 2">🥉</span>
                             <span v-else>{{ index + 1 }}</span>
                         </th>
-                        <td class="t-lead">{{ user.name }}</td>
+                        <td v-if="user.role === 'admin'" class="t-lead">{{ user.name }} <i
+                                class="bi bi-patch-check-fill text-primary"></i></td>
+                        <td v-else class="t-lead">{{ user.name }}</td>
                         <td class="t-lead">{{ user.points }}</td>
                     </tr>
                 </tbody>
