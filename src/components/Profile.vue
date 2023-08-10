@@ -126,6 +126,13 @@ function hideAlert() {
 
 <template>
     <div class="container w-50 py-5">
+        <div v-if="checkEmailVerification()" class="toast align-items-center d-block mx-auto">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ $t("profile.alertver") }}
+                </div>
+            </div>
+        </div>
         <div class="card mt-4 shadow">
             <div class="card-body">
                 <h3 class="card-title text-center mb-4">{{ $t("profile.welcome") }}</h3>
@@ -133,7 +140,6 @@ function hideAlert() {
                     <div class="flex-grow-1">{{ $t("profile.emailver") }}</div>
                     <button type="button" class="btn-close" @click="hideAlert" aria-label="Close"></button>
                 </div>
-
                 <button type="button" class="btn btn-danger d-block mx-auto mb-3 fs-5"
                     @click="() => { sendVerificationEmail(); showAlert = true; }" v-if="checkEmailVerification()">{{
                         $t("profile.veryouremail") }}</button>

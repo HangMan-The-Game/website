@@ -246,6 +246,11 @@ export default {
   background-color: #43454e !important;
   color: #16171d;
 }
+
+[theme="custom-dark"] .toast-body {
+  background-color: #43454e !important;
+  border-radius: 5px;
+}
 </style>
 
 <style scoped>
