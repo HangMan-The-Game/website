@@ -77,6 +77,11 @@ const router = createRouter({
         requiresAuth: true,
         requiresVerify: true
       }
+    },
+    {
+      path: "/links",
+      name: "links",
+      component: () => import("../views/LinksView.vue"),
     }
   ],
 });
