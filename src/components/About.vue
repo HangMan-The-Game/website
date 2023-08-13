@@ -26,10 +26,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6 d-flex align-items-center mt-5">
+        <div class="col-lg-7 d-flex align-items-center mt-5">
           <p class="fs-4" v-html="$t('about.description3')"></p>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-4">
           <img class="img-fluid img-thumbnail shadow-lg rounded mt-5 w-100" src="../assets/images/photo3.jpeg"
             alt="About Us Image" />
         </div>
