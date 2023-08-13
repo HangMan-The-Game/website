@@ -10,30 +10,30 @@
         <form class="w-50 mx-auto shadow p-3 mb-5 border rounded border-2 p-2">
             <div class="input-group mb-3">
                 <span class="input-group-text">{{ $t("contact.firstName") }}</span>
-                <input type="text" aria-label="First name" class="form-control">
+                <input type="text" aria-label="First name" class="form-control" disabled>
                 <span class="input-group-text">{{ $t("contact.lastName") }}</span>
-                <input type="text" aria-label="Last name" class="form-control">
+                <input type="text" aria-label="Last name" class="form-control" disabled>
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">{{ $t("contact.emailAddress") }}</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled>
                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
             <div class="mb-3">
                 <!-- <span class="input-group-text">With textarea</span> -->
                 <label for="exampleInputEmail1" class="form-label">{{ $t("contact.message") }}</label>
-                <textarea class="form-control" aria-label="With textarea"></textarea>
+                <textarea class="form-control" aria-label="With textarea" disabled></textarea>
             </div>
-            <!--             <div class="mb-3 form-check">
+            <!-- <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                                                                                                                                                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                                                                                                                                                                                </div> -->
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div> -->
             <div class="text-center">
                 <button id="disabled" type="submit" class="btn btn-primary btn-lg disabled fs-5">{{ $t("contact.submit") }}
                     <span class="badge rounded-pill text-bg-warning">WIP</span></button>
             </div>
         </form>
-        <!--         <div>
+        <!-- <div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">@</span>
                 <input type="text" class="form-control" placeholder="Username" aria-label="Username"
@@ -65,10 +65,8 @@
                 <input type="text" class="form-control" placeholder="Username" aria-label="Username">
                 <span class="input-group-text">@</span>
                 <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                    </div> -->
-
-
+            </div>
+        </div> -->
     </section>
 </template>
 
