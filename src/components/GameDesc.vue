@@ -4,20 +4,23 @@
   <section id="gamedesc" class="game-description">
     <div class="container my-5">
       <div class="row">
-        <h1 class="fw-bold text-center my-5">{{ $t("gameDescription.title") }} <i class="bi bi-controller"></i></h1>
-        <div class="col-lg-4 d-flex align-items-center">
+        <i class="bi bi-controller text-center fs-1"></i>
+        <h1 class="fw-bold text-center fs-1 mb-5">{{ $t("gameDescription.title") }}</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
           <img class="img-thumbnail shadow-lg rounded mb-5" src="../assets/images/photo4.jpeg"
             alt="Game Description Image" />
         </div>
-        <div class="col-lg-8 d-flex align-items-center">
-          <p class="fs-4" v-html="$t('gameDescription.description1')"></p>
+        <div class="col-lg-9 d-flex align-items-center">
+          <p class="fs-4 mb-5" v-html="$t('gameDescription.description1')"></p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <p class="fs-4 mt-5" v-html="$t('gameDescription.description2')"></p>
+      <div class="row my-3">
+        <div class="col-lg-7 d-flex align-items-center">
+          <p class="fs-4" v-html="$t('gameDescription.description2')"></p>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <img class="img-thumbnail shadow-lg rounded mt-5" src="../assets/images/photo2.jpeg"
             alt="Game Description Image" />
         </div>
