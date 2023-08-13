@@ -109,7 +109,8 @@ const sortedUsers = computed(() => {
 
 <template>
     <div class="container">
-        <h1 class="text-center my-3 fw-bold">{{ $t("leaderboard.title") }} <i class="bi bi-trophy-fill text-danger"></i>
+        <h1 class="text-center mb-3 mt-5 fw-bold">{{ $t("leaderboard.title") }} <i
+                class="bi bi-trophy-fill text-danger"></i>
         </h1>
         <h4 class="text-center my-3">{{ $t("leaderboard.description") }}</h4>
         <h5 class="text-center my-3 fst-italic">{{ $t("leaderboard.reachTheTop") }}</h5>
