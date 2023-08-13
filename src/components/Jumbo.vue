@@ -13,9 +13,10 @@ const props = defineProps(['theme'])
                         alt="HangMan-Logo" height="">
                     <img v-else class="img-fluid" src="../assets/images/HangManGame.svg" alt="HangMan-Logo" height="">
 
-                    <p class="fs-2 w-50 mx-auto text-center" v-html="$t('jumbotron.gameDescription')"></p>
+                    <p class="fs-3 w-50 mx-auto text-center" v-html="$t('jumbotron.gameDescription')"></p>
                     <div class="d-flex flex-column gap-2 mb-5">
-                        <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("jumbotron.learnMore") }}</a>
+                        <a type="button" href="#about" class="btn btn-primary btn-lg">{{ $t("jumbotron.learnMore")
+                        }}</a>
                         <RouterLink to="/menu" class="btn btn-primary btn-lg">{{ $t("jumbotron.playNow") }} <span
                                 class="badge rounded-pill text-bg-warning">beta</span></RouterLink>
                         <!--                         <button id="disabled" type="button" class="btn btn-primary btn-lg" disabled>{{
@@ -38,6 +39,7 @@ section {
 .btn-primary {
     background-color: #FF4D4D;
     border-color: #FF4D4D;
+    font-size: 1.1rem;
 }
 
 .btn-primary:hover {
