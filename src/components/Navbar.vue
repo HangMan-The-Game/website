@@ -70,7 +70,7 @@ export default {
 
 <template>
   <nav :class="isDark ? 'navbar-dark' : ''" class="navbar sticky-top navbar-expand-lg bg-body-tertiary scrollspy-navbar"
-    style="background-color: #ffffff">
+    style="background-color: #ffffffec">
     <div class=" container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -310,6 +310,7 @@ a.router-link-active {
 
 nav {
   border-bottom: 0.5px solid black;
+  backdrop-filter: blur(10px);
 }
 
 .small-badge {
