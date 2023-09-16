@@ -108,12 +108,29 @@
                             <span v-else-if="index === 2">🥉</span>
                             <span v-else>{{ index + 1 }}</span>
                         </th>
-                        <td v-if="selectedRanking === 'global' && user.role === 'admin'" class="t-lead">{{ user.name }} <i
-                                class="bi bi-patch-check-fill text-primary"></i></td>
-                        <td v-else-if="selectedRanking === 'global'" class="t-lead">{{ user.name }}</td>
+                        <td v-if="selectedRanking === 'global' && user.role === 'admin'" class="t-lead">
+                            <div class="user-name" @mouseover="hoveredUser = user" @mouseout="hoveredUser = null">
+                                {{ user.name }} <i class="bi bi-patch-check-fill text-primary"></i>
+                            </div>
+                            <div v-if="hoveredUser === user" class="user-popup">
+                                {{ user.name }} (Admin)
+                                <br>
+                                {{ $t("game.wins") }}: {{ user.vittorie }}
+                            </div>
+                        </td>
+                        <td v-else-if="selectedRanking === 'global'" class="t-lead">
+                            <div class="user-name" @mouseover="hoveredUser = user" @mouseout="hoveredUser = null">
+                                {{ user.name }}
+                            </div>
+                            <div v-if="hoveredUser === user" class="user-popup">
+                                {{ $t("game.wins") }}: {{ user.vittorie }}
+                            </div>
+                        </td>
                         <td v-else class="t-lead" :class="{ 'text-uppercase': selectedRanking === 'maker' }">{{
                             user.nickname }}</td>
-                        <td class="t-lead">{{ user.points }}</td>
+                        <td class="t-lead">
+                            {{ user.points }}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -130,6 +147,8 @@ import { db } from '@/firebase.js';
 const users = ref([]);
 const isLoading = ref(true);
 const selectedRanking = ref('global');
+const hoveredUser = ref(null);
+const showPopup = ref(false);
 
 const loadingDelay = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -201,6 +220,17 @@ const makerUsers = computed(() => {
 const currentUsers = computed(() => {
     return selectedRanking.value === 'global' ? globalUsers.value : makerUsers.value;
 });
+
+const userHovered = ref(Array(currentUsers.length).fill(false));
+
+const setHoveredUser = (index) => {
+    userHovered[index] = true;
+};
+
+const resetHoveredUser = (index) => {
+    userHovered[index] = false;
+};
+
 </script>
   
   
@@ -228,5 +258,15 @@ const currentUsers = computed(() => {
 .btn-primary:active {
     background-color: #4e0909;
     border-color: #FF4D4D;
+}
+
+.user-popup {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    z-index: 999;
+    display: inline-block;
 }
 </style>
