@@ -164,6 +164,9 @@ function hideAlert() {
             <RouterLink v-if="role === 'admin'" to="/users" class="card-footer text-center text-decoration-none">{{
                 $t("profile.manusers") }}
             </RouterLink>
+            <RouterLink v-if="role === 'admin'" to="/leadino" class="card-footer text-center text-decoration-none">
+                MakerFaire
+            </RouterLink>
         </div>
         <!--         <div class="card shadow mt-2">
             <div class="card-body">
