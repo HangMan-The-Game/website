@@ -245,6 +245,11 @@ const resetHoveredUser = (index) => {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+td {
+    color: #B33636;
+    cursor: pointer;
+}
+
 .btn-primary {
     background-color: #FF4D4D;
     border-color: #FF4D4D;
