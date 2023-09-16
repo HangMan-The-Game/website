@@ -148,7 +148,6 @@ const users = ref([]);
 const isLoading = ref(true);
 const selectedRanking = ref('global');
 const hoveredUser = ref(null);
-const showPopup = ref(false);
 
 const loadingDelay = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -220,16 +219,6 @@ const makerUsers = computed(() => {
 const currentUsers = computed(() => {
     return selectedRanking.value === 'global' ? globalUsers.value : makerUsers.value;
 });
-
-const userHovered = ref(Array(currentUsers.length).fill(false));
-
-const setHoveredUser = (index) => {
-    userHovered[index] = true;
-};
-
-const resetHoveredUser = (index) => {
-    userHovered[index] = false;
-};
 
 </script>
   
