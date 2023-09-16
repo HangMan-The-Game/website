@@ -71,42 +71,6 @@
 
 <style scoped></style> -->
 
-<script setup>
-import Loader from '@/components/Loader.vue';
-import { collection, onSnapshot } from 'firebase/firestore';
-import { ref, onMounted, onUnmounted, computed } from 'vue';
-import { db } from '@/firebase.js';
-
-const users = ref([]);
-const isLoading = ref(true);
-
-const loadingDelay = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    isLoading.value = false;
-};
-
-onMounted(() => {
-
-    loadingDelay();
-    const unsubscribe = onSnapshot(collection(db, 'users'), (snapshot) => {
-        const updatedUsers = [];
-        snapshot.forEach((doc) => {
-            updatedUsers.push({
-                id: doc.id,
-                ...doc.data()
-            });
-        });
-        users.value = updatedUsers;
-    });
-
-    onUnmounted(unsubscribe);
-});
-
-const sortedUsers = computed(() => {
-    return users.value.filter(user => user.points > 5).sort((a, b) => b.points - a.points);
-});
-</script>
-
 <template>
     <div class="container">
         <h1 class="text-center mb-3 mt-5 fw-bold">{{ $t("leaderboard.title") }} <i
@@ -115,10 +79,19 @@ const sortedUsers = computed(() => {
         <h4 class="text-center my-3">{{ $t("leaderboard.description") }}</h4>
         <h5 class="text-center my-3 fst-italic">{{ $t("leaderboard.reachTheTop") }}</h5>
         <Loader v-if="isLoading" class="mx-auto my-5" />
-        <!--         <div v-if="isLoading" class="text-center my-3">
-            <i class="bi bi-arrow-repeat animate-spin text-primary"></i> Loading...
-        </div> -->
         <div class="container" v-else>
+            <div class="mb-3 d-flex justify-content-center">
+                <div class="btn-group border" role="group" aria-label="Select Ranking">
+                    <button type="button" class="btn" :class="{ 'btn-primary': selectedRanking === 'global' }"
+                        @click="selectGlobal">
+                        <i class="bi bi-pc-display"></i> / <i class="bi bi-android2"></i>
+                    </button>
+                    <button type="button" class="btn" :class="{ 'btn-primary': selectedRanking === 'maker' }"
+                        @click="selectMaker">
+                        <i class="bi bi-motherboard-fill"></i>
+                    </button>
+                </div>
+            </div>
             <table class="rounded w-50 shadow mx-auto table table-hover">
                 <thead>
                     <tr>
@@ -128,16 +101,18 @@ const sortedUsers = computed(() => {
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <tr v-for="(user, index) in sortedUsers" :key="user.id">
+                    <tr v-for="(user, index) in currentUsers" :key="user.id">
                         <th scope="row">
                             <span v-if="index === 0">🥇</span>
                             <span v-else-if="index === 1">🥈</span>
                             <span v-else-if="index === 2">🥉</span>
                             <span v-else>{{ index + 1 }}</span>
                         </th>
-                        <td v-if="user.role === 'admin'" class="t-lead">{{ user.name }} <i
+                        <td v-if="selectedRanking === 'global' && user.role === 'admin'" class="t-lead">{{ user.name }} <i
                                 class="bi bi-patch-check-fill text-primary"></i></td>
-                        <td v-else class="t-lead">{{ user.name }}</td>
+                        <td v-else-if="selectedRanking === 'global'" class="t-lead">{{ user.name }}</td>
+                        <td v-else class="t-lead" :class="{ 'text-uppercase': selectedRanking === 'maker' }">{{
+                            user.nickname }}</td>
                         <td class="t-lead">{{ user.points }}</td>
                     </tr>
                 </tbody>
@@ -145,8 +120,92 @@ const sortedUsers = computed(() => {
         </div>
     </div>
 </template>
+  
+<script setup>
+import Loader from '@/components/Loader.vue';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { db } from '@/firebase.js';
 
-<style>
+const users = ref([]);
+const isLoading = ref(true);
+const selectedRanking = ref('global');
+
+const loadingDelay = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    isLoading.value = false;
+};
+
+const selectGlobal = () => {
+    selectedRanking.value = 'global';
+    getUsersFromCollection('users');
+};
+
+const selectMaker = () => {
+    selectedRanking.value = 'maker';
+    getMakerBoardUsers();
+};
+
+const getUsersFromCollection = (collectionName) => {
+    const unsubscribe = onSnapshot(collection(db, collectionName), (snapshot) => {
+        const updatedUsers = [];
+        snapshot.forEach((doc) => {
+            updatedUsers.push({
+                id: doc.id,
+                ...doc.data(),
+            });
+        });
+        users.value = updatedUsers;
+    });
+
+    onUnmounted(unsubscribe);
+};
+
+const getMakerBoardUsers = () => {
+    const unsubscribe = onSnapshot(collection(db, 'MakerBoard'), (snapshot) => {
+        const updatedUsers = [];
+        snapshot.forEach((doc) => {
+            const nickname = doc.id;
+            const points = doc.data().punti;
+            // console.log("Nick di merda: " + nickname);
+            updatedUsers.push({
+                nickname,
+                points,
+            });
+        });
+        users.value = updatedUsers;
+    });
+
+    onUnmounted(unsubscribe);
+};
+
+
+
+onMounted(() => {
+    loadingDelay();
+    getUsersFromCollection('users');
+});
+
+const sortedUsers = computed(() => {
+    return users.value.filter(user => user.points > 5).sort((a, b) => b.points - a.points);
+});
+
+const globalUsers = computed(() => {
+    return sortedUsers.value;
+});
+
+const makerUsers = computed(() => {
+    return sortedUsers.value;
+});
+
+const currentUsers = computed(() => {
+    return selectedRanking.value === 'global' ? globalUsers.value : makerUsers.value;
+});
+</script>
+  
+  
+
+<style scoped>
 .table-group-divider tr:last-child {
     border-bottom: none;
 }
@@ -154,5 +213,20 @@ const sortedUsers = computed(() => {
 .table-group-divider tr td,
 .table-group-divider tr th {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #FF4D4D;
+    border-color: #FF4D4D;
+}
+
+.btn-primary:hover {
+    background-color: #B33636;
+    border-color: #FF4D4D;
+}
+
+.btn-primary:active {
+    background-color: #4e0909;
+    border-color: #FF4D4D;
 }
 </style>
