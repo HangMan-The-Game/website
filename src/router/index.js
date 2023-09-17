@@ -59,6 +59,14 @@ const router = createRouter({
       }
     },
     {
+      path: "/leadino",
+      name: "leadino",
+      component: () => import("../views/LeadinoView.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/menu",
       name: "mainmenu",
       component: () => import("../views/MenuView.vue"),
