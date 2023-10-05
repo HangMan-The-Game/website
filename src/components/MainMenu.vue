@@ -56,7 +56,12 @@ export default {
         </div>
 
         <div class="welcome-message">
-            {{ $t("menu.mode") }}: <span class="text-success fw-bold">{{ selectedMode }}</span>
+            {{ $t("menu.mode") }}: <span v-if="selectedMode === 'Easy'" class="text-success fw-bold">{{ $t("menu.easy")
+            }}</span>
+            <span v-if="selectedMode === 'Medium'" class="text-success fw-bold">{{ $t("menu.medium")
+            }}</span>
+            <span v-if="selectedMode === 'Hard'" class="text-success fw-bold">{{ $t("menu.hard")
+            }}</span>
         </div>
 
         <div class="d-grid gap-3 w-25 mx-auto">
