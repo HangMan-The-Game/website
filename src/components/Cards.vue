@@ -75,7 +75,7 @@
                     <div class="card mx-auto" style="width: 18rem">
                         <div class="card-body">
                             <h5 class="card-title text-center">Calogero Frisina</h5>
-                            <p class="card-text text-center">3D Modeler</p>
+                            <p class="card-text text-center">Hardware Technician</p>
                         </div>
                         <div class="card-body text-center">
                             <h5>Socials</h5>
