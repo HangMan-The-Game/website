@@ -1,94 +1,94 @@
 {
-    "navbar": {
-      "aboutUs": "Chi siamo",
-      "gameDescription": "Descrizione del gioco",
-      "team": "Team",
-      "contactUs": "Contattaci",
-      "leaderboard": "Classifica",
-      "partners": "Partners",
-      "play": "Gioca ora"
-    },
-    "jumbotron": {
-      "learnMore": "Scopri di più!",
-      "playNow": "Gioca ora!",
-      "gameDescription": "Divertiti con <strong>HangMan</strong>: il gioco delle parole che mette alla prova la tua mente!"
-    },
-    "about": {
-      "title": "Cinque studenti, indirizzo: <strong>Informatica</strong> <i class='bi bi-people'></i>",
-      "description1": "Ciao a tutti! Siamo un gruppo di <a style='color: #FF4D4D' href='#team' v-scroll-to>cinque studenti</a> dell'<a style='color: #FF4D4D' href='https://www.rapisardidavinci.edu.it/'>ITET Rapisardi - Da Vinci</a> che stanno per iniziare l'ultimo anno di scuola superiore. E quale modo migliore per concludere il nostro percorso scolastico se non realizzare un progetto incredibile insieme?",
-      "description2": "La nostra idea <strong>innovativa</strong> riguarda il 'pupazzo' nel gioco dell'impiccato. Abbiamo introdotto una variante interessante: invece di cadere, il 'pupazzo' è già presente, ma ogni volta che si commette un errore, ne viene rimossa una parte! Questo rende il gioco ancora più <strong>coinvolgente</strong> e <strong>divertente</strong>.",
-      "description3": "<strong>Inoltre</strong>, abbiamo incluso un <strong>display touch</strong> nel nostro progetto. Il display è principalmente utilizzato per la gestione del menu, consentendo un'interazione intuitiva e facile da usare. Per quanto riguarda l'immissione delle lettere, abbiamo una <strong>tastiera dedicata</strong> che rende l'inserimento delle scelte <strong>rapide</strong> e <strong>facili</strong>."
-    },
-    "gameDescription": {
-      "title": "Descrizione del gioco",
-      "description1": "HangMan è una reinterpretazione <strong>modernizzata</strong> del classico gioco dell'impiccato. In questa versione, le parti cadono progressivamente durante il gioco anziché apparire dopo ogni errore, offrendo un elemento visivo unico e coinvolgente. Il gioco presenta vari componenti che contribuiscono a un'esperienza <strong>interattiva</strong>. È dotato di un microcontrollore che gestisce e controlla le funzioni di gioco. Inoltre, c'è un display touch che consente agli utenti di interagire <strong>intuitivamente</strong> con il gioco. La tastiera del gioco è stata appositamente creata da noi e offre un modo unico e <strong>coinvolgente</strong> per inserire lettere e indovinare parole. Il corpo del gioco è stato realizzato con l'uso di <strong>elettromagneti</strong>, che contribuiscono all'effetto visivo della <strong>caduta</strong> durante il gioco, creando un'atmosfera <strong>dinamica</strong> e coinvolgente.",
-      "description2": "Inoltre, il gioco offre la possibilità di regolare la <strong>difficoltà</strong> per adattar la alle preferenze del giocatore. Puoi selezionare diverse opzioni di difficoltà per <strong>personalizzare</strong> l'esperienza di gioco. Tutte le parole utilizzate nel gioco sono memorizzate in un <strong>database</strong> online, che offre una vasta gamma di parole in diverse categorie. Ciò fornisce una <strong>varietà</strong> di sfide per i giocatori e consente loro di esplorare una vasta selezione di parole. Inoltre, è disponibile una modalità che consente ai giocatori di indovinare l'<strong>intera</strong> parola inserendola direttamente anziché provare lettera per lettera. Questa opzione offre un'alternativa rapida per coloro che hanno già una conclusione in mente o desiderano testare la loro capacità di trovare la parola corretta.",
-      "description3": "Infine, la base del gioco è stata realizzata tramite stampa <strong>3D</strong> da noi, consentendo una completa personalizzazione della forma e del design per adattarsi perfettamente al gioco dell'impiccato rielaborato."
-    },
-    "contact": {
-      "unavailableEmail": "La nostra email non è disponibile in questo momento.",
-      "contactViaInstagram": "Ci scusiamo per l'inconveniente, ma al momento puoi contattarci solo tramite <a style='color: #FF4D4D' href='https://www.instagram.com/hangmanit_/'>Instagram<i class='bi bi-box-arrow-up-right'></i>",
-      "firstName": "Nome",
-      "lastName": "Cognome",
-      "emailAddress": "Indirizzo email",
-      "message": "Scrivi qui il tuo messaggio",
-      "submit": "Invia"
-    },
-    "leaderboard": {
-      "title": "Classifica",
-      "description": "Questa classifica è sincronizzata in tempo reale con l'APP Mobile e l'APP Web.",
-      "reachTheTop": "raggiungi la vetta!",
-      "points": "Punti"
-    },
-  "logreg": {
-    "login": "Accedi",
-    "register": "Registrati",
-    "already": "Già registrato?",
-    "notalr": "Non sei ancora registrato?",
-    "reghere": "Registrati qui",
-    "loghere": "Accedi qui",
-    "forgpsw": "Hai dimenticato la password?",
-    "email": "Indirizzo email",
-    "respsw": "Reimposta la password",
-    "forgemail": "Inserisci il tuo email",
-    "close": "Chiudi",
+  "navbar": {
+    "aboutUs": "Chi siamo",
+    "gameDescription": "Descrizione del gioco",
+    "team": "Team",
+    "contactUs": "Contattaci",
+    "leaderboard": "Classifica",
+    "partners": "Partners",
+    "play": "Gioca ora"
+  },
+  "jumbotron": {
+    "learnMore": "Scopri di più!",
+    "playNow": "Gioca ora!",
+    "gameDescription": "Divertiti con <strong>HangMan</strong>: il gioco delle parole che mette alla prova la tua mente!"
+  },
+  "about": {
+    "title": "Cinque studenti, indirizzo: <strong>Informatica</strong> <i class='bi bi-people'></i>",
+    "description1": "Ciao a tutti! Siamo un gruppo di <a style='color: #FF4D4D' href='#team' v-scroll-to>cinque studenti</a> dell'<a style='color: #FF4D4D' href='https://www.rapisardidavinci.edu.it/'>ITET Rapisardi - Da Vinci</a> che stanno per iniziare l'ultimo anno di scuola superiore. E quale modo migliore per concludere il nostro percorso scolastico se non realizzare un progetto incredibile insieme? Dal nostro lavoro è nato <strong>HangMan - The Game</strong>! <br>Il gioco delle parole nascoste più famoso di tutti i tempi in un formato nuovo, interattivo, coinvolgente ed inclusivo. L’obiettivo? Salvare <strong>Hangy</strong> (una riproduzione 3D dell’omino del gioco dell’impiccato) dal suo nefasto destino. Seleziona la <strong>lingua</strong>, scegli il <strong>livello</strong> e avvia il gioco. Un <strong>display</strong> ti mostrerà le indicazioni per la parola da indovinare. Ma attenzione! Ad ogni errore <strong>“Hangy”</strong>, perderà automaticamente un pezzo.<br>Scarica l’<strong>APP</strong> e tieni traccia dei tuoi <strong>progressi</strong> e della tua posizione nella <strong>classifica globale</strong>.",
+    "description2": "Dal nostro lavoro è nato <strong>HangMan - The Game</strong>! <br>Il gioco delle parole nascoste più famoso di tutti i tempi in un formato nuovo, interattivo, coinvolgente ed inclusivo. L’obiettivo? Salvare <strong>Hangy</strong> (una riproduzione 3D dell’omino del gioco dell’impiccato) dal suo nefasto destino. Seleziona la <strong>lingua</strong>, scegli il <strong>livello</strong> e avvia il gioco. Un <strong>display</strong> ti mostrerà le indicazioni per la parola da indovinare. Ma attenzione! Ad ogni errore <strong>“Hangy”</strong>, perderà automaticamente un pezzo. Scarica l’<strong>APP</strong> e tieni traccia dei tuoi <strong>progressi</strong> e della tua posizione nella <strong>classifica globale</strong>.",
+    "description3": "<strong>Inoltre</strong>, abbiamo incluso un <strong>display touch</strong> nel nostro progetto. Il display è principalmente utilizzato per la gestione del menu, consentendo un'interazione intuitiva e facile da usare. Per quanto riguarda l'immissione delle lettere, abbiamo una <strong>tastiera dedicata</strong> che rende l'inserimento delle scelte <strong>rapide</strong> e <strong>facili</strong>."
+  },
+  "gameDescription": {
+    "title": "Descrizione del gioco",
+    "description1": "HangMan è una reinterpretazione <strong>modernizzata</strong> del classico gioco dell'impiccato. In questa versione, le parti cadono progressivamente durante il gioco anziché apparire dopo ogni errore, offrendo un elemento visivo unico e coinvolgente. Il gioco presenta vari componenti che contribuiscono a un'esperienza <strong>interattiva</strong>. È dotato di un microcontrollore che gestisce e controlla le funzioni di gioco. Inoltre, c'è un display touch che consente agli utenti di interagire <strong>intuitivamente</strong> con il gioco. La tastiera del gioco è stata appositamente creata da noi e offre un modo unico e <strong>coinvolgente</strong> per inserire lettere e indovinare parole. Il corpo è stato realizzato con l'uso di <strong>elettromagneti</strong>, che contribuiscono all'effetto visivo della <strong>caduta</strong> durante il gioco, creando un'atmosfera <strong>dinamica</strong> e coinvolgente.<br>Il gioco offre la possibilità di regolare la <strong>difficoltà</strong> e scegliere la <strong>lingua</strong> in base alle preferenze del giocatore per <strong>personalizzare</strong> l'esperienza di gioco. Tutte le parole utilizzate sono memorizzate in un <strong>database</strong> online, che offre un'ampia gamma di parole di diverse categorie. Ciò fornisce una <strong>varietà</strong> di sfide per i giocatori e consente loro di esplorare una vasta selezione di parole.",
+    "description2": "Il gioco offre la possibilità di regolare la <strong>difficoltà</strong> e scegliere la <strong>lingua</strong> in base alle preferenze del giocatore per <strong>personalizzare</strong> l'esperienza di gioco. Tutte le parole utilizzate sono memorizzate in un <strong>database</strong> online, che offre un'ampia gamma di parole di diverse categorie. Ciò fornisce una <strong>varietà</strong> di sfide per i giocatori e consente loro di esplorare una vasta selezione di parole.",
+    "description3": "Infine, la base del gioco è stata realizzata tramite stampa <strong>3D</strong> da noi, consentendo una completa personalizzazione della forma e del design per adattarsi perfettamente al gioco dell'impiccato rielaborato."
+  },
+  "contact": {
+    "unavailableEmail": "La nostra email non è disponibile in questo momento.",
+    "contactViaInstagram": "Ci scusiamo per l'inconveniente, ma al momento puoi contattarci solo tramite <a style='color: #FF4D4D' href='https://www.instagram.com/hangmanit_/'>Instagram<i class='bi bi-box-arrow-up-right'></i>",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "emailAddress": "Indirizzo email",
+    "message": "Scrivi qui il tuo messaggio",
     "submit": "Invia"
   },
-  "profile": {
-    "welcome": "Benvenuto",
-    "logout": "Logout",
-    "role": "Ruolo",
-    "points": "Punti",
-    "wins": "Vittorie",
-    "emailver": "Email di verifica inviata con successo",
-    "veryouremail": "Verifica la tua email",
-    "manwords": "Gestisci Parole",
-    "manpoints": "Gestisci Punti",
-    "manusers": "Gestisci Utenti",
-    "alertver": "Devi verificare la mail per essere in grado di giocare il gioco"
+  "leaderboard": {
+    "title": "Classifica",
+    "description": "Questa classifica è sincronizzata in tempo reale con l'APP Mobile e l'APP Web.",
+    "reachTheTop": "raggiungi la vetta!",
+    "points": "Punti"
   },
-  "menu": {
-    "welcome": "Benvenuto",
-    "mode": "Modalità selezionata",
-    "game": "Inizia gioco",
-    "selemod": "Seleziona modalità",
-    "easy": "Facile",
-    "medium": "Medio",
-    "hard": "Difficile",
-    "close": "Chiudi",
-    "select": "Seleziona"
-  },
-  "game": {
-    "info": "Informazioni giocatore",
-    "points": "Punti",
-    "wins": "Vittorie",
-    "return": "Torna al menu",
-    "mode": "Modalità selezionata",
-    "mulpoints": "Moltiplicatore punti",
-    "attempts": "Tentativi rimasti",
-    "resgame": "Ricomincia gioco",
-    "wordwas": "La parola era",
-    "won": "VITTORIA",
-    "loss": "SCONFITTA"
-  }
+"logreg": {
+  "login": "Accedi",
+  "register": "Registrati",
+  "already": "Già registrato?",
+  "notalr": "Non sei ancora registrato?",
+  "reghere": "Registrati qui",
+  "loghere": "Accedi qui",
+  "forgpsw": "Hai dimenticato la password?",
+  "email": "Indirizzo email",
+  "respsw": "Reimposta la password",
+  "forgemail": "Inserisci il tuo email",
+  "close": "Chiudi",
+  "submit": "Invia"
+},
+"profile": {
+  "welcome": "Benvenuto",
+  "logout": "Logout",
+  "role": "Ruolo",
+  "points": "Punti",
+  "wins": "Vittorie",
+  "emailver": "Email di verifica inviata con successo",
+  "veryouremail": "Verifica la tua email",
+  "manwords": "Gestisci Parole",
+  "manpoints": "Gestisci Punti",
+  "manusers": "Gestisci Utenti",
+  "alertver": "Devi verificare la mail per essere in grado di giocare il gioco"
+},
+"menu": {
+  "welcome": "Benvenuto",
+  "mode": "Modalità selezionata",
+  "game": "Inizia gioco",
+  "selemod": "Seleziona modalità",
+  "easy": "Facile",
+  "medium": "Medio",
+  "hard": "Difficile",
+  "close": "Chiudi",
+  "select": "Seleziona"
+},
+"game": {
+  "info": "Informazioni giocatore",
+  "points": "Punti",
+  "wins": "Vittorie",
+  "return": "Torna al menu",
+  "mode": "Modalità selezionata",
+  "mulpoints": "Moltiplicatore punti",
+  "attempts": "Tentativi rimasti",
+  "resgame": "Ricomincia gioco",
+  "wordwas": "La parola era",
+  "won": "VITTORIA",
+  "loss": "SCONFITTA"
+}
 }
