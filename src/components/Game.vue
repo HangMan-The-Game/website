@@ -32,6 +32,12 @@ const role = ref('');
 const punti = ref(0);
 const vittorie = ref(0);
 const moltiplicatore = ref(1);
+const gamesPlayed = ref(0);
+const bestGameScore = ref(0);
+const currentStreak = ref(0);
+const bestStreak = ref(0);
+const currentGameScore = ref(0);
+const gameRecorded = ref(false);
 
 const auth = getAuth();
 
@@ -81,10 +87,45 @@ onMounted(async () => {
 
             if (userSnap.exists()) {
                 const userData = userSnap.data();
-                await setDoc(userDoc, { role: userData.role, mail: email.value, name: username.value, points: userData.points, vittorie: userData.vittorie });
-                vittorie.value = userData.vittorie;
-                role.value = userData.role;
-                punti.value = userData.points;
+                const userStats = {
+                    role: userData.role || 'user',
+                    mail: email.value,
+                    name: username.value,
+                    points: userData.points || 0,
+                    vittorie: userData.vittorie || 0,
+                    gamesPlayed: userData.gamesPlayed || 0,
+                    bestGameScore: userData.bestGameScore || 0,
+                    currentStreak: userData.currentStreak || 0,
+                    bestStreak: userData.bestStreak || 0,
+                };
+                await setDoc(userDoc, userStats, { merge: true });
+                vittorie.value = userStats.vittorie;
+                role.value = userStats.role;
+                punti.value = userStats.points;
+                gamesPlayed.value = userStats.gamesPlayed;
+                bestGameScore.value = userStats.bestGameScore;
+                currentStreak.value = userStats.currentStreak;
+                bestStreak.value = userStats.bestStreak;
+            } else {
+                const userStats = {
+                    role: 'user',
+                    mail: email.value,
+                    name: username.value,
+                    points: 0,
+                    vittorie: 0,
+                    gamesPlayed: 0,
+                    bestGameScore: 0,
+                    currentStreak: 0,
+                    bestStreak: 0,
+                };
+                await setDoc(userDoc, userStats);
+                vittorie.value = userStats.vittorie;
+                role.value = userStats.role;
+                punti.value = userStats.points;
+                gamesPlayed.value = userStats.gamesPlayed;
+                bestGameScore.value = userStats.bestGameScore;
+                currentStreak.value = userStats.currentStreak;
+                bestStreak.value = userStats.bestStreak;
             }
         }
     });
@@ -99,7 +140,9 @@ const handleInput = (key) => {
     if (isValidKey(uppercaseKey) && !guessedLetters.value.correct.includes(uppercaseKey) && !guessedLetters.value.wrong.includes(uppercaseKey)) {
         if (word.value.includes(uppercaseKey)) {
             guessedLetters.value.correct.push(uppercaseKey);
-            punti.value += 1 * moltiplicatore.value;
+            const letterPoints = 1 * moltiplicatore.value;
+            punti.value += letterPoints;
+            currentGameScore.value += letterPoints;
             updatePoints();
         } else {
             guessedLetters.value.wrong.push(uppercaseKey);
@@ -112,11 +155,14 @@ const handleInput = (key) => {
 
     if (isWordGuessed()) {
         gameOver.value = true;
-        punti.value += 5 * moltiplicatore.value;
+        const winBonus = 5 * moltiplicatore.value;
+        punti.value += winBonus;
+        currentGameScore.value += winBonus;
         vittorie.value += 1;
-        updatePoints();
+        recordGameResult(true);
     } else if (isOutOfAttempts()) {
         gameOver.value = true;
+        recordGameResult(false);
     }
 };
 
@@ -159,6 +205,37 @@ const updatePoints = async () => {
     }
 };
 
+const recordGameResult = async (hasWon) => {
+    if (gameRecorded.value) {
+        return;
+    }
+
+    gameRecorded.value = true;
+    gamesPlayed.value += 1;
+    currentStreak.value = hasWon ? currentStreak.value + 1 : 0;
+    bestStreak.value = Math.max(bestStreak.value, currentStreak.value);
+    bestGameScore.value = Math.max(bestGameScore.value, currentGameScore.value);
+
+    const user = getAuth().currentUser;
+    if (user) {
+        const userDoc = doc(db, 'users', user.uid);
+        try {
+            await updateDoc(userDoc, {
+                points: punti.value,
+                vittorie: vittorie.value,
+                gamesPlayed: gamesPlayed.value,
+                bestGameScore: bestGameScore.value,
+                currentStreak: currentStreak.value,
+                bestStreak: bestStreak.value,
+            });
+            localStorage.setItem('punti', punti.value);
+            localStorage.setItem('vittorie', vittorie.value);
+        } catch (error) {
+            console.error('Errore durante l\'aggiornamento delle statistiche:', error);
+        }
+    }
+};
+
 
 const isWordGuessed = () => {
     for (const letter of word.value) {
@@ -192,6 +269,8 @@ watch(word, () => {
     guessedLetters.value.correct = [];
     guessedLetters.value.wrong = [];
     remainingAttempts.value = 6;
+    currentGameScore.value = 0;
+    gameRecorded.value = false;
 });
 </script>
 

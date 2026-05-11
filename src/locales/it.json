@@ -65,7 +65,12 @@
   "manwords": "Gestisci Parole",
   "manpoints": "Gestisci Punti",
   "manusers": "Gestisci Utenti",
-  "alertver": "Devi verificare la mail per essere in grado di giocare il gioco"
+  "alertver": "Devi verificare la mail per essere in grado di giocare il gioco",
+  "gamesPlayed": "Partite",
+  "winRate": "Win rate",
+  "bestScore": "Miglior score",
+  "currentStreak": "Streak attuale",
+  "bestStreak": "Miglior streak"
 },
 "menu": {
   "welcome": "Benvenuto",

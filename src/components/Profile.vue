@@ -1,10 +1,9 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword, sendEmailVerification, /* EmailAuthProvider, reauthenticateWithCredential */ } from 'firebase/auth';
 import { collection, addDoc, getDocs, doc, deleteDoc, setDoc, getDoc } from 'firebase/firestore';
 import router from '../router';
 import { db } from '@/firebase.js';
-import { computed } from 'vue';
 
 const isLoggedIn = ref(false);
 
@@ -13,6 +12,10 @@ const email = ref('');
 const role = ref('');
 const punti = ref('');
 const vittorie = ref(0)
+const gamesPlayed = ref(0);
+const bestGameScore = ref(0);
+const currentStreak = ref(0);
+const bestStreak = ref(0);
 
 const newPassword = ref('');
 /* const currentPassword = ref('');
@@ -36,14 +39,43 @@ onMounted(async () => {
 
             if (userSnap.exists()) {
                 const userData = userSnap.data();
-                await setDoc(userDoc, { role: userData.role, mail: email.value, name: username.value, points: userData.points, vittorie: userData.vittorie });
-                role.value = userData.role;
-                vittorie.value = userData.vittorie;
-                punti.value = userData.points;
+                const userStats = {
+                    role: userData.role || 'user',
+                    mail: email.value,
+                    name: username.value,
+                    points: userData.points || 0,
+                    vittorie: userData.vittorie || 0,
+                    gamesPlayed: userData.gamesPlayed || 0,
+                    bestGameScore: userData.bestGameScore || 0,
+                    currentStreak: userData.currentStreak || 0,
+                    bestStreak: userData.bestStreak || 0,
+                };
+                await setDoc(userDoc, userStats, { merge: true });
+                role.value = userStats.role;
+                vittorie.value = userStats.vittorie;
+                punti.value = userStats.points;
+                gamesPlayed.value = userStats.gamesPlayed;
+                bestGameScore.value = userStats.bestGameScore;
+                currentStreak.value = userStats.currentStreak;
+                bestStreak.value = userStats.bestStreak;
             } else {
-                await setDoc(userDoc, { role: 'user', mail: email.value, name: username.value, points: 0, vittorie: 0 });
+                await setDoc(userDoc, {
+                    role: 'user',
+                    mail: email.value,
+                    name: username.value,
+                    points: 0,
+                    vittorie: 0,
+                    gamesPlayed: 0,
+                    bestGameScore: 0,
+                    currentStreak: 0,
+                    bestStreak: 0,
+                });
                 punti.value = 0;
                 vittorie.value = 0;
+                gamesPlayed.value = 0;
+                bestGameScore.value = 0;
+                currentStreak.value = 0;
+                bestStreak.value = 0;
                 role.value = 'user';
             }
         } else {
@@ -61,6 +93,14 @@ const roleLabel = computed(() => {
     } else {
         return '';
     }
+});
+
+const winRate = computed(() => {
+    if (!gamesPlayed.value) {
+        return '0%';
+    }
+
+    return `${Math.round((vittorie.value / gamesPlayed.value) * 100)}%`;
 });
 
 const handleSignOut = () => {
@@ -147,12 +187,10 @@ function hideAlert() {
                         $t("profile.veryouremail") }}</button>
                 <!-- <button class="btn btn-danger d-block mx-auto mb-3 fs-5" @click="sendVerificationEmail()"
                     v-if="checkEmailVerification()">Verifica la tua mail</button> -->
-                <div class="profile-stats">
+                <div class="account-details">
                     <div><span>Email</span><strong>{{ email }}</strong></div>
                     <div><span>Username</span><strong>{{ username }}</strong></div>
                     <div><span>{{ $t("profile.role") }}</span><strong>{{ roleLabel }}</strong></div>
-                    <div><span>{{ $t("profile.points") }}</span><strong>{{ punti }}</strong></div>
-                    <div><span>{{ $t("profile.wins") }}</span><strong>{{ vittorie }}</strong></div>
                 </div>
                 <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">{{
                     $t("profile.logout") }}</button>
@@ -169,6 +207,21 @@ function hideAlert() {
             <RouterLink v-if="role === 'admin'" to="/leadino" class="card-footer text-center text-decoration-none">
                 MakerFaire
             </RouterLink>
+        </div>
+
+        <div class="card stats-card mt-4">
+            <div class="card-body">
+                <span class="section-kicker justify-content-center d-flex"><i class="bi bi-graph-up-arrow"></i> Stats</span>
+                <div class="profile-stats">
+                    <div><span>{{ $t("profile.points") }}</span><strong>{{ punti }}</strong></div>
+                    <div><span>{{ $t("profile.wins") }}</span><strong>{{ vittorie }}</strong></div>
+                    <div><span>{{ $t("profile.gamesPlayed") }}</span><strong>{{ gamesPlayed }}</strong></div>
+                    <div><span>{{ $t("profile.winRate") }}</span><strong>{{ winRate }}</strong></div>
+                    <div><span>{{ $t("profile.bestScore") }}</span><strong>{{ bestGameScore }}</strong></div>
+                    <div><span>{{ $t("profile.currentStreak") }}</span><strong>{{ currentStreak }}</strong></div>
+                    <div><span>{{ $t("profile.bestStreak") }}</span><strong>{{ bestStreak }}</strong></div>
+                </div>
+            </div>
         </div>
         <!--         <div class="card shadow mt-2">
             <div class="card-body">
@@ -221,16 +274,17 @@ function hideAlert() {
     font-size: clamp(2.2rem, 6vw, 3.6rem);
 }
 
+.account-details,
 .profile-stats {
     display: grid;
     gap: 0.7rem;
     margin-top: 1.25rem;
 }
 
-.profile-stats div {
+.account-details div {
     position: relative;
     display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: minmax(150px, 0.42fr) 1fr;
     gap: 1rem;
     align-items: center;
     overflow: hidden;
@@ -242,7 +296,7 @@ function hideAlert() {
         rgba(255, 255, 255, 0.055);
 }
 
-.profile-stats span {
+.account-details span {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -253,7 +307,7 @@ function hideAlert() {
     text-transform: uppercase;
 }
 
-.profile-stats span::before {
+.account-details span::before {
     width: 0.42rem;
     height: 0.42rem;
     content: "";
@@ -262,13 +316,61 @@ function hideAlert() {
     box-shadow: 0 0 14px rgba(255, 77, 77, 0.55);
 }
 
-.profile-stats strong {
+.account-details strong {
     overflow-wrap: anywhere;
     color: var(--hm-heading);
     font-size: 1.05rem;
     font-weight: 900;
 }
 
+.stats-card .profile-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.profile-stats div {
+    position: relative;
+    overflow: hidden;
+    min-height: 124px;
+    padding: 1rem;
+    border: 1px solid var(--hm-border);
+    border-radius: var(--hm-radius-sm);
+    background:
+        radial-gradient(circle at 100% 0%, rgba(255, 77, 77, 0.16), transparent 44%),
+        rgba(255, 255, 255, 0.055);
+}
+
+.profile-stats span,
+.profile-stats strong {
+    display: block;
+}
+
+.profile-stats span {
+    color: var(--hm-text-muted);
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.profile-stats strong {
+    margin-top: 0.45rem;
+    color: var(--hm-heading);
+    font-size: clamp(1.65rem, 5vw, 2.35rem);
+    font-weight: 950;
+    line-height: 1;
+}
+
+.profile-stats div:first-child {
+    grid-column: span 2;
+    min-height: 136px;
+}
+
+.profile-stats div:first-child strong {
+    color: var(--hm-accent);
+    font-size: clamp(2.2rem, 7vw, 3.6rem);
+}
+
+:global(body[theme="custom-light"]) .account-details div,
 :global(body[theme="custom-light"]) .profile-stats div {
     background:
         linear-gradient(90deg, rgba(255, 77, 77, 0.10), transparent 38%),
@@ -280,9 +382,17 @@ a {
 }
 
 @media (max-width: 575.98px) {
-    .profile-stats div {
+    .account-details div {
         grid-template-columns: 1fr;
         gap: 0.2rem;
+    }
+
+    .stats-card .profile-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-stats div:first-child {
+        grid-column: auto;
     }
 }
 </style>

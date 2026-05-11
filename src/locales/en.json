@@ -65,7 +65,12 @@
     "manwords": "Manage Words",
     "manpoints": "Manage Points",
     "manusers": "Manage Users",
-    "alertver": "You have to verify the mail to be able to play the game"
+    "alertver": "You have to verify the mail to be able to play the game",
+    "gamesPlayed": "Games",
+    "winRate": "Win rate",
+    "bestScore": "Best score",
+    "currentStreak": "Current streak",
+    "bestStreak": "Best streak"
   },
   "menu": {
     "welcome": "Welcome",
