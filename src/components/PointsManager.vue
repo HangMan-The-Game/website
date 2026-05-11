@@ -60,9 +60,11 @@ export default {
 </script>
 
 <template>
-    <div class="container w-75">
-        <h1 class="mt-4">Gestisci Punti</h1>
-        <table class="rounded shadow mx-auto table table-hover">
+    <div class="admin-page">
+        <span class="section-kicker"><i class="bi bi-plus-slash-minus"></i> Admin</span>
+        <h1 class="mt-2 mb-3">Gestisci Punti</h1>
+        <div class="table-responsive">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th class="t-lead" scope="col">ID Utente</th>
@@ -83,17 +85,8 @@ export default {
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
 </template>
 
-<style scoped>
-/* table {
-    border: 1.5px solid #FF4D4D;
-    border-radius: 10px;
-    border-collapse: separate !important;
-}
-
-td {
-    border: none;
-} */
-</style>
+<style scoped></style>

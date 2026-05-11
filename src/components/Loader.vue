@@ -34,8 +34,8 @@
     left: 0;
     width: var(--size-orbe);
     height: var(--size-orbe);
-    background-color: #ff4d4d;
-    box-shadow: 0px 0px 20px 2px #ff4d4d;
+    background-color: var(--hm-accent);
+    box-shadow: 0px 0px 20px 2px rgba(255, 77, 77, 0.5);
     border-radius: 50%;
 }
 

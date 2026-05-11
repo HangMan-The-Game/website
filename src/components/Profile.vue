@@ -125,7 +125,8 @@ function hideAlert() {
 </script>
 
 <template>
-    <div class="container w-50 py-5">
+    <section class="profile-page">
+    <div class="profile-panel">
         <div v-if="checkEmailVerification()" class="toast align-items-center d-block mx-auto">
             <div class="d-flex">
                 <div class="toast-body">
@@ -133,8 +134,9 @@ function hideAlert() {
                 </div>
             </div>
         </div>
-        <div class="card mt-4 shadow">
+        <div class="card mt-4">
             <div class="card-body">
+                <span class="section-kicker justify-content-center d-flex"><i class="bi bi-person-badge"></i> Account</span>
                 <h3 class="card-title text-center mb-4">{{ $t("profile.welcome") }}</h3>
                 <div v-if="showAlert" class="alert alert-success w-75 mx-auto d-flex" role="alert">
                     <div class="flex-grow-1">{{ $t("profile.emailver") }}</div>
@@ -145,13 +147,13 @@ function hideAlert() {
                         $t("profile.veryouremail") }}</button>
                 <!-- <button class="btn btn-danger d-block mx-auto mb-3 fs-5" @click="sendVerificationEmail()"
                     v-if="checkEmailVerification()">Verifica la tua mail</button> -->
-                <h4 class="card-text text-center">
-                    Email: <span class="text-primary">{{ email }}</span>
-                    <br>Username: <span class="fw-bold text-danger">{{ username }}</span>
-                    <br>{{ $t("profile.role") }}: <span class="text-info">{{ roleLabel }}</span>
-                    <br>{{ $t("profile.points") }}: <span class="text-success">{{ punti }}</span>
-                    <br>{{ $t("profile.wins") }}: <span class="text-success">{{ vittorie }}</span>
-                </h4>
+                <div class="profile-stats">
+                    <div><span>Email</span><strong>{{ email }}</strong></div>
+                    <div><span>Username</span><strong>{{ username }}</strong></div>
+                    <div><span>{{ $t("profile.role") }}</span><strong>{{ roleLabel }}</strong></div>
+                    <div><span>{{ $t("profile.points") }}</span><strong>{{ punti }}</strong></div>
+                    <div><span>{{ $t("profile.wins") }}</span><strong>{{ vittorie }}</strong></div>
+                </div>
                 <button class="btn btn-danger d-block mx-auto mt-5" @click="handleSignOut" v-if="isLoggedIn">{{
                     $t("profile.logout") }}</button>
             </div>
@@ -198,10 +200,89 @@ function hideAlert() {
             </div>
         </div> -->
     </div>
+    </section>
 </template>
 
 <style scoped>
+.profile-page {
+    padding: clamp(2rem, 6vw, 5rem) 1rem;
+}
+
+.profile-panel {
+    width: min(100%, 720px);
+    margin: 0 auto;
+}
+
+.profile-panel .card {
+    backdrop-filter: blur(18px);
+}
+
+.card-title {
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+}
+
+.profile-stats {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1.25rem;
+}
+
+.profile-stats div {
+    position: relative;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1rem;
+    align-items: center;
+    overflow: hidden;
+    padding: 0.85rem 1rem 0.85rem 1.1rem;
+    border: 1px solid var(--hm-border);
+    border-radius: var(--hm-radius-xs);
+    background:
+        linear-gradient(90deg, rgba(255, 77, 77, 0.12), transparent 38%),
+        rgba(255, 255, 255, 0.055);
+}
+
+.profile-stats span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--hm-accent);
+    font-size: 0.82rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.profile-stats span::before {
+    width: 0.42rem;
+    height: 0.42rem;
+    content: "";
+    border-radius: 999px;
+    background: var(--hm-accent);
+    box-shadow: 0 0 14px rgba(255, 77, 77, 0.55);
+}
+
+.profile-stats strong {
+    overflow-wrap: anywhere;
+    color: var(--hm-heading);
+    font-size: 1.05rem;
+    font-weight: 900;
+}
+
+:global(body[theme="custom-light"]) .profile-stats div {
+    background:
+        linear-gradient(90deg, rgba(255, 77, 77, 0.10), transparent 38%),
+        rgba(255, 255, 255, 0.62);
+}
+
 a {
     cursor: pointer;
+}
+
+@media (max-width: 575.98px) {
+    .profile-stats div {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+    }
 }
 </style>

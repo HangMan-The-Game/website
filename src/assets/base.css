@@ -1,75 +1,110 @@
-/* color palette from <https://github.com/vuejs/theme> */
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
-
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --hm-bg: #090b14;
+  --hm-bg-soft: #101422;
+  --hm-bg-elevated: #171c2d;
+  --hm-surface: rgba(20, 25, 42, 0.78);
+  --hm-surface-strong: rgba(28, 34, 54, 0.94);
+  --hm-text: #f5f7ff;
+  --hm-text-muted: #aab3cc;
+  --hm-heading: #ffffff;
+  --hm-border: rgba(255, 255, 255, 0.12);
+  --hm-primary: #ff4d4d;
+  --hm-primary-strong: #b33636;
+  --hm-accent: #ff4d4d;
+  --hm-accent-soft: rgba(255, 77, 77, 0.16);
+  --hm-gold: #ffd166;
+  --hm-success: #66e0a3;
+  --hm-danger: #ff6b7a;
+  --hm-info: #7dd3fc;
+  --hm-shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
+  --hm-shadow-soft: 0 14px 35px rgba(7, 11, 26, 0.22);
+  --hm-radius: 22px;
+  --hm-radius-sm: 14px;
+  --hm-radius-xs: 10px;
+  --hm-container: 1160px;
 }
 
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
+[theme="custom-light"] {
+  --hm-bg: #fff7f6;
+  --hm-bg-soft: #fffdfb;
+  --hm-bg-elevated: #ffeceb;
+  --hm-surface: rgba(255, 255, 255, 0.86);
+  --hm-surface-strong: rgba(255, 255, 255, 0.98);
+  --hm-text: #211316;
+  --hm-text-muted: #6f5960;
+  --hm-heading: #17090c;
+  --hm-border: rgba(179, 54, 54, 0.18);
+  --hm-accent-soft: rgba(255, 77, 77, 0.12);
+  --hm-info: #2563eb;
+  --hm-shadow: 0 24px 60px rgba(179, 54, 54, 0.14);
+  --hm-shadow-soft: 0 12px 30px rgba(104, 33, 33, 0.11);
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+  overflow-x: hidden;
+}
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  transition: color 0.5s, background-color 0.5s;
-  line-height: 1.6;
-  font-family: 'Poppins' !important;
-  font-size: 15px;
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--hm-text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 77, 77, 0.28), transparent 30rem),
+    radial-gradient(circle at 82% 16%, rgba(255, 209, 102, 0.14), transparent 24rem),
+    linear-gradient(135deg, var(--hm-bg), var(--hm-bg-soft));
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body[theme="custom-light"] {
+  background:
+    radial-gradient(circle at top left, rgba(255, 77, 77, 0.07), transparent 24rem),
+    radial-gradient(circle at 86% 12%, rgba(255, 209, 102, 0.10), transparent 22rem),
+    linear-gradient(135deg, var(--hm-bg), var(--hm-bg-soft));
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 78%);
+}
+
+body[theme="custom-light"]::before {
+  background-image:
+    linear-gradient(rgba(179, 54, 54, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(179, 54, 54, 0.055) 1px, transparent 1px);
+}
+
+a {
+  color: var(--hm-info);
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a:hover {
+  color: var(--hm-accent);
+}
+
+strong,
+.fw-bold {
+  font-weight: 800 !important;
 }

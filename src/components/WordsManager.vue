@@ -203,8 +203,9 @@ onMounted(fetchWords);
 </script>
 
 <template>
-    <div class="container w-75">
-        <h1 class="mt-4">Gestione Parole</h1>
+    <div class="admin-page">
+        <span class="section-kicker"><i class="bi bi-card-text"></i> Admin</span>
+        <h1 class="mt-2 mb-3">Gestione Parole</h1>
         <form @submit.prevent="addWord" class="mb-4">
             <div class="input-group">
                 <input type="text" class="form-control" v-model="newWord" placeholder="Nuova parola" required>
@@ -243,7 +244,7 @@ onMounted(fetchWords);
             </div>
         </div>
 
-        <ul class="list-group mb-4">
+        <ul class="list-group mb-4 word-list">
             <li v-for="word in words" :key="word.id"
                 class="list-group-item d-flex justify-content-between align-items-center">
                 {{ word.word }} ({{ word.id }})
@@ -253,3 +254,13 @@ onMounted(fetchWords);
     </div>
 </template>
   
+<style scoped>
+.word-list {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.word-list .list-group-item {
+    border-radius: var(--hm-radius-xs);
+}
+</style>

@@ -49,9 +49,11 @@ export default {
 </script>
 
 <template>
-    <div class="container w-75">
-        <h1 class="mt-4">Gestione Utenti</h1>
-        <table class="rounded shadow mx-auto table table-hover">
+    <div class="admin-page">
+        <span class="section-kicker"><i class="bi bi-people"></i> Admin</span>
+        <h1 class="mt-2 mb-3">Gestione Utenti</h1>
+        <div class="table-responsive">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th class="t-lead" scope="col">UID</th>
@@ -84,5 +86,6 @@ export default {
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
 </template>

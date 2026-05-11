@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { computed, ref, onMounted, watch } from "vue";
 import SimpleKeyboard from '../components/SimpleKeyboard.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, getDocs, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
@@ -24,6 +24,7 @@ const guessedLetters = ref({
 const remainingAttempts = ref(6);
 const gameOver = ref(false);
 const wordToGuess = ref("");
+const wrongAttempts = computed(() => Math.min(6, guessedLetters.value.wrong.length));
 
 const username = ref('');
 const email = ref('');
@@ -195,66 +196,369 @@ watch(word, () => {
 </script>
 
 <template>
-    <div class="container mx-auto my-3">
-        <div class="card w-50 mx-auto mb-2">
-            <div class="card-body mx-auto">
-                <h5 class="card-title text-center">{{ $t('game.info') }}</h5>
-                <p class="card-text text-center">
-                    <span class="text-danger fw-bold">{{ username }}</span>
-                    <br>
-                    {{ $t('game.points') }}: <span class="fw-bold">{{ punti }}</span>
-                    <br>
-                    {{ $t('game.wins') }}: <span class="fw-bold">{{ vittorie }}</span>
-                </p>
-                <div class="d-flex justify-content-center">
-                    <RouterLink to="/menu" class="btn btn-primary">{{ $t('game.return') }}</RouterLink>
-                </div>
+    <section class="game-screen">
+        <div class="container">
+            <div class="game-grid">
+                <aside class="player-panel">
+                    <h5>{{ $t('game.info') }}</h5>
+                    <strong class="player-name">{{ username }}</strong>
+                    <div class="player-stats">
+                        <div><span>{{ $t('game.points') }}</span><strong>{{ punti }}</strong></div>
+                        <div><span>{{ $t('game.wins') }}</span><strong>{{ vittorie }}</strong></div>
+                        <div><span>{{ $t('game.mulpoints') }}</span><strong>{{ moltiplicatore }}x</strong></div>
+                    </div>
+                    <RouterLink to="/menu" class="btn btn-secondary">{{ $t('game.return') }}</RouterLink>
+                </aside>
 
+                <main class="word-panel">
+                    <div class="game-meta">
+                        <span>{{ $t('game.mode') }}: <strong>{{ modeview }}</strong></span>
+                        <span>{{ $t('game.attempts') }}: <strong>{{ remainingAttempts }}</strong></span>
+                    </div>
+
+                    <div class="hangman-stage" aria-hidden="true">
+                        <svg class="hangman-drawing" viewBox="0 0 220 170" role="img">
+                            <path class="gallows-line" d="M38 150H168M68 150V30H144V54" />
+                            <path class="rope-line" d="M144 54V70" />
+                            <g class="hangman-body">
+                                <circle class="hangman-piece hangman-head" :class="{ fallen: wrongAttempts >= 6 }" cx="144" cy="86" r="15" />
+                                <path class="hangman-piece" :class="{ fallen: wrongAttempts >= 5 }" d="M144 101V128" />
+                                <path class="hangman-piece" :class="{ fallen: wrongAttempts >= 4 }" d="M144 108L121 96" />
+                                <path class="hangman-piece" :class="{ fallen: wrongAttempts >= 3 }" d="M144 108L167 96" />
+                                <path class="hangman-piece" :class="{ fallen: wrongAttempts >= 2 }" d="M144 128L126 150" />
+                                <path class="hangman-piece" :class="{ fallen: wrongAttempts >= 1 }" d="M144 128L162 150" />
+                            </g>
+                        </svg>
+                        <div class="stage-caption">
+                            <span>{{ wrongAttempts }}/6</span>
+                            <strong>{{ $t('game.attempts') }}: {{ remainingAttempts }}</strong>
+                        </div>
+                        <div class="attempt-meter">
+                            <span v-for="attempt in 6" :key="attempt" :class="{ spent: attempt > remainingAttempts }"></span>
+                        </div>
+                    </div>
+
+                    <div v-if="isWordGuessed()" class="result-message win">{{ $t('game.won') }}!</div>
+                    <div v-if="isOutOfAttempts()" class="result-message loss">
+                        {{ $t('game.loss') }}
+                        <div>{{ $t('game.wordwas') }}: <span>{{ wordToGuess }}</span></div>
+                    </div>
+
+                    <div class="word-to-guess">
+                        <span v-for="(letter, index) in word" :key="index" :class="{ revealed: guessedLetters.correct.includes(letter) }">
+                            <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
+                            <span v-else>_</span>
+                        </span>
+                    </div>
+
+                    <div class="wrong-letters" v-if="guessedLetters.wrong.length">
+                        <span>Missed</span>
+                        <strong>{{ guessedLetters.wrong.join(' ') }}</strong>
+                    </div>
+
+                    <div class="keyboard-container">
+                        <SimpleKeyboard @onKeyPress="handleInput" :guessedLetters="guessedLetters" />
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <button v-if="gameOver" @click="resetGame" class="btn btn-primary">{{ $t('game.resgame') }}</button>
+                    </div>
+                </main>
             </div>
         </div>
-        <div class="text-center">
-            {{ $t('game.mode') }}: <span class="text-success fw-bold">{{ modeview }}</span>
-            <br>{{ $t('game.mulpoints') }}: <span class="fw-bold text-warning">{{ moltiplicatore }}x</span>
-        </div>
-        <div v-if="isWordGuessed()" class="fs-1 text-center fw-bold text-success">{{ $t('game.won') }}!</div>
-        <div v-if="isOutOfAttempts()" class="fs-1 text-center fw-bold text-danger">
-            {{ $t('game.loss') }}
-            <div class="fs-5">{{ $t('game.wordwas') }}: <span class="fw-bold">{{ wordToGuess }}</span></div>
-        </div>
-        <div class="text-center fs-1">
-            <span v-for="(letter, index) in word" :key="index">
-                <span v-if="guessedLetters.correct.includes(letter)">{{ letter }}</span>
-                <span v-else class="mx-1">_</span>
-            </span>
-        </div>
-        <div class="attempt-count mb-3">{{ $t('game.attempts') }}: {{ remainingAttempts }}</div>
-        <div class="keyboard-container w-75 mx-auto">
-            <SimpleKeyboard @onKeyPress="handleInput" :guessedLetters="guessedLetters" />
-        </div>
-        <!--         <div class="letters-container">
-            <div class="correct-letters">
-                <span v-for="letter in guessedLetters.correct" :key="letter" class="correct-letter">{{ letter }}</span>
-            </div>
-            <div class="wrong-letters">
-                <span v-for="letter in guessedLetters.wrong" :key="letter" class="wrong-letter">{{ letter }}</span>
-            </div>
-        </div> -->
-        <div class="d-flex justify-content-center mt-3">
-            <button v-if="gameOver" @click="resetGame" class="btn btn-primary">{{ $t('game.resgame') }}</button>
-        </div>
-    </div>
+    </section>
 </template>
 
 <style>
+.game-screen {
+    padding: clamp(2rem, 6vw, 4rem) 0;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: minmax(240px, 310px) 1fr;
+    gap: 1.2rem;
+    align-items: start;
+}
+
+.player-panel,
+.word-panel {
+    border: 1px solid var(--hm-border);
+    border-radius: var(--hm-radius);
+    background: var(--hm-surface);
+    box-shadow: var(--hm-shadow-soft);
+    backdrop-filter: blur(18px);
+}
+
+.player-panel {
+    position: sticky;
+    top: 96px;
+    padding: 1.35rem;
+}
+
+.player-panel h5 {
+    margin-bottom: 0.4rem;
+}
+
+.player-name {
+    display: block;
+    color: var(--hm-accent);
+    font-size: 1.2rem;
+}
+
+.player-stats {
+    display: grid;
+    gap: 0.65rem;
+    margin: 1rem 0;
+}
+
+.player-stats div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.78rem 0.9rem;
+    border: 1px solid var(--hm-border);
+    border-radius: var(--hm-radius-xs);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.player-stats span {
+    color: var(--hm-text-muted);
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.player-stats strong {
+    color: var(--hm-heading);
+    font-size: 1.1rem;
+}
+
+.word-panel {
+    padding: clamp(1rem, 3vw, 2rem);
+}
+
+.game-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--hm-text-muted);
+}
+
+.game-meta strong {
+    color: var(--hm-success);
+}
+
+.hangman-stage {
+    position: relative;
+    min-height: 230px;
+    margin: 1.4rem 0;
+    border: 1px dashed rgba(255, 255, 255, 0.16);
+    border-radius: var(--hm-radius);
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 34px 34px;
+}
+
+body[theme="custom-light"] .hangman-stage {
+    background:
+        linear-gradient(90deg, rgba(179, 54, 54, 0.055) 1px, transparent 1px),
+        linear-gradient(rgba(179, 54, 54, 0.055) 1px, transparent 1px);
+    background-size: 34px 34px;
+}
+
+.hangman-drawing {
+    position: absolute;
+    inset: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
+    overflow: visible;
+}
+
+.gallows-line,
+.rope-line,
+.hangman-piece {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.gallows-line {
+    stroke: var(--hm-accent);
+    stroke-width: 7;
+    filter: drop-shadow(0 12px 18px rgba(255, 77, 77, 0.18));
+}
+
+.rope-line {
+    stroke: var(--hm-gold);
+    stroke-width: 5;
+}
+
+.hangman-body {
+    transform-origin: 144px 112px;
+}
+
+.hangman-piece {
+    opacity: 1;
+    stroke: var(--hm-heading);
+    stroke-width: 7;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: opacity 0.34s ease, transform 0.34s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hangman-piece.fallen {
+    opacity: 0.18;
+    transform: translateY(54px) rotate(14deg);
+}
+
+.hangman-head {
+    fill: rgba(255, 255, 255, 0.08);
+}
+
+body[theme="custom-light"] .hangman-head {
+    fill: rgba(255, 77, 77, 0.06);
+}
+
+.stage-caption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    display: inline-grid;
+    gap: 0.1rem;
+    padding: 0.68rem 0.82rem;
+    border: 1px solid var(--hm-border);
+    border-radius: var(--hm-radius-xs);
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+}
+
+.stage-caption span {
+    color: var(--hm-accent);
+    font-size: 1.25rem;
+    font-weight: 950;
+    line-height: 1;
+}
+
+.stage-caption strong {
+    color: var(--hm-text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.attempt-meter {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    gap: 0.35rem;
+}
+
+.attempt-meter span {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--hm-success);
+    box-shadow: 0 0 14px rgba(102, 224, 163, 0.44);
+}
+
+.attempt-meter span.spent {
+    background: var(--hm-danger);
+    box-shadow: none;
+}
+
+.result-message {
+    margin: 1rem 0;
+    text-align: center;
+    font-size: clamp(1.6rem, 5vw, 3rem);
+    font-weight: 950;
+}
+
+.result-message.win {
+    color: var(--hm-success);
+}
+
+.result-message.loss {
+    color: var(--hm-danger);
+}
+
+.result-message div {
+    color: var(--hm-text-muted);
+    font-size: 1rem;
+}
+
+.result-message span {
+    color: var(--hm-heading);
+}
+
+.word-to-guess {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.45rem;
+    margin: 1.5rem 0;
+    font-size: clamp(1.6rem, 6vw, 3.3rem);
+}
+
+.word-to-guess > span {
+    display: grid;
+    min-width: clamp(2.2rem, 7vw, 4rem);
+    min-height: clamp(2.5rem, 7vw, 4.4rem);
+    place-items: center;
+    color: var(--hm-text-muted);
+    border-bottom: 4px solid var(--hm-border);
+    font-weight: 950;
+}
+
+.word-to-guess > span.revealed {
+    color: var(--hm-accent);
+    border-color: var(--hm-accent);
+}
+
+.wrong-letters {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+    color: var(--hm-text-muted);
+}
+
+.wrong-letters strong {
+    color: var(--hm-danger);
+    letter-spacing: 0.18em;
+}
+
 .keyboard-container {
     display: flex;
     justify-content: center;
+    width: min(100%, 760px);
+    margin: 0 auto;
+}
+
+#keyboard.simple-keyboard {
+    color: #101422;
+    border: 1px solid var(--hm-border);
+    border-radius: var(--hm-radius);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--hm-shadow-soft);
+}
+
+.hg-button {
+    border: 0 !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 900;
 }
 
 @media screen and (max-width: 992px) {
-    body {
-        /* background-color: blue; */
-        width: 100%;
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .player-panel {
+        position: static;
     }
 }
 
@@ -292,7 +596,6 @@ watch(word, () => {
 
 .word-to-guess {
     text-align: center;
-    font-size: 1.5rem;
     margin-top: 1rem;
 }
 </style>

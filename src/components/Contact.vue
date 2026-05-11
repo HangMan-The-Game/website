@@ -1,13 +1,16 @@
 <script setup></script>
 
 <template>
-    <section>
-        <!-- <h1 class="text-center my-5 fw-bold">{{ $t("message.jumbo1", {},
-                { locale: lang }) }}</h1> -->
-        <h3 class="text-center mt-3 fw-bold">{{ $t("contact.unavailableEmail") }}</h3>
-        <p class="fs-3 text-center my-5" v-html="$t('contact.contactViaInstagram')"></p>
+    <section class="contact-page">
+        <div class="contact-panel">
+            <div class="text-center">
+                <span class="section-kicker justify-content-center"><i class="bi bi-send"></i> Contact</span>
+                <h1>{{ $t("navbar.contactUs") }}</h1>
+                <h3>{{ $t("contact.unavailableEmail") }}</h3>
+                <p v-html="$t('contact.contactViaInstagram')"></p>
+            </div>
 
-        <form class="w-50 mx-auto shadow p-3 mb-5 border rounded border-2 p-2">
+        <form>
             <div class="input-group mb-3">
                 <span class="input-group-text">{{ $t("contact.firstName") }}</span>
                 <input type="text" aria-label="First name" class="form-control" disabled>
@@ -33,6 +36,7 @@
                     <span class="badge rounded-pill text-bg-warning">WIP</span></button>
             </div>
         </form>
+        </div>
         <!-- <div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">@</span>
@@ -71,42 +75,50 @@
 </template>
 
 <style scoped>
+.contact-page {
+    padding: clamp(2rem, 7vw, 5rem) 1rem;
+}
+
+.contact-panel {
+    width: min(100%, 900px);
+    margin: 0 auto;
+    padding: clamp(1.4rem, 4vw, 2.6rem);
+    border: 1px solid var(--hm-border);
+    border-radius: calc(var(--hm-radius) + 8px);
+    background: var(--hm-surface);
+    box-shadow: var(--hm-shadow);
+    backdrop-filter: blur(18px);
+}
+
+.contact-panel h1 {
+    font-size: clamp(2.4rem, 7vw, 4.5rem);
+}
+
+.contact-panel h3 {
+    color: var(--hm-text);
+    font-size: clamp(1.1rem, 3vw, 1.55rem);
+}
+
+.contact-panel p {
+    max-width: 720px;
+    margin: 1rem auto 2rem;
+    color: var(--hm-text-muted);
+    font-size: 1.12rem;
+}
+
 form {
-    transition: transform .2s;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border: 1px solid var(--hm-border);
+    border-radius: var(--hm-radius);
+    background: rgba(255, 255, 255, 0.045);
 }
 
 form:hover {
-    transform: scale(1.1);
-}
-
-a {
-    text-decoration: none;
-    color: #FF4D4D;
-}
-
-a:hover {
-    color: #B33636;
-}
-
-.btn-primary {
-    background-color: #FF4D4D;
-    border-color: #FF4D4D;
-}
-
-.btn-primary:hover {
-    background-color: #B33636;
-    border-color: #FF4D4D;
-}
-
-.btn-primary:active {
-    background-color: #4e0909;
-    border-color: #FF4D4D;
+    transform: translateY(-3px);
 }
 
 #disabled {
-    background-color: #ffd3d3;
-    color: #FF4D4D;
-    border-color: #FF4D4D;
     cursor: not-allowed !important;
+    opacity: 0.75;
 }
 </style>

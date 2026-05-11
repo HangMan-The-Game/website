@@ -243,10 +243,16 @@ onAuthStateChanged(auth, currentUser => {
 </script>
 
 <template>
-    <div class="container w-75 my-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="card shadow">
+    <section class="auth-page">
+        <div class="auth-panel">
+            <div class="auth-copy">
+                <span class="section-kicker"><i class="bi bi-person-lock"></i> Player access</span>
+                <h1>{{ mode === 'login' ? 'Login' : 'Register' }}</h1>
+                <p>Enter the word arena, save your progress and keep your place on the leaderboard.</p>
+                <div class="auth-word" aria-hidden="true"><span>L</span><span>O</span><span>G</span><span>_</span><span>N</span></div>
+            </div>
+            <div class="auth-card">
+                <div class="card">
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">{{ mode === 'login' ? 'Login' : 'Register' }}</h3>
                         <form @submit.prevent="submit">
@@ -260,7 +266,7 @@ onAuthStateChanged(auth, currentUser => {
                             <div v-else class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">{{ $t("logreg.email") }}</label>
                                 <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                    v-model="emailRef">
+                                    v-model="emailRef" autocomplete="email">
                             </div>
                             <div v-if="mode === 'register'" class="mb-3">
                                 <label for="exampleInputUsername" class="form-label">Username</label>
@@ -332,16 +338,74 @@ onAuthStateChanged(auth, currentUser => {
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 
-<style scoped> a {
-     color: #FF4D4D;
-     cursor: pointer;
- }
+<style scoped>
+.auth-page {
+    display: grid;
+    min-height: calc(100vh - 170px);
+    place-items: center;
+    padding: clamp(2rem, 6vw, 5rem) 1rem;
+}
 
- a:hover {
-     color: #b33636;
- }
+.auth-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.8fr);
+    gap: clamp(1rem, 4vw, 3rem);
+    width: min(100%, 1040px);
+    align-items: center;
+}
+
+.auth-copy h1 {
+    color: var(--hm-heading);
+    font-size: clamp(3rem, 8vw, 5.6rem);
+    font-weight: 950;
+    line-height: 0.95;
+}
+
+.auth-copy p {
+    max-width: 520px;
+    color: var(--hm-text-muted);
+    font-size: 1.12rem;
+}
+
+.auth-word {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.auth-word span {
+    display: grid;
+    width: 3rem;
+    aspect-ratio: 1;
+    place-items: center;
+    color: var(--hm-accent);
+    border: 1px solid var(--hm-border);
+    border-bottom: 3px solid var(--hm-accent);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.07);
+    font-weight: 950;
+}
+
+.auth-card .card {
+    backdrop-filter: blur(18px);
+}
+
+a {
+    color: var(--hm-accent);
+    cursor: pointer;
+}
+
+a:hover {
+    color: var(--hm-success);
+}
+
+@media (max-width: 899.98px) {
+    .auth-panel {
+        grid-template-columns: 1fr;
+    }
+}
 </style>  

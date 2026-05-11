@@ -1,9 +1,10 @@
 <template>
-    <div class="container my-5">
+    <div class="admin-page">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="card text-center">
                     <div class="card-body">
+                        <span class="section-kicker justify-content-center"><i class="bi bi-cpu"></i> Admin</span>
                         <h3 class="card-title">MakerFaire</h3>
                         <div class="mb-3">
                             <input v-model="nickname" class="form-control" placeholder="Inserisci il tuo nickname" />
