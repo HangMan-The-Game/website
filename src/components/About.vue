@@ -27,19 +27,19 @@
       <div class="about-gallery">
         <div class="gallery-item">
           <img class="img-fluid" src="../assets/images/photo3.jpeg"
-            alt="About Us Image" />
+            alt="Team HangMan durante lo sviluppo del progetto" loading="lazy" />
         </div>
         <div class="gallery-item">
           <img class="img-fluid" src="../assets/images/photo4.jpg"
-            alt="About Us Image" />
+            alt="Dettaglio del prototipo HangMan esposto come progetto scolastico" loading="lazy" />
         </div>
         <div class="gallery-item">
           <img class="img-fluid" src="../assets/images/photo2.jpeg"
-            alt="About Us Image" />
+            alt="Studenti del team HangMan al lavoro sul progetto" loading="lazy" />
         </div>
         <div class="gallery-item">
           <img class="img-fluid" src="../assets/images/photo5.jpeg"
-            alt="About Us Image" />
+            alt="Componenti e presentazione del progetto HangMan - The Game" loading="lazy" />
         </div>
       </div>
     </div>

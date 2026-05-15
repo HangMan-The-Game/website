@@ -18,7 +18,7 @@ export default {
             <div class="col-md-6">
                 <div class="links-card">
                     <div class="text-center mb-4">
-                        <img class="img-fluid" src="../assets/images/HangManGame.svg" alt="">
+                        <img class="img-fluid" src="../assets/images/HangManGame.svg" alt="Logo ufficiale HangMan - The Game" loading="lazy">
                     </div>
                     <div class="d-flex flex-column align-items-center gap-2">
                     <a v-for="(link, index) in links" :key="index" class="btn btn-success" :href="link.url">

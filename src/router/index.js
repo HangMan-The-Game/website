@@ -3,6 +3,27 @@ import HomeView from "../views/HomeView.vue";
 import { auth } from '@/firebase.js'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+const SITE_URL = "https://hangmangame.it";
+const DEFAULT_TITLE = "HangMan - The Game | Progetto scolastico interattivo";
+const DEFAULT_DESCRIPTION =
+  "HangMan - The Game è un progetto scolastico interattivo ispirato al classico gioco dell'impiccato, con parole nascoste, classifica live e un prototipo fisico con parti che cadono a ogni errore.";
+
+const setMetaContent = (selector, content) => {
+  const element = document.querySelector(selector);
+
+  if (element && content) {
+    element.setAttribute("content", content);
+  }
+};
+
+const setCanonicalUrl = (url) => {
+  const canonical = document.querySelector('link[rel="canonical"]');
+
+  if (canonical && url) {
+    canonical.setAttribute("href", url);
+  }
+};
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -10,28 +31,48 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      meta: {
+        title: DEFAULT_TITLE,
+        description: DEFAULT_DESCRIPTION,
+      },
     },
     {
       path: "/contact",
       name: "contact",
       component: () => import("../views/ContactView.vue"),
+      meta: {
+        title: "Contatti | HangMan - The Game",
+        description:
+          "Contatta il team di HangMan - The Game e segui il progetto scolastico attraverso i canali ufficiali.",
+      },
     },
     {
       path: "/leaderboard",
       name: "leader",
       component: () => import("../views/LeaderView.vue"),
+      meta: {
+        title: "Classifica | HangMan - The Game",
+        description:
+          "Consulta la classifica live di HangMan - The Game e scopri chi guida la sfida delle parole nascoste.",
+      },
     },
     {
       path: "/login",
       name: "login",
       component: () => import("../views/LoginView.vue"),
+      meta: {
+        title: "Accedi | HangMan - The Game",
+        description: "Accedi al tuo account HangMan per giocare, salvare punti e seguire le tue statistiche.",
+        robots: "noindex, nofollow",
+      },
     },
     {
       path: "/profile",
       name: "profile",
       component: () => import("../views/ProfileView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        robots: "noindex, nofollow",
       }
     },
     {
@@ -39,7 +80,8 @@ const router = createRouter({
       name: "words",
       component: () => import("../views/WordView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        robots: "noindex, nofollow",
       }
     },
     {
@@ -47,7 +89,8 @@ const router = createRouter({
       name: "points",
       component: () => import("../views/PointsView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        robots: "noindex, nofollow",
       }
     },
     {
@@ -55,7 +98,8 @@ const router = createRouter({
       name: "users",
       component: () => import("../views/UsersView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        robots: "noindex, nofollow",
       }
     },
     {
@@ -63,7 +107,8 @@ const router = createRouter({
       name: "leadino",
       component: () => import("../views/LeadinoView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        robots: "noindex, nofollow",
       }
     },
     {
@@ -73,7 +118,8 @@ const router = createRouter({
       /* fare il controllo se è loggato, se non lo è allora lo porta nella schermata login e succesivamente nel game e non nel profile */
       meta: {
         requiresAuth: true,
-        requiresVerify: true 
+        requiresVerify: true,
+        robots: "noindex, nofollow",
       }
     },
     {
@@ -83,13 +129,19 @@ const router = createRouter({
       /* fare il controllo se è loggato, se non lo è allora lo porta nella schermata login e succesivamente nel game e non nel profile */
       meta: {
         requiresAuth: true,
-        requiresVerify: true
+        requiresVerify: true,
+        robots: "noindex, nofollow",
       }
     },
     {
       path: "/links",
       name: "links",
       component: () => import("../views/LinksView.vue"),
+      meta: {
+        title: "Link ufficiali | HangMan - The Game",
+        description:
+          "Trova il sito e i profili social ufficiali di HangMan - The Game.",
+      },
     }
   ],
 });
@@ -136,6 +188,23 @@ router.beforeEach((to, from, next) => {
       next();
     }
   });
+});
+
+router.afterEach((to) => {
+  const title = to.meta.title || DEFAULT_TITLE;
+  const description = to.meta.description || DEFAULT_DESCRIPTION;
+  const canonicalUrl = `${SITE_URL}${to.path === "/" ? "/" : to.path}`;
+  const robots = to.meta.robots || "index, follow, max-image-preview:large";
+
+  document.title = title;
+  setCanonicalUrl(canonicalUrl);
+  setMetaContent('meta[name="description"]', description);
+  setMetaContent('meta[name="robots"]', robots);
+  setMetaContent('meta[property="og:title"]', title);
+  setMetaContent('meta[property="og:description"]', description);
+  setMetaContent('meta[property="og:url"]', canonicalUrl);
+  setMetaContent('meta[name="twitter:title"]', title);
+  setMetaContent('meta[name="twitter:description"]', description);
 });
 
 async function checkEmailVerification(user) {

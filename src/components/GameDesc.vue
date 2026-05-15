@@ -12,7 +12,7 @@
         <div class="col-lg-5">
           <div class="game-visual">
             <img class="img-fluid" src="../assets/images/photo4.jpeg"
-            alt="Game Description Image" />
+            alt="Prototipo fisico di HangMan con struttura e componenti del gioco" loading="lazy" />
             <div class="attempts-card">
               <span>{{ $t("game.attempts") }}</span>
               <strong>6</strong>

@@ -49,8 +49,9 @@ const props = defineProps(['theme'])
                             <span>LIVE DEMO</span>
                         </div>
                         <img v-if="props.theme" class="img-fluid" src="../assets/images/HangManGameWhite.svg"
-                            alt="HangMan-Logo">
-                        <img v-else class="img-fluid" src="../assets/images/HangManGame.svg" alt="HangMan-Logo">
+                            alt="Logo HangMan - The Game in versione chiara" fetchpriority="high">
+                        <img v-else class="img-fluid" src="../assets/images/HangManGame.svg"
+                            alt="Logo HangMan - The Game in versione scura" fetchpriority="high">
                         <div class="preview-keyboard" aria-hidden="true">
                             <span v-for="letter in ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L']"
                                 :key="letter">{{ letter }}</span>
