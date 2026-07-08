@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
+import CookieConsent from "./components/CookieConsent.vue";
 import { ref } from "vue";
 
 </script>
@@ -34,8 +35,9 @@ export default {
 
 <template>
   <Navbar @locale-changed="saveLocale" @toggle-theme="toggleTheme" />
-  <RouterView :theme="theme" />
+  <RouterView :theme="theme" :locale="$i18n.locale" />
   <Footer />
+  <CookieConsent :locale="$i18n.locale" />
 </template>
 
 <style>

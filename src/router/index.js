@@ -142,6 +142,39 @@ const router = createRouter({
         description:
           "Trova il sito e i profili social ufficiali di HangMan - The Game.",
       },
+    },
+    {
+      path: "/privacy-policy",
+      name: "privacy",
+      component: () => import("../views/LegalView.vue"),
+      props: { documentType: "privacy" },
+      meta: {
+        title: "Privacy Policy | HangMan - The Game",
+        description:
+          "Informativa sul trattamento dei dati personali di account, statistiche e classifica di HangMan - The Game.",
+      },
+    },
+    {
+      path: "/cookie-policy",
+      name: "cookies",
+      component: () => import("../views/LegalView.vue"),
+      props: { documentType: "cookies" },
+      meta: {
+        title: "Cookie Policy | HangMan - The Game",
+        description:
+          "Informazioni su memorie tecniche, Firebase Authentication e Analytics opzionali usati da HangMan - The Game.",
+      },
+    },
+    {
+      path: "/terms",
+      name: "terms",
+      component: () => import("../views/LegalView.vue"),
+      props: { documentType: "terms" },
+      meta: {
+        title: "Termini e condizioni | HangMan - The Game",
+        description:
+          "Regole per usare il gioco, creare un account e partecipare alla classifica di HangMan - The Game.",
+      },
     }
   ],
 });

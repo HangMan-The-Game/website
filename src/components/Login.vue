@@ -1,9 +1,9 @@
 <script setup>
 import { auth } from '@/firebase.js'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail, sendEmailVerification, getAuth } from 'firebase/auth'
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/firebase.js';
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, getCurrentInstance } from 'vue';
 import router from '../router';
 
 const data = ref({
@@ -28,6 +28,8 @@ const user = ref(null);
 const errMsg = ref();
 const usernameError = ref('');
 const emailError = ref('');
+const acceptedLegal = ref(false);
+const instance = getCurrentInstance();
 
 function toggleMode(val) {
     mode.value = val
@@ -109,6 +111,20 @@ async function register(email, password, username, role) {
         await updateProfileWithUsername(result.user, username);
         // await sendEmailVerification(result.user);
         await updateProfile(result.user, { role });
+        await setDoc(doc(db, 'users', result.user.uid), {
+            role: 'user',
+            mail: email,
+            name: username,
+            points: 0,
+            vittorie: 0,
+            gamesPlayed: 0,
+            bestGameScore: 0,
+            currentStreak: 0,
+            bestStreak: 0,
+            legalAcceptedAt: serverTimestamp(),
+            termsVersion: '2026-07-08',
+            privacyVersion: '2026-07-08',
+        }, { merge: true });
         router.push('/profile');
         console.log(result);
     }).catch((error) => {
@@ -128,6 +144,12 @@ function submit() {
     if (mode.value === 'login') {
         login(emailRef.value, password)
     } else {
+        if (!acceptedLegal.value) {
+            errMsg.value = instance?.proxy?.$i18n?.locale === 'Italiano'
+                ? 'Per registrarti devi accettare i Termini e confermare di aver letto la Privacy Policy.'
+                : 'To register, you must accept the Terms and confirm that you have read the Privacy Policy.';
+            return;
+        }
         register(emailRef.value, password, usernameRef.value)
     }
 }
@@ -285,6 +307,19 @@ onAuthStateChanged(auth, currentUser => {
                                 <input type="password" class="form-control" id="exampleInputPassword1"
                                     v-model="data.password">
                             </div>
+                            <div v-if="mode === 'register'" class="form-check legal-consent mb-3">
+                                <input id="legal-consent" v-model="acceptedLegal" class="form-check-input" type="checkbox" required>
+                                <label v-if="$i18n.locale === 'Italiano'" class="form-check-label" for="legal-consent">
+                                    Ho almeno 14 anni oppure utilizzo il servizio con l'autorizzazione di un genitore o tutore.
+                                    Accetto i <RouterLink to="/terms" @click.stop>Termini</RouterLink> e dichiaro di aver letto la
+                                    <RouterLink to="/privacy-policy" @click.stop>Privacy Policy</RouterLink>.
+                                </label>
+                                <label v-else class="form-check-label" for="legal-consent">
+                                    I am at least 14 years old, or I use the service with permission from a parent or guardian.
+                                    I accept the <RouterLink to="/terms" @click.stop>Terms</RouterLink> and confirm that I have read the
+                                    <RouterLink to="/privacy-policy" @click.stop>Privacy Policy</RouterLink>.
+                                </label>
+                            </div>
                             <button type="submit" class="btn btn-danger w-100">{{
                                 mode === 'login' ? 'Login' : 'Register'
                             }}</button>
@@ -401,6 +436,40 @@ a {
 
 a:hover {
     color: var(--hm-success);
+}
+
+.legal-consent {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 0.7rem;
+    padding: 0.9rem;
+    color: var(--hm-text-muted);
+    border: 1px solid var(--hm-border);
+    border-radius: var(--hm-radius-xs);
+    background: rgba(255, 255, 255, 0.045);
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.legal-consent .form-check-input {
+    width: 18px;
+    height: 18px;
+    margin: 0.15rem 0 0;
+    border-color: var(--hm-border);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.legal-consent .form-check-input:checked {
+    border-color: var(--hm-accent);
+    background-color: var(--hm-accent);
+}
+
+.legal-consent .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 77, 77, 0.16);
+}
+
+.legal-consent a {
+    font-weight: 850;
 }
 
 @media (max-width: 899.98px) {

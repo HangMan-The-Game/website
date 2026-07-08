@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics, isSupported } from "firebase/analytics";
+import { getAnalytics, isSupported, setAnalyticsCollectionEnabled } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, updateEmail, updatePassword } from 'firebase/auth';
 import { getFirestore, collection, doc, setDoc, getDocs, updateDoc } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -23,18 +23,73 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 let analytics = null;
+let analyticsInitialization = null;
 
-if (firebaseConfig.projectId && firebaseConfig.appId && firebaseConfig.measurementId) {
-  isSupported()
-    .then((supported) => {
-      if (supported) {
+const clearAnalyticsCookies = () => {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  const host = window.location.hostname;
+  const domains = [host, `.${host}`];
+
+  document.cookie.split(";").forEach((cookie) => {
+    const cookieName = cookie.split("=")[0].trim();
+
+    if (cookieName === "_ga" || cookieName.startsWith("_ga_")) {
+      document.cookie = `${cookieName}=; Max-Age=0; path=/; SameSite=Lax`;
+      domains.forEach((domain) => {
+        document.cookie = `${cookieName}=; Max-Age=0; path=/; domain=${domain}; SameSite=Lax`;
+      });
+    }
+  });
+};
+
+const initializeAnalytics = async () => {
+  if (!firebaseConfig.measurementId) {
+    return null;
+  }
+
+  if (analytics) {
+    return analytics;
+  }
+
+  if (!analyticsInitialization) {
+    analyticsInitialization = isSupported()
+      .then((supported) => {
+        if (!supported) {
+          return null;
+        }
+
         analytics = getAnalytics(app);
-      }
-    })
-    .catch((error) => {
-      console.warn("Firebase Analytics non disponibile:", error);
-    });
-}
+        return analytics;
+      })
+      .catch((error) => {
+        console.warn("Firebase Analytics non disponibile:", error);
+        return null;
+      });
+  }
+
+  return analyticsInitialization;
+};
+
+export const setAnalyticsConsent = async (granted) => {
+  if (granted) {
+    const analyticsInstance = await initializeAnalytics();
+
+    if (analyticsInstance) {
+      setAnalyticsCollectionEnabled(analyticsInstance, true);
+    }
+
+    return;
+  }
+
+  if (analytics) {
+    setAnalyticsCollectionEnabled(analytics, false);
+  }
+
+  clearAnalyticsCookies();
+};
 
 export const auth = getAuth(app);
 export { db, analytics };
