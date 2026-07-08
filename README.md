@@ -69,11 +69,11 @@ data collection, project ownership, or contact details change.
 
 ## Team
 
-- Michele Turco - CEO and Developer
-- Alessandro Runza - Developer
-- Gandolfo Amico - Developer and Social Media Manager
-- Emanuele Dolce - 3D Modeler
-- Calogero Frisina - Hardware Technician
+- Michele Turco - CEO & Embedded Systems Lead
+- Alessandro Runza - CTO & Full-Stack IoT Architect
+- Gandolfo Amico - Mobile Developer & Social Media Lead
+- Emanuele Dolce - 3D Product Design Lead
+- Calogero Frisina - Hardware Prototyping & Electronics Lead
 
 ## Licensing
 

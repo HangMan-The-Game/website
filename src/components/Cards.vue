@@ -13,7 +13,7 @@
                     <div class="card team-card mx-auto">
                         <div class="card-body">
                             <h5 class="card-title text-center">Michele Turco</h5>
-                            <p class="card-text text-center">CEO & Developer</p>
+                            <p class="card-text text-center">CEO & Embedded Systems Lead</p>
                         </div>
                         <div class="card-body text-center team-socials">
                             <h5>Socials</h5>
@@ -28,7 +28,7 @@
                     <div class="card team-card mx-auto">
                         <div class="card-body">
                             <h5 class="card-title text-center">Alessandro Runza</h5>
-                            <p class="card-text text-center">Developer</p>
+                            <p class="card-text text-center">CTO & Full-Stack IoT Architect</p>
                         </div>
                         <div class="card-body text-center team-socials">
                             <h5>Socials</h5>
@@ -45,7 +45,7 @@
                     <div class="card team-card mx-auto">
                         <div class="card-body">
                             <h5 class="card-title text-center">Gandolfo Amico</h5>
-                            <p class="card-text text-center">Developer & Social Media Manager</p>
+                            <p class="card-text text-center">Mobile Developer & Social Media Lead</p>
                         </div>
                         <div class="card-body text-center team-socials">
                             <h5>Socials</h5>
@@ -62,7 +62,7 @@
                     <div class="card team-card mx-auto">
                         <div class="card-body">
                             <h5 class="card-title text-center">Emanuele Dolce</h5>
-                            <p class="card-text text-center">3D Modeler</p>
+                            <p class="card-text text-center">3D Product Design Lead</p>
                         </div>
                         <div class="card-body text-center team-socials">
                             <h5>Socials</h5>
@@ -76,7 +76,7 @@
                     <div class="card team-card mx-auto">
                         <div class="card-body">
                             <h5 class="card-title text-center">Calogero Frisina</h5>
-                            <p class="card-text text-center">Hardware Technician</p>
+                            <p class="card-text text-center">Hardware Prototyping & Electronics Lead</p>
                         </div>
                         <div class="card-body text-center team-socials">
                             <h5>Socials</h5>
